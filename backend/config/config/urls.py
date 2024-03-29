@@ -23,6 +23,8 @@ from rest_framework.permissions import AllowAny
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
+from ..users.views import SignUpView
+
 schema_view = get_schema_view(
     openapi.Info(
         title="Crack the Box",
@@ -47,5 +49,6 @@ urlpatterns = [
     path('users/', include('users.urls')),
     path('wargame/', include('wargame.urls')),
     path('guild', include('guild.urls')),
+    path('signup/', SignUpView.as_view(), name='signup'),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
