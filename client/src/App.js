@@ -1,4 +1,5 @@
 import "./App.css";
+import "../src/styles/Home.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import CTF from "./pages/CTF";

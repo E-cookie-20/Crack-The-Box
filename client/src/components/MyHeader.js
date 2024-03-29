@@ -39,7 +39,9 @@ const MyHeader = () => {
         </div>
         <div className="nav_2">
           <text onClick={clickLogin}>로그인</text>
-          <button onClick={clickSignup}>회원가입하고 바로 시작하기</button>
+          <button className="signup_button" onClick={clickSignup}>
+            회원가입하고 바로 시작하기
+          </button>
         </div>
       </div>
     </header>
