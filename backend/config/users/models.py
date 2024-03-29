@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from wargame.models import Wargame 
 
 class UserProfile(models.Model):
     # User 모델을 OneToOneField로 연결하여 확장
@@ -19,7 +20,8 @@ class UserProfile(models.Model):
     user_gender = models.CharField(max_length=1, choices=(('M', 'Male'), ('F', 'Female')))
     
     # 푼 문제 (JSONField 사용 or ManyToManyField로 별도의 문제 모델과 연결 가능)
-    user_quiz_solve = models.JSONField(default=list)
+    user_quiz_solve = models.ManyToManyField(Wargame, related_name='solved_by_users')
+    # user_quiz_solve = models.JSONField(default=list)
     
 
     def __str__(self):
