@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import os
+
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -37,8 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'corsheaders',
-    'rest_framework',
+    'corsheaders', #django-cors-headers
+    'rest_framework', #djangorestframework
+    'drf_yasg', #drf_yasg
+    
+    
+    # django-admin apps
     'users',
 ]
 
@@ -133,3 +139,9 @@ CORS_ORIGIN_ALLOW_ALL = True
 #     "http://localhost:3000",
 #     "http://127.0.0.1:3000",
 # }
+
+STATIC_URL = '/static/'
+STATIC_ROOT = 'static'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
