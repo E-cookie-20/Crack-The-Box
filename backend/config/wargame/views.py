@@ -1,3 +1,7 @@
-from django.shortcuts import render
+from rest_framework import viewsets
+from .models import Wargame
+from .serializers import WargameSerializer
 
-# Create your views here.
+class WargameViewSet(viewsets.ModelViewSet):
+    queryset = Wargame.objects.all()
+    serializer_class = WargameSerializer
