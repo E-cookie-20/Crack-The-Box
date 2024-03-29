@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     
     # django-admin apps
     'users',
+    'wargame',
 ]
 
 MIDDLEWARE = [
