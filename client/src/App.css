@@ -1,5 +1,13 @@
+<<<<<<< HEAD
 .App {
   text-align: center;
+=======
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
+
+body {
+  font-family: "Lato", sans-serif;
+  background-color: #080808;
+>>>>>>> ccd515a50a72922bc64ffe601bb5badaf3f15ff1
 }
 
 .App-logo {
@@ -24,6 +32,7 @@
   color: white;
 }
 
+<<<<<<< HEAD
 .App-link {
   color: #61dafb;
 }
@@ -35,4 +44,64 @@
   to {
     transform: rotate(360deg);
   }
+=======
+.nav_logo {
+  padding-right: 10px;
+  align-items: center;
+
+  cursor: pointer;
+}
+
+.logo {
+  align-items: center;
+  width: 100px;
+}
+
+.nav {
+  color: #ffffff;
+}
+
+.nav_1 {
+  padding-left: 15px;
+}
+
+.nav_2 {
+  align-items: start;
+  padding-right: 20px;
+}
+
+.header {
+  border-bottom: 2px solid #393e44;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  padding-left: 8vw;
+  padding-right: 8vw;
+}
+
+header text {
+  padding-top: 20px;
+  padding-right: 3vw;
+  height: 19px;
+
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 400;
+
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.signup_button {
+  background-color: #3c6ef0;
+  color: #ffffff;
+  border-color: #5d95f8;
+  border-radius: 5px;
+  width: 200px;
+  height: 50px;
+  font-size: 13px;
+  cursor: pointer;
+>>>>>>> ccd515a50a72922bc64ffe601bb5badaf3f15ff1
 }
