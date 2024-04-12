@@ -1,5 +1,7 @@
 const WargameDetail = () => {
-  return <div></div>;
+  return <div>
+    
+  </div>;
 };
 
 export default WargameDetail;
