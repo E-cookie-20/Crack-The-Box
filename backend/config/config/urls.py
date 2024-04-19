@@ -50,5 +50,5 @@ urlpatterns = [
     path('wargame/', include('wargame.urls')),
     path('guild', include('guild.urls')),
     path('signup/', SignUpView.as_view(), name='signup'),
-]
+
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
