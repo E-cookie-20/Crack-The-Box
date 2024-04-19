@@ -9,5 +9,5 @@ router.register('', WargameViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('submit-flag/', SubmitFlagAPI.as_view(), name='submit_flag'),
+    path('submit-flag', SubmitFlagAPI.as_view(), name='submit_flag'),
 ]
