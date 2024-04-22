@@ -1,13 +1,9 @@
-<<<<<<< HEAD
-.App {
-  text-align: center;
-=======
 @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
 
 body {
   font-family: "Lato", sans-serif;
   background-color: #080808;
->>>>>>> ccd515a50a72922bc64ffe601bb5badaf3f15ff1
+
 }
 
 .App-logo {
@@ -21,9 +17,8 @@ body {
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* MyHeader */
+header .nav_left {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -32,19 +27,6 @@ body {
   color: white;
 }
 
-<<<<<<< HEAD
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-=======
 .nav_logo {
   padding-right: 10px;
   align-items: center;
@@ -103,5 +85,21 @@ header text {
   height: 50px;
   font-size: 13px;
   cursor: pointer;
->>>>>>> ccd515a50a72922bc64ffe601bb5badaf3f15ff1
+}
+
+/* MyFooter */
+.my_footer {
+  background-color: #222529;
+  height: 80px;
+  position: absolute;
+  left: 0;
+  /* 왼쪽에 고정시킵니다. */
+  width: 100%;
+  /* 가로 전체 너비를 차지하도록 설정합니다. */
+}
+
+.copyright {
+  width: 400px;
+  padding-left: 10vw;
+  margin-top: 10px;
 }

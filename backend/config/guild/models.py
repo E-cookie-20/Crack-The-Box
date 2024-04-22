@@ -8,7 +8,7 @@ class Guild(models.Model):
     guild_quiz_list = models.JSONField(default=list)
     ctf_id = models.CharField(max_length=100)
     guild_name = models.CharField(max_length=100)
-    guild_birth =  models.DateField()
+    # guild_birth = user_birth = models.DateField()
 
     def __str__(self):
         return self.guild_name

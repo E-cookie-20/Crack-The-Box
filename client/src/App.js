@@ -1,9 +1,6 @@
-<<<<<<< HEAD
-import logo from './logo.svg';
-import './App.css';
-=======
 import "./App.css";
 import "../src/styles/Home.css";
+import "../src/styles/Wargame.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import CTF from "./pages/CTF";
@@ -13,26 +10,28 @@ import Signup from "./pages/Signup";
 import Wargame from "./pages/Wargame";
 import Home from "./pages/Home";
 import MyHeader from "./components/MyHeader";
->>>>>>> ccd515a50a72922bc64ffe601bb5badaf3f15ff1
+import MyFooter from "./components/MyFooter";
+import WargameDetail from "./pages/WargameDetail";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <MyHeader />
+        <div id="wrapper">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/ctf" element={<CTF />} />
+            <Route path="/guild" element={<Guild />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/wargame" element={<Wargame />} />
+            <Route path="/wargame/:id" component={<WargameDetail />} />
+          </Routes>
+        </div>
+        <MyFooter />
+      </div>
+    </BrowserRouter>
   );
 }
 
