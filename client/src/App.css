@@ -3,15 +3,28 @@
 body {
   font-family: "Lato", sans-serif;
   background-color: #080808;
+
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
 }
 
 /* MyHeader */
 header .nav_left {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
-
-  height: 100px;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
 }
 
 .nav_logo {
@@ -79,8 +92,10 @@ header text {
   background-color: #222529;
   height: 80px;
   position: absolute;
-  left: 0; /* 왼쪽에 고정시킵니다. */
-  width: 100%; /* 가로 전체 너비를 차지하도록 설정합니다. */
+  left: 0;
+  /* 왼쪽에 고정시킵니다. */
+  width: 100%;
+  /* 가로 전체 너비를 차지하도록 설정합니다. */
 }
 
 .copyright {
