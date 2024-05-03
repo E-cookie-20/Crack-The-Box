@@ -4,6 +4,8 @@ import "../src/styles/Wargame.css";
 import "../src/styles/WargameDetail.css";
 import "../src/styles/Login.css";
 import "../src/styles/Signup.css";
+import "../src/styles/WargameDetailList.css";
+import "../src/styles/Guild.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import CTF from "./pages/CTF";
