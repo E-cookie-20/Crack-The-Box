@@ -3,6 +3,11 @@
 body {
   font-family: "Lato", sans-serif;
   background-color: #080808;
+  min-height: 100vh;
+}
+
+#wrapper {
+  min-height: 82vh;
 }
 
 /* MyHeader */
