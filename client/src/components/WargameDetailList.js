@@ -25,7 +25,7 @@ const WargameDetailList = ({
   };
 
   const handleCheckAnswer = () => {
-    if (inputValue == quiz_flag) {
+    if (inputValue === quiz_flag) {
       setResultMessage("정답입니다!🌈");
     } else {
       setResultMessage("틀렸습니다. 다시 시도하세요.");
