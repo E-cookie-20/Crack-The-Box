@@ -1,26 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
-const data = [
-  { id: 1, quiz_title: "문제 1", quiz_level: "상", quiz_type: "시스템해킹" },
-  { id: 2, quiz_title: "문제 2", quiz_level: "중", quiz_type: "웹해킹" },
-  { id: 3, quiz_title: "문제 3", quiz_level: "하", quiz_type: "리버싱" },
-  { id: 4, quiz_title: "문제 4", quiz_level: "상", quiz_type: "암호화" },
-  { id: 5, quiz_title: "문제 5", quiz_level: "중", quiz_type: "포렌식" },
-  { id: 6, quiz_title: "문제 6", quiz_level: "하", quiz_type: "기타" },
-  { id: 7, quiz_title: "문제 7", quiz_level: "상", quiz_type: "시스템해킹" },
-  { id: 8, quiz_title: "문제 8", quiz_level: "중", quiz_type: "웹해킹" },
-  { id: 9, quiz_title: "문제 9", quiz_level: "하", quiz_type: "리버싱" },
-  { id: 10, quiz_title: "문제 10", quiz_level: "상", quiz_type: "암호화" },
-];
+import axios from "axios";
 
 const Wargame = () => {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [levelFilter, setLevelFilter] = useState("all");
   const [typeFilter, setTypeFilter] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:8000/wargame/");
+        setData(response.data);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleClick = (id) => {
     navigate(`/wargame/${id}`);
@@ -43,6 +49,14 @@ const Wargame = () => {
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = filteredData.slice(indexOfFirstPost, indexOfLastPost);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
 
   return (
     <div className="wargame_page_wrapper">
@@ -70,19 +84,19 @@ const Wargame = () => {
               </button>
               <button
                 className={levelFilter === "상" ? "active" : ""}
-                onClick={() => setLevelFilter("상")}
+                onClick={() => setLevelFilter("high")}
               >
                 상
               </button>
               <button
                 className={levelFilter === "중" ? "active" : ""}
-                onClick={() => setLevelFilter("중")}
+                onClick={() => setLevelFilter("intermediate")}
               >
                 중
               </button>
               <button
                 className={levelFilter === "하" ? "active" : ""}
-                onClick={() => setLevelFilter("하")}
+                onClick={() => setLevelFilter("beginner")}
               >
                 하
               </button>
@@ -98,37 +112,37 @@ const Wargame = () => {
               </button>
               <button
                 className={typeFilter === "시스템해킹" ? "active" : ""}
-                onClick={() => setTypeFilter("시스템해킹")}
+                onClick={() => setTypeFilter("system")}
               >
                 시스템해킹
               </button>
               <button
                 className={typeFilter === "리버싱" ? "active" : ""}
-                onClick={() => setTypeFilter("리버싱")}
+                onClick={() => setTypeFilter("reversing")}
               >
                 리버싱
               </button>
               <button
                 className={typeFilter === "웹해킹" ? "active" : ""}
-                onClick={() => setTypeFilter("웹해킹")}
+                onClick={() => setTypeFilter("web")}
               >
                 웹해킹
               </button>
               <button
                 className={typeFilter === "암호화" ? "active" : ""}
-                onClick={() => setTypeFilter("암호화")}
+                onClick={() => setTypeFilter("crypto")}
               >
                 암호화
               </button>
               <button
                 className={typeFilter === "포렌식" ? "active" : ""}
-                onClick={() => setTypeFilter("포렌식")}
+                onClick={() => setTypeFilter("forensic")}
               >
                 포렌식
               </button>
               <button
                 className={typeFilter === "기타" ? "active" : ""}
-                onClick={() => setTypeFilter("기타")}
+                onClick={() => setTypeFilter("misc")}
               >
                 기타
               </button>
