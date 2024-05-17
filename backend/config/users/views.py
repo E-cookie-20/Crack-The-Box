@@ -16,22 +16,6 @@ class UsersViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save()
 
-"""
-class UserLoginAPIView(APIView):
-    serializer_class = UserLoginSerializer
-
-    def post(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        user_data = serializer.validated_data
-        refresh = RefreshToken.for_user(user_data['user'])
-        return Response({
-            'username': user_data['username'],
-            'token': str(refresh.access_token),
-        }, status=status.HTTP_200_OK)
-    
-        
-"""
     
 """
 def create(self, request, *args, **kwargs):
