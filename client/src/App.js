@@ -8,7 +8,7 @@ import "../src/styles/WargameDetailList.css";
 import "../src/styles/Guild.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import CTF from "./pages/CTF";
+// import CTF from "./pages/CTF";
 import Guild from "./pages/Guild";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
@@ -27,7 +27,7 @@ function App() {
         <div id="wrapper">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/ctf" element={<CTF />} />
+            {/* <Route path="/ctf" element={<CTF />} /> */}
             <Route path="/guild" element={<Guild />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />

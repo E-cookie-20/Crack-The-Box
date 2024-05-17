@@ -1,4 +1,18 @@
 import React, { useState } from "react";
+import WargameList from "../components/WargameList";
+
+const data = [
+  { id: 1, quiz_title: "문제 1", quiz_level: "상", quiz_type: "시스템해킹" },
+  { id: 2, quiz_title: "문제 2", quiz_level: "중", quiz_type: "웹해킹" },
+  { id: 3, quiz_title: "문제 3", quiz_level: "하", quiz_type: "리버싱" },
+  { id: 4, quiz_title: "문제 4", quiz_level: "상", quiz_type: "암호화" },
+  { id: 5, quiz_title: "문제 5", quiz_level: "중", quiz_type: "포렌식" },
+  { id: 6, quiz_title: "문제 6", quiz_level: "하", quiz_type: "기타" },
+  { id: 7, quiz_title: "문제 7", quiz_level: "상", quiz_type: "시스템해킹" },
+  { id: 8, quiz_title: "문제 8", quiz_level: "중", quiz_type: "웹해킹" },
+  { id: 9, quiz_title: "문제 9", quiz_level: "하", quiz_type: "리버싱" },
+  { id: 10, quiz_title: "문제 10", quiz_level: "상", quiz_type: "암호화" },
+];
 
 const Guild = () => {
   const [activeMenu, setActiveMenu] = useState(null);
@@ -53,10 +67,33 @@ const Guild = () => {
         </div>
       </nav>
       <div className="guild_menu_content">
-        {activeMenu === "guild-home" && <div>길드 홈 내용</div>}
+        {activeMenu === "guild-home" && (
+          <div className="guild-home-container">
+            <div className="move_to_ctf">
+              <div>
+                멤버들과 함께
+                <br />
+                CTF에 참여해볼까요?
+              </div>
+              <button>CTF로 이동하기 &gt;</button>
+            </div>
+            <div className="move_to_wargame">
+              <div>
+                직접 문제를 만들고
+                <br />
+                길드 내에서 아카이빙해요
+              </div>
+              <button>워게임으로 이동하기 &gt;</button>
+            </div>
+          </div>
+        )}
         {activeMenu === "ctf" && <div>CTF 내용</div>}
-        {activeMenu === "wargame" && <div>워게임 내용</div>}
-        {activeMenu === "guild-management" && <div>길드관리 내용</div>}
+        {activeMenu === "wargame" && (
+          <div className="guild_wargame_list">
+            <WargameList />
+          </div>
+        )}
+        {activeMenu === "guild-management" && <div></div>}
       </div>
     </div>
   );

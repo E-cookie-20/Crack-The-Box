@@ -7,6 +7,9 @@
 .guild_menu {
   display: flex;
   margin-bottom: 20px;
+  border-bottom: 0.5px solid #92acf2;
+  width: 60%;
+  height: 30px;
 }
 
 .guild_title {
@@ -22,4 +25,23 @@
 }
 
 .guild_menu_content {
+  padding-bottom: 20px;
+}
+
+.guild-home-container {
+  display: flex;
+  flex-direction: row;
+  margin-left: 25%;
+}
+
+.move_to_ctf {
+  border: 0.5px solid #8098bc;
+  width: 20%;
+  height: 100px;
+  padding: 20px;
+}
+
+.move_to_wargame {
+  border: 0.5px solid #8098bc;
+  width: 20%;
 }
