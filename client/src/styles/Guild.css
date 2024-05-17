@@ -1,0 +1,25 @@
+.guild_container {
+  color: #ffffff;
+  padding-top: 25px;
+  padding-left: 50px;
+}
+
+.guild_menu {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.guild_title {
+  margin-left: 5vw;
+}
+
+.guild_menu {
+  margin-left: 5vw;
+}
+
+.guild_menu_component {
+  margin-right: 8%;
+}
+
+.guild_menu_content {
+}
