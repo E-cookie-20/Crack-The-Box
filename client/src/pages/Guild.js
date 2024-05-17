@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import WargameList from "../components/WargameList";
+import CTF from "../components/CTF";
 
 const data = [
   { id: 1, quiz_title: "문제 1", quiz_level: "상", quiz_type: "시스템해킹" },
@@ -15,9 +17,14 @@ const data = [
 ];
 
 const Guild = () => {
-  const [activeMenu, setActiveMenu] = useState(null);
+  const [activeMenu, setActiveMenu] = useState("guild-home");
   const handleClick = (menu) => {
     setActiveMenu(menu);
+  };
+
+  const navigate = useNavigate();
+  const clickWargame = () => {
+    navigate("/wargame", { replace: true });
   };
 
   return (
@@ -70,24 +77,30 @@ const Guild = () => {
         {activeMenu === "guild-home" && (
           <div className="guild-home-container">
             <div className="move_to_ctf">
-              <div>
+              <div className="move_to_ctf_txt">
                 멤버들과 함께
                 <br />
                 CTF에 참여해볼까요?
               </div>
-              <button>CTF로 이동하기 &gt;</button>
+              <button className="move_to_ctf_btn">CTF로 이동하기 &gt;</button>
             </div>
             <div className="move_to_wargame">
-              <div>
+              <div className="move_to_wargame_txt">
                 직접 문제를 만들고
                 <br />
                 길드 내에서 아카이빙해요
               </div>
-              <button>워게임으로 이동하기 &gt;</button>
+              <button onClick={clickWargame} className="move_to_wargame_btn">
+                워게임으로 이동하기 &gt;
+              </button>
             </div>
           </div>
         )}
-        {activeMenu === "ctf" && <div>CTF 내용</div>}
+        {activeMenu === "ctf" && (
+          <div>
+            <CTF />
+          </div>
+        )}
         {activeMenu === "wargame" && (
           <div className="guild_wargame_list">
             <WargameList />

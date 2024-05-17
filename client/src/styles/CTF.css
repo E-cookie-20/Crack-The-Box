@@ -1,0 +1,27 @@
+.ctf_container {
+  margin-left: 6vw;
+}
+
+.ctf_in_progress_title {
+  font-size: x-large;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #323232;
+  width: 60%;
+  margin-bottom: 10px;
+}
+
+.ctf_finished_title {
+  font-size: x-large;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #323232;
+  width: 60%;
+  margin-bottom: 10px;
+}
+
+.ctf_in_progress,
+.ctf_finished {
+  width: 70%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 한 행에 2개의 요소를 배치 */
+  gap: 10px; /* 아이템 간의 간격 */
+}
