@@ -1,4 +1,6 @@
 const CTFList = ({
+  id,
+  state,
   date,
   img,
   ctf_name,

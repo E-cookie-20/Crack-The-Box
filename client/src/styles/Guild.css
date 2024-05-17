@@ -1,0 +1,86 @@
+.guild_container {
+  color: #ffffff;
+  padding-top: 25px;
+  padding-left: 50px;
+}
+
+.guild_menu {
+  display: flex;
+  margin-bottom: 20px;
+  border-bottom: 0.5px solid #92acf2;
+  width: 60%;
+  height: 30px;
+}
+
+.guild_title {
+  margin-left: 5vw;
+}
+
+.guild_menu {
+  margin-left: 5vw;
+}
+
+.guild_menu_component {
+  margin-right: 8%;
+}
+
+.guild_menu_content {
+  padding-bottom: 20px;
+}
+
+.guild-home-container {
+  display: flex;
+  flex-direction: row;
+  margin-left: 8vw;
+  padding-top: 20px;
+}
+
+.move_to_ctf {
+  border: 0.5px solid #8098bc;
+  width: 23%;
+  height: 200px;
+  padding: 30px;
+  margin-right: 20px;
+  border-radius: 10px;
+}
+
+.move_to_ctf_txt {
+  font-size: x-large;
+  padding-bottom: 80px;
+}
+
+.move_to_ctf_btn {
+  background-color: #3c6ef0;
+  color: #ffffff;
+  width: 60%;
+  height: 50px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: medium;
+  font-weight: 600;
+}
+
+.move_to_wargame {
+  border: 0.5px solid #8098bc;
+  width: 23%;
+  padding: 30px;
+  border-radius: 10px;
+}
+
+.move_to_wargame_txt {
+  font-size: x-large;
+  padding-bottom: 80px;
+}
+
+.move_to_wargame_btn {
+  background-color: #92acf2;
+  color: #093ab9;
+  width: 60%;
+  height: 50px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: medium;
+  font-weight: 600;
+}
