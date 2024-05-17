@@ -2,10 +2,12 @@ from django.contrib.auth.models import User
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from .serializers import UsersSerializer
-from .serializers import UserLoginSerializer
+# from .serializers import UserLoginSerializer
 from .models import User
 from rest_framework import viewsets
 from rest_framework.views import APIView
+from rest_framework_simplejwt.tokens import RefreshToken
+
 
 class UsersViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
@@ -14,16 +16,22 @@ class UsersViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save()
 
-
+"""
 class UserLoginAPIView(APIView):
     serializer_class = UserLoginSerializer
 
-    def post(self, request):
+    def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         user_data = serializer.validated_data
-        return Response(user_data, status=status.HTTP_200_OK)
+        refresh = RefreshToken.for_user(user_data['user'])
+        return Response({
+            'username': user_data['username'],
+            'token': str(refresh.access_token),
+        }, status=status.HTTP_200_OK)
     
+        
+"""
     
 """
 def create(self, request, *args, **kwargs):

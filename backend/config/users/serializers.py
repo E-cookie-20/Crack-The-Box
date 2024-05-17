@@ -19,12 +19,13 @@ class UsersSerializer(serializers.ModelSerializer):
         user = User.objects.create(**validated_data)
         return user
     
+"""
 
 class UserLoginSerializer(serializers.Serializer):
-    """
-    model = User
-    fields = ['username', 'password']
-    """
+    
+    #model = User
+    #fields = ['username', 'password']
+    
 
     username = serializers.CharField()
     password = serializers.CharField(
@@ -60,3 +61,5 @@ class UserLoginSerializer(serializers.Serializer):
             'username': user.username,
             'token': str(refresh.access_token),
         }
+
+"""
