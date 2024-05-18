@@ -50,13 +50,9 @@ class Guild(models.Model):
         related_name='leader_guilds'
     )
     guild_wargame_list = models.ManyToManyField(Guild_Wargame, related_name='guild_wargame', blank=True)
-    
 
     def __str__(self):
         return self.guild_name
-
-    def get_group_users(self):
-        """
-        이 길드에 속한 모든 사용자를 반환합니다.
-        """
-        return self.group.user_set.all()
+    
+    def get_members(self):
+        return self.members.all()
