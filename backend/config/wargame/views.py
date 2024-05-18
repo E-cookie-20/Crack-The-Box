@@ -38,8 +38,8 @@ class SubmitFlagAPI(APIView):
         request_body=openapi.Schema(
             type=openapi.TYPE_OBJECT,
             properties={
-                'flag': openapi.Schema(type=openapi.TYPE_STRING),
-                'quiz_id': openapi.Schema(type=openapi.TYPE_INTEGER),
+                'quiz_flag': openapi.Schema(type=openapi.TYPE_STRING),
+                'id': openapi.Schema(type=openapi.TYPE_INTEGER),
             }
         ),
         responses={200: '정답입니다!', 400: '틀렸습니다. 다시 시도하세요.'},
@@ -56,8 +56,8 @@ class SubmitFlagAPI(APIView):
 
             if quiz_flag == quiz.quiz_flag:
                 # 나중에 user 진짜 생기면 주석 풀기
-                # user_profile = request.user.userprofile
-                # user_profile.user_quiz_solve.add(quiz)
+                # user = request.user.User
+                # user.user_quiz_solve.add(quiz)
                 return Response({'message': '정답입니다!'}, status=status.HTTP_200_OK)
             else:
                 return Response({'message': '틀렸습니다. 다시 시도하세요.'}, status=status.HTTP_400_BAD_REQUEST)

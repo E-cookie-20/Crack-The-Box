@@ -25,6 +25,7 @@
 }
 
 .wargame_search_input {
+  color: #ffffff;
 }
 
 .search-container input[type="text"] {
@@ -184,7 +185,7 @@
   border: 1px solid #8098bc;
   border-radius: 15px;
   margin-left: 5vw;
-  height: 300px;
+  height: 150px;
   width: 400px;
   background-color: rgba(255, 255, 255, 0.1);
   padding: 30px;
@@ -197,5 +198,15 @@
 }
 
 .wargame-make-txt {
+  margin-top: 20px;
   color: #ffffff;
+}
+
+.wargame-make-button {
+  margin-top: 20px;
+  width: 250px;
+  height: 40px;
+  background-color: #3c6ef0;
+  border: 0.5px solid #8098bc;
+  border-radius: 2px;
 }
