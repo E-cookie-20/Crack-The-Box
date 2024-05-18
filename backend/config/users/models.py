@@ -8,7 +8,14 @@ class User(AbstractUser):
     user_phone = models.CharField(max_length=20, blank=True, null=True)
     user_gender = models.CharField(max_length=1, choices=(('M', 'Male'), ('F', 'Female')), blank=True)
     user_quiz_solve = models.ManyToManyField(Wargame, related_name='solved_by_users', blank=True)
-    user_guild = models.OneToOneField(Guild, blank=True, null=True, on_delete=models.CASCADE)
+    user_guild = models.ForeignKey(
+        Guild,
+        on_delete=models.SET_NULL,
+        related_name='members',
+        null=True,
+        blank=True
+    )
+    guild_admin = models.BooleanField(default=False)
 
     def __str__(self):
         return self.username
