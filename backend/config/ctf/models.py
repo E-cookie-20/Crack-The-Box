@@ -1,6 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import Guild,User
-from users.models import UserProfile
+from django.contrib.auth.models import User
+from guild.models import Guild
 
 
 # 문제 유형 선택지
@@ -48,5 +48,5 @@ class CTF_user(User): #ctf 종료되면 이거 다 clear해야함
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     #user_profile = models.OneToOneField(UserProfile, on_delete=models.CASCADE) # UserProfile 모델과 연결
     user_quiz_solve = models.ManyToManyField(CTF_challenge, related_name='solved_by_users')
-    user_pts=models.models.PositiveIntegerField(default=0) #점수
+    user_pts=models.PositiveIntegerField(default=0) #점수
     
