@@ -22,6 +22,7 @@
 
 .guild_menu_component {
   margin-right: 8%;
+  cursor: pointer;
 }
 
 .guild_menu_content {

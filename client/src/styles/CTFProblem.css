@@ -1,0 +1,35 @@
+.ctf_problem_container {
+}
+
+.ctf_problem_title_container {
+  width: 60%;
+  border-bottom: 1px solid #323232;
+  display: flex;
+  align-items: center;
+}
+
+.ctf_problem_date {
+  display: flex;
+  color: #ffffff;
+  font-size: smaller;
+  font-weight: 2=300;
+  width: 60%;
+  margin-left: auto;
+}
+
+.ctf_problem_start_time {
+  margin-right: 10px;
+}
+
+.ctf_problem_fin_time {
+  margin-left: 10px;
+}
+
+.ctf_problem_go_back {
+  background-color: transparent;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 10px;
+  padding-left: 50px;
+}
