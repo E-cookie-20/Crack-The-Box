@@ -1,0 +1,51 @@
+.guild_member_component_container {
+  display: flex;
+  background-color: #242424;
+  padding: 20px;
+  border-radius: 10px;
+  align-items: center;
+}
+
+.guild_member_info_container {
+  min-width: 200px;
+}
+
+.guild_member_img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+}
+
+.guild_member {
+  width: 30vw;
+  min-width: 300px;
+}
+
+.guild_member_name_container {
+  display: flex;
+  align-items: center;
+  height: 20px;
+}
+
+.guild_member_id {
+  display: flex;
+  margin-left: 20px;
+  color: #878887;
+}
+
+.id_copy_button_container {
+  margin-left: 50px;
+}
+
+.id_copy_button {
+  background-color: transparent;
+  border: none;
+  color: #878887;
+  cursor: pointer;
+}
+
+.guild_member_container {
+}
+
+.guild_member_email {
+}

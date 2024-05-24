@@ -1,0 +1,82 @@
+.guild_manage_container {
+  margin-left: 5vw;
+}
+
+.guild_manage_info_container {
+  display: flex;
+}
+
+.guild_manage_info {
+  background-color: #242424;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 13%;
+  border-radius: 10px;
+  flex-direction: column;
+  min-width: 200px;
+}
+
+.guild_manage_sample_img {
+  width: 60%;
+}
+
+.guild_manage_info_txt {
+  margin-top: 20px;
+}
+
+.add_member_container {
+  margin-left: 20px;
+  width: 40%;
+}
+
+.add_member_title {
+  border-bottom: 2px solid #242424;
+  padding-bottom: 7px;
+  min-width: 330px;
+}
+
+.add_member_input_container {
+  display: flex;
+  flex-direction: row;
+}
+
+.add_member_input {
+  border: 2px solid #495057;
+  border-radius: 20px;
+  background-color: transparent;
+  color: #495057;
+  width: 60%;
+  height: 40px;
+  padding-left: 20px;
+  min-width: 200px;
+}
+
+.add_member_button {
+  border-radius: 5px;
+  background-color: #3c6ef0;
+  color: #ffffff;
+  border: 1px solid #8098bc;
+  margin-left: 20px;
+  width: 30%;
+  padding: 10px;
+  min-width: 150px;
+}
+
+.guild_member_manage_container {
+  width: 60%;
+  min-width: 600px;
+}
+
+.guild_member_manage_title {
+  border-bottom: 2px solid #242424;
+  padding-bottom: 10px;
+}
+
+.guild_member_list {
+  width: 60%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 두 개의 열을 가짐 */
+  grid-gap: 20px; /* 열과 행 사이의 간격 */
+}

@@ -1,0 +1,76 @@
+.ctf_detail_container {
+  margin-left: 5vw;
+}
+
+.ctf_go_back {
+  background-color: transparent;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  padding-left: 50px;
+}
+
+.ctf_detail_title_container {
+  border-bottom: 0.5px solid #323232;
+  width: 60%;
+  min-width: 600px;
+
+  display: flex;
+}
+
+.ctf_detail_date {
+  display: flex;
+  color: #ffffff;
+  font-size: large;
+  font-weight: 700;
+
+  align-items: center;
+  width: 60%;
+  min-width: 600px;
+}
+
+.ctf_detail_start_time {
+  margin-right: 10px;
+}
+
+.ctf_detail_fin_time {
+  margin-left: 10px;
+}
+
+.ctf_detail_img_container {
+  display: flex;
+  border: 0.5px solid #323232;
+  border-radius: 15px;
+  padding: 20px;
+  width: 60%;
+}
+
+.ctf_detail_img {
+  margin-right: 20px;
+  width: 40%;
+}
+
+.ctf_detail_ranking_container {
+  margin-top: 30px;
+}
+
+.ctf_detail_ranking {
+  border: 0.5px solid #8198d5;
+  border-radius: 10px;
+  width: 60%;
+  height: 200px;
+}
+
+.ctf_participate_btn {
+  margin-left: auto;
+  background-color: #92acf2;
+  color: #093ab9;
+  border: transparent;
+  width: 150px;
+  height: 30px;
+  border-radius: 5px;
+}
+
+.ctf_detail_ranking {
+  padding: 20px;
+}

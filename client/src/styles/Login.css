@@ -10,7 +10,7 @@
 .login_rectangle {
   padding: 20px;
   width: 30vw;
-  height: 60vh;
+  height: auto;
   border-radius: 20px;
   border: 0.5px solid #8098bc;
 }
@@ -64,9 +64,11 @@
   color: #ffffff;
   border: 1px solid #8098bc;
   margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 .input_id {
+  color: #ffffff;
   margin-top: 20px;
   margin-bottom: 20px;
   padding: 5px;
@@ -80,6 +82,7 @@
 }
 
 .input_password {
+  color: #ffffff;
   width: 80%;
   margin-top: 20px;
   padding: 5px;

@@ -35,9 +35,13 @@ class Guild_Wargame(models.Model):
     quiz_level = models.CharField(max_length=20, choices=QUIZ_LEVELS)  # 문제 난이도
     quiz_type = models.CharField(max_length=20, choices=QUIZ_CATEGORIES)  # 문제 유형 선택
     quiz_file = models.FileField(upload_to='wargame_files/', null=True, blank=True)  # 문제 파일 업로드 (zip 권장)
+    quiz_solvers = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='guild_quiz_solvers', blank=True)
 
     def __str__(self):
         return self.quiz_title
+    
+    def get_solvers(self):
+        return self.quiz_solvers.all()
 
 class Guild(models.Model):
     """
