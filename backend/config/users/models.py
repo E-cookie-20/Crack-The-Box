@@ -1,22 +1,21 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from wargame.models import Wargame  # wargame과 연결한다면..
+from wargame.models import Wargame
+from guild.models import Guild
 
 class User(AbstractUser):
-    # 길드 ID
-    guild_id = models.CharField(max_length=100, blank=True, null=True)
-
-    # 생년월일
     user_birth = models.DateField(null=True, blank=True)
-
-    # 전화번호
     user_phone = models.CharField(max_length=20, blank=True, null=True)
-
-    # 성별
     user_gender = models.CharField(max_length=1, choices=(('M', 'Male'), ('F', 'Female')), blank=True)
-
-    # 푼 문제 (필요시 ManyToManyField로 Wargame 모델과 연결)
     user_quiz_solve = models.ManyToManyField(Wargame, related_name='solved_by_users', blank=True)
+    user_guild = models.ForeignKey(
+        Guild,
+        on_delete=models.SET_NULL,
+        related_name='members',
+        null=True,
+        blank=True
+    )
+    guild_admin = models.BooleanField(default=False)
 
     def __str__(self):
         return self.username

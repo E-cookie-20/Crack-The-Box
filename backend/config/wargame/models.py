@@ -32,9 +32,7 @@ class Wargame(models.Model):
     quiz_title = models.CharField(max_length=100)  # 문제명
     quiz_level = models.CharField(max_length=20, choices=QUIZ_LEVELS)  # 문제 난이도
     quiz_type = models.CharField(max_length=20, choices=QUIZ_CATEGORIES)  # 문제 유형 선택
-    quiz_file = models.FileField(upload_to='wargame_files/', null=True) # 문제 파일 업로드(zip 권장)
-    # quiz_url = models.URLField(null=True) # web 게임일때 URL 
-    # guild_type = models.CharField()  # 길드 유형 선택
+    quiz_file = models.FileField(upload_to='wargame_files/', null=True, blank=True) # 문제 파일 업로드(zip 권장)
 
     def __str__(self):
         return self.quiz_title
