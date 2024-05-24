@@ -7,7 +7,7 @@ from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 
 from .serializers import CTFSerializer, CTFchallengeSerializer,CTFUserSerializer
-from .models import CTF,CTF_challenge, CTF_user
+from .models import CTF,CTF_challenge, CTF_user, User
 from .forms import challangeForm
 from django.db.models import F, Count
 
@@ -54,7 +54,7 @@ class SubmitCTFFlagAPI(APIView):
     )
     def submit_challenge(request):
         user = request.user
-        id = request.data.get('ctf_chall_id')
+        id = request.data.get('id') #ctf_chall_id
         ctf_user = CTF_user.objects.get(user=user)
         challenge = CTF_challenge.objects.get(id=id)
         submitted_flag = request.POST.get('challenge_flag')
@@ -65,8 +65,8 @@ class SubmitCTFFlagAPI(APIView):
             return Response({'message': '해당 ID를 가진 문제가 존재하지 않습니다.'}, status=status.HTTP_400_BAD_REQUEST)
 
         if challenge.challenge_flag == submitted_flag:
-            if challenge not in ctf_user.user_quiz_solve.all():
-                ctf_user.user_quiz_solve.add(challenge)
+            if challenge not in ctf_user.user_chall_solve.all():
+                ctf_user.user_chall_solve.add(challenge)
                 ctf_user.user_pts += challenge.challenge_pts
                 ctf_user.save()
                 return Response({'message': '정답입니다!', 'points': ctf_user.user_pts}, status=200)
