@@ -1,0 +1,17 @@
+.ctf_problem_item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  height: 150px;
+
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.ctf_problem_title {
+  font-size: x-large;
+  color: #ffffff;
+}

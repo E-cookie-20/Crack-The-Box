@@ -1,0 +1,29 @@
+.leaderboard table {
+  width: 100%;
+}
+
+.leaderboard th {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #92acf2;
+}
+.leaderboard td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #242424;
+}
+
+.leaderboard th {
+  font-weight: bold;
+}
+
+.leaderboard tr {
+  border-radius: 10px;
+}
+
+.leaderboard tr:nth-child(even) {
+}
+
+.leaderboard table tbody tr:hover {
+  background-color: #5f87f2;
+}
