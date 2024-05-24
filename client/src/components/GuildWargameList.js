@@ -2,6 +2,26 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+const d = [
+    {
+      id: "cuckoo20",
+      last_login: "2024-04-19T11:52:49.149375Z",
+      is_superuser: true,
+      username: "admin",
+      first_name: "아영",
+      last_name: "",
+      email: "gaeun9566@ewhain.net",
+      is_staff: true,
+      is_active: true,
+      date_joined: "2024-04-19T11:52:30.234401Z",
+      guild_id: 1, // 또는 다른 guild_id 값
+      user_birth: "2024-04-19",
+      user_phone: "010-1234-1234",
+      user_gender: "F",
+      guild_admin: true,
+    },
+  ];
+
 const Wargame = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -13,10 +33,14 @@ const Wargame = () => {
 
   const navigate = useNavigate();
 
+  const user = d[0];
+
+  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/wargame/");
+        const response = await axios.get(`http://localhost:8000/guild/${user.guild_id}/wargame-list`);
         setData(response.data);
       } catch (err) {
         setError(err);
@@ -29,18 +53,19 @@ const Wargame = () => {
   }, []);
 
   const handleClick = (id) => {
-    navigate(`/wargame/${id}`);
+    navigate(`/guild/${id}`);
   };
 
   const postsPerPage = 5;
 
-  const filteredData = data.filter((item) => {
+  const filteredData = data.guild_wargame_list ? data.guild_wargame_list.filter((item) => {
     return (
       item.quiz_title.toLowerCase().includes(searchTerm.toLowerCase()) &&
       (levelFilter === "all" || item.quiz_level === levelFilter) &&
       (typeFilter === "all" || item.quiz_type === typeFilter)
     );
-  });
+  }) : [];
+  
 
   const handleChangePage = (page) => {
     setCurrentPage(page);

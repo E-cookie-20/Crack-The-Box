@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import WargameList from "../components/WargameList";
+import GuildWargameList from "../components/GuildWargameList";
 import CTF from "../components/CTF";
 import GuildManage from "../components/GuildManage";
 import ctf_example_image from "../assets/guild_sample.png";
@@ -28,6 +28,9 @@ const data = [
 
 const Guild = () => {
   const [activeMenu, setActiveMenu] = useState("guild-home");
+  const [guildName, setGuildName] = useState("");
+  const user = data[0];
+
 
   const handleClickCTF = () => {
     setActiveMenu("ctf");
@@ -37,7 +40,20 @@ const Guild = () => {
     setActiveMenu("wargame");
   };
 
-  const user = data[0];
+  // 서버로부터 사용자의 길드 정보를 가져오는 함수
+  const fetchGuildInfo = async () => {
+    try {
+      const response = await fetch(`http://localhost:8000/guild/guild/${user.guild_id}`);
+      const d = await response.json();
+      setGuildName(d.guild_name);
+    } catch (error) {
+      console.error("Error fetching guild info:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchGuildInfo();
+  }, []);
 
   return (
     <div className="guild_container">
@@ -127,7 +143,7 @@ const Guild = () => {
             )}
             {activeMenu === "wargame" && (
               <div className="guild_wargame_list">
-                <WargameList />
+                <GuildWargameList />
               </div>
             )}
             {user.guild_admin && activeMenu === "guild-management" && (
@@ -145,7 +161,7 @@ const Guild = () => {
                 <img src={ctf_example_image}></img>
               </div>
               <div className="personal_guild_txt">
-                <h3>{user.guild_id}</h3>
+                <h3>{guildName}</h3>
               </div>
             </div>
             <button className="personal_guild_btn">초대하기</button>

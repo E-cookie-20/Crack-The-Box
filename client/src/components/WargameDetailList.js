@@ -25,7 +25,7 @@ const WargameDetailList = ({
   };
 
   const handleCheckAnswer = () => {
-    if (inputValue == quiz_flag) {
+    if (inputValue === quiz_flag) {
       setResultMessage("정답입니다!🌈");
     } else {
       setResultMessage("틀렸습니다. 다시 시도하세요.");
@@ -42,8 +42,8 @@ const WargameDetailList = ({
           <div className="quiz_level_container">
             <div className="wargame_detail_list_text">난이도</div>
             <div className="quiz_level">
-              {quiz_level === "low" && "하"}
-              {quiz_level === "mid" && "중"}
+              {quiz_level === "beginner" && "하"}
+              {quiz_level === "intermediate" && "중"}
               {quiz_level === "high" && "상"}
             </div>
           </div>
