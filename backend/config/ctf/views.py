@@ -14,7 +14,6 @@ from .forms import challangeForm
 from django.db.models import Count
 
 
-# CTFViewSet 정의: CTF 모델의 CRUD 작업을 위한 ViewSet
 class CTFViewSet(viewsets.ModelViewSet):
     queryset = CTF.objects.all()  # 모든 CTF 객체를 조회
     serializer_class = CTFSerializer  # CTF 객체를 시리얼라이즈할 때 사용할 시리얼라이저 클래스 지정
@@ -42,9 +41,6 @@ class CTFchallengeViewSet(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        
-        #해당 길드의 길드원이 맞는지 확인하는 코드 추가해야함
-        #맞으면 ok, 아니면 abort
         
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
@@ -93,6 +89,3 @@ class SubmitCTFFlagAPI(APIView):
                 return Response({'message': '이미 푼 문제입니다!'}, status=400)
         else:
             return Response({'message': '틀렸습니다. 다시 시도하세요.'}, status=400)
-
-        
-

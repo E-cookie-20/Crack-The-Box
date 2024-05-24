@@ -46,6 +46,7 @@ class CTF_user(models.Model): #ctf 종료되면 이거 다 clear해야함
     # 푼 문제 (JSONField 사용 or ManyToManyField로 별도의 문제 모델과 연결 가능)
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='ctf_user')
     #user_profile = models.OneToOneField(UserProfile, on_delete=models.CASCADE) # UserProfile 모델과 연결
+    ctf=models.ManyToManyField(CTF,on_delete=models.CASCADE,related_name='participate_user')
     user_chall_solve = models.ManyToManyField(CTF_challenge, related_name='solved_by_users')
     user_pts=models.PositiveIntegerField(default=0) #점수
     
