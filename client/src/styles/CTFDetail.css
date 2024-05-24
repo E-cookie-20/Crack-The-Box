@@ -13,6 +13,7 @@
 .ctf_detail_title_container {
   border-bottom: 0.5px solid #323232;
   width: 60%;
+  min-width: 600px;
 
   display: flex;
 }
@@ -25,6 +26,7 @@
 
   align-items: center;
   width: 60%;
+  min-width: 600px;
 }
 
 .ctf_detail_start_time {
