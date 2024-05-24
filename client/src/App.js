@@ -9,6 +9,8 @@ import "../src/styles/Guild.css";
 import "../src/styles/CTF.css";
 import "../src/styles/CTFNameList.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import React, { useEffect } from 'react';
+import axios from 'axios';
 
 // import CTF from "./pages/CTF";
 import Guild from "./pages/Guild";
@@ -22,6 +24,13 @@ import WargameDetail from "./pages/WargameDetail";
 import FindPassword from "./pages/FindPassword";
 
 function App() {
+  useEffect(() => {
+    const token = sessionStorage.getItem('token');
+    if (token) {
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    }
+  }, []);
+
   return (
     <BrowserRouter>
       <div className="App">
