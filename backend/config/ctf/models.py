@@ -31,6 +31,7 @@ class CTF(models.Model):
 #ctf challenge 모델 -> 문제 점수(challenge_pts) 추가 
 class CTF_challenge(models.Model):
     ctf_id = models.ForeignKey(CTF, on_delete=models.CASCADE) #문제가 등록되어있는 CTF
+    challenge_name = models.CharField(max_length=20) #문제 이름
     challenge_description = models.TextField()  # 문제 설명
     challenge_flag = models.CharField(max_length=100)  # 문제 플래그
     challenge_title = models.CharField(max_length=200)  # 문제명
