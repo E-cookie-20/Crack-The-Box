@@ -11,7 +11,18 @@ const Wargame = () => {
   const [typeFilter, setTypeFilter] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
 
+
   const navigate = useNavigate();
+
+  // 로그인 유지 확인 
+  useEffect(() => {
+    const token = sessionStorage.getItem('token');
+    if (token) {
+      console.log('JWT Token:', token);
+    } else {
+      console.log('No token found');
+    }
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {

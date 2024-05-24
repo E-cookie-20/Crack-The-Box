@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import WargameList from "../components/WargameList";
 import GuildWargameList from "../components/GuildWargameList";
 import CTF from "../components/CTF";
 import GuildManage from "../components/GuildManage";
 import ctf_example_image from "../assets/guild_sample.png";
+import profile_sample from "../assets/profile_sample.jpg";
 
 const data = [
   {
@@ -167,6 +167,16 @@ const Guild = () => {
             <button className="personal_guild_btn">초대하기</button>
           </div>
           <h3 className="personal_detail_my_info_title">내 정보</h3>
+          <div className="personal_detail_my_info">
+            <div className="personal_detail_profile_img">
+              <img
+                className="personal_detail_profile_sample"
+                src={profile_sample}
+                alt="profile_sample"
+              ></img>
+            </div>
+            <div className="personal_detail_profile_txt">{user.first_name}</div>
+          </div>
         </div>
       </div>
     </div>
