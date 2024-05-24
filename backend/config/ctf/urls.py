@@ -5,12 +5,14 @@ from .views import *
 app_name = 'ctf'
 
 router = DefaultRouter()
+router.register('ctf',CTFViewSet)
 router.register('',CTFchallengeViewSet)
-router.register('',CTFViewSet)
-router.register('',CTFUserViewSet)
+
 
 #register
 urlpatterns = [
     path('', include(router.urls)),
-    path('submit-flag', SubmitCTFFlagAPI.as_view(), name='submit_flag'),
+    path('ctf/submit-flag', SubmitCTFFlagAPI.as_view(), name='submit_flag'),
+    #path('/ctf/<ctf_chall_id>', CTFchallengeViewSet.as_view()),
+
 ]
