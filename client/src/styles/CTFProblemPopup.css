@@ -1,0 +1,29 @@
+/* components/CTFProblemPopup.css */
+.ctf_problem_popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ctf_problem_popup_content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px;
+  max-width: 90%;
+  color: black;
+}
+
+.ctf_problem_popup_close {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  float: right;
+}

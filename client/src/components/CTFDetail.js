@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import CTFProblem from "../pages/CTFProblem";
+import Leaderboard from "./LeaderBoard"; // Assuming the correct path
 
 const CTFDetail = ({
   id,
@@ -15,6 +16,11 @@ const CTFDetail = ({
   ctf_description,
 }) => {
   const [showProblem, setShowProblem] = useState(false);
+  const data = [
+    { username: "user1", rank: 1, user_pts: 500 },
+    { username: "user2", rank: 2, user_pts: 450 },
+    // ... Add more sample data if needed
+  ];
 
   const handleParticipateClick = () => {
     setShowProblem(true);
@@ -24,6 +30,7 @@ const CTFDetail = ({
     <div className="ctf_detail_container">
       {showProblem ? (
         <CTFProblem
+          id={id}
           date={date}
           img={img}
           ctf_name={ctf_name}
@@ -32,8 +39,8 @@ const CTFDetail = ({
           profile_img={profile_img}
           profile_name={profile_name}
           profile_position={profile_position}
-          ctf_description={ctf_description}
           onBack={() => setShowProblem(false)}
+          ctf_description={ctf_description}
         />
       ) : (
         <>
@@ -60,7 +67,9 @@ const CTFDetail = ({
           </div>
           <div className="ctf_detail_ranking_container">
             <h2 className="ctf_detail_ranking_title">실시간 순위</h2>
-            <div className="ctf_detail_ranking"></div>
+            <div className="ctf_detail_ranking">
+              <Leaderboard data={data} />
+            </div>
           </div>
         </>
       )}

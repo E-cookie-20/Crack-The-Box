@@ -87,6 +87,7 @@ const CTF = () => {
   const getData = async () => {
     const initData = data.slice(0, 20).map((it) => {
       return {
+        id: it.id,
         date: it.date,
         ctf_start: it.ctf_start,
         ctf_fin: it.ctf_fin,

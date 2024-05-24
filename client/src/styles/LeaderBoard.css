@@ -1,0 +1,25 @@
+.leaderboard {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px auto; /* Add margin to center the table */
+}
+
+.leaderboard th {
+  text-align: left;
+  padding: 15px; /* Increase padding to match the image */
+
+  font-weight: bold; /* Make the table headers bold */
+}
+
+.leaderboard td {
+  text-align: left;
+  padding: 10px; /* Increase padding to match the image */
+}
+
+.leaderboard tr:nth-child(odd) {
+}
+
+.leaderboard tr:first-child th {
+  /* Style the first row (table header) */
+  background-color: #eee;
+}
