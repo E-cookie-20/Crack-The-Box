@@ -63,9 +63,9 @@ const Login = () => {
                 required
               />
             </div>
-            <a href="/findpassword" className="forget_password_link">
+            {/* <a href="/findpassword" className="forget_password_link">
               비밀번호를 잊으셨나요?
-            </a>
+            </a> */}
           </div>
 
           <div className="login_button_container">

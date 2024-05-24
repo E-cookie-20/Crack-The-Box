@@ -8,6 +8,14 @@ import "../src/styles/WargameDetailList.css";
 import "../src/styles/Guild.css";
 import "../src/styles/CTF.css";
 import "../src/styles/CTFNameList.css";
+import "../src/styles/CTFDetail.css";
+import "../src/styles/CTFProblem.css";
+import "../src/styles/CTFProblemList.css";
+import "../src/styles/CTFProblemPopup.css";
+import "../src/styles/MyPage.css";
+import "../src/styles/GuildManage.css";
+import "../src/styles/GuildMember.css";
+import "../src/styles/LeaderBoard.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 // import CTF from "./pages/CTF";
@@ -20,6 +28,7 @@ import MyHeader from "./components/MyHeader";
 import MyFooter from "./components/MyFooter";
 import WargameDetail from "./pages/WargameDetail";
 import FindPassword from "./pages/FindPassword";
+import MyPage from "./pages/MyPage";
 
 function App() {
   return (
@@ -36,6 +45,7 @@ function App() {
             <Route path="/wargame" element={<Wargame />} />
             <Route path="/wargame/:id" element={<WargameDetail />} />
             <Route path="/findpassword" element={<FindPassword />} />
+            <Route path="/mypage" element={<MyPage />} />
           </Routes>
         </div>
         <MyFooter />
