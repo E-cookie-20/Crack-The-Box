@@ -28,6 +28,22 @@ class Guild_WargameViewSet(viewsets.ModelViewSet):
         # Serializer 저장
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+    
+    @action(detail=True, methods=['get'])
+    def solvers(self, request, pk=None):
+        wargame = self.get_object()
+        solvers = wargame.get_solvers()
+        solvers_data = [
+            {
+                'id': solver.id,
+                'username': solver.username,
+                'email': solver.email,
+                'guild_admin': solver.is_staff,
+                'is_author': solver == wargame.author
+            }
+            for solver in solvers
+        ]
+        return Response(solvers_data)
 
 
 class GuildViewSet(viewsets.ModelViewSet):
@@ -132,9 +148,9 @@ class SubmitFlagAPI(APIView):
                 return Response({'message': '해당 ID를 가진 문제가 존재하지 않습니다.'}, status=status.HTTP_400_BAD_REQUEST)
 
             if quiz_flag == quiz.quiz_flag:
-                # 나중에 user 진짜 생기면 주석 풀기
                 # user = request.user.User
-                # user.user_quiz_solve.add(quiz)
+                # quiz.quiz_solvers.add(user)
+                # quiz.save()
                 return Response({'message': '정답입니다!'}, status=status.HTTP_200_OK)
             else:
                 return Response({'message': '틀렸습니다. 다시 시도하세요.'}, status=status.HTTP_400_BAD_REQUEST)
