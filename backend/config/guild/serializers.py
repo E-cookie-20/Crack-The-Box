@@ -13,6 +13,7 @@ class Guild_WargameSerializer(serializers.ModelSerializer):
     class Meta:
         model = Guild_Wargame
         exclude = ['author', 'quiz_solvers']
+        # fields = '__all__'
 
 class GuildSerializer(serializers.ModelSerializer):
     guild_wargame_list = Guild_WargameSerializer(many=True, read_only=True)

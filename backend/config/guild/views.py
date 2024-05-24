@@ -28,10 +28,11 @@ class Guild_WargameViewSet(viewsets.ModelViewSet):
         # Serializer 저장
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
-    
-    @action(detail=True, methods=['get'])
-    def solvers(self, request, pk=None):
-        wargame = self.get_object()
+
+
+class WargameSolversAPIView(APIView):
+    def get(self, request, pk):
+        wargame = get_object_or_404(Guild_Wargame, pk=pk)
         solvers = wargame.get_solvers()
         solvers_data = [
             {
@@ -43,7 +44,7 @@ class Guild_WargameViewSet(viewsets.ModelViewSet):
             }
             for solver in solvers
         ]
-        return Response(solvers_data)
+        return Response(solvers_data, status=status.HTTP_200_OK)
 
 
 class GuildViewSet(viewsets.ModelViewSet):
@@ -65,27 +66,6 @@ class GuildViewSet(viewsets.ModelViewSet):
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
     
-    # @action(detail=True, methods=['get'])
-    # def members(self, request, pk=None):
-    #     guild = self.get_object()
-    #     members = guild.members.all()
-    #     serializer = UserSerializer(members, many=True)
-    #     return Response(serializer.data)
-    
-    # @action(detail=True, methods=['post'])
-    # def invite_member(self, request, pk=None):
-    #     guild_id = self.get_object().id
-    #     username = request.data.get('username')
-
-    #     try:
-    #         user = User.objects.get(username=username)
-    #     except User.DoesNotExist:
-    #         return Response({'message': '해당 사용자를 찾을 수 없습니다.'}, status=status.HTTP_404_NOT_FOUND)
-
-    #     user.user_guild_id = guild_id
-    #     user.save()
-
-    #     return Response({'message': f'{username}님이 길드에 초대되었습니다.'}, status=status.HTTP_200_OK)
 
 
 class GuildMembersAPIView(APIView):
