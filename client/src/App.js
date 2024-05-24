@@ -22,6 +22,7 @@ import axios from 'axios';
 
 // import CTF from "./pages/CTF";
 import Guild from "./pages/Guild";
+import GuildDetail from "./pages/GuildDetail";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Wargame from "./pages/Wargame";
@@ -49,6 +50,7 @@ function App() {
             <Route path="/" element={<Home />} />
             {/* <Route path="/ctf" element={<CTF />} /> */}
             <Route path="/guild" element={<Guild />} />
+            <Route path="/guild/:id" element={<GuildDetail />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/wargame" element={<Wargame />} />

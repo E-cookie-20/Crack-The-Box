@@ -53,7 +53,7 @@ const Wargame = () => {
   }, []);
 
   const handleClick = (id) => {
-    navigate(`/wargame/${id}`);
+    navigate(`/guild/${id}`);
   };
 
   const postsPerPage = 5;
