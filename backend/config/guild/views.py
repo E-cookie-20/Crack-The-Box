@@ -66,8 +66,19 @@ class GuildViewSet(viewsets.ModelViewSet):
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
     
+    
+class GuildWargameListView(APIView):
+    def get(self, request, pk):
+        try:
+            guild = Guild.objects.get(pk=pk)
+            wargame_list = guild.guild_wargame_list.all()
+            # Serialize wargame_list if needed
+            wargame_list_data = Guild_WargameSerializer(wargame_list, many=True).data
+            return Response({'guild_wargame_list': wargame_list_data}, status=status.HTTP_200_OK)
+        except Guild.DoesNotExist:
+            return Response({'error': '해당 ID를 가진 길드가 존재하지 않습니다.'}, status=status.HTTP_404_NOT_FOUND)
 
-
+          
 class GuildMembersAPIView(APIView):
     def get(self, request, pk):
         guild = get_object_or_404(Guild, pk=pk)

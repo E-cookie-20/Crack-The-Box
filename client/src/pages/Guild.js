@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import WargameList from "../components/WargameList";
+import GuildWargameList from "../components/GuildWargameList";
 import CTF from "../components/CTF";
 import GuildManage from "../components/GuildManage";
 import ctf_example_image from "../assets/guild_sample.png";
@@ -142,7 +143,7 @@ const Guild = () => {
             )}
             {activeMenu === "wargame" && (
               <div className="guild_wargame_list">
-                <WargameList />
+                <GuildWargameList />
               </div>
             )}
             {user.guild_admin && activeMenu === "guild-management" && (
