@@ -18,6 +18,11 @@ class GuildCTFSerializer(serializers.ModelSerializer):
         return super().to_representation(instance)
 
 
+class CTFUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CTF_user
+        fields = '__all__'
+        
 class CTFSerializer(serializers.ModelSerializer): 
     class Meta:
         model = CTF
@@ -29,7 +34,3 @@ class CTFchallengeSerializer(serializers.ModelSerializer):
         model = CTF_challenge
         fields = '__all__'
 
-class CTFUserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model=CTF_user
-        fields='__all__'

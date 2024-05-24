@@ -24,15 +24,22 @@ class CTFViewSet(viewsets.ModelViewSet):
         ctf = get_object_or_404(CTF, pk=ctf_id)  # 해당 ctf_id의 CTF 객체를 조회, 없으면 404 반환
         challenges = CTF_challenge.objects.filter(ctf_id=ctf)  # 해당 CTF에 속한 모든 챌린지 조회
         challenge_serializer = CTFchallengeSerializer(challenges, many=True)  # 챌린지들을 시리얼라이즈
-        return Response(challenge_serializer.data)  # 시리얼라이즈된 챌린지 데이터를 응답으로 반환
+        
+        participate_users = ctf.participate_user.all()
+        participate_users_data = CTFUserSerializer(participate_users, many=True).data
 
-    def top_users(self, request): #10명 내림차순으로 가져오기
-        top_users = CTF_user.objects.annotate(rank=Count('user__user_pts') + 1).order_by('-user__user_pts')[:10].values('user__username', 'rank', 'user__user_pts')
-        return Response(top_users)
+       # 딕셔너리를 사용하여 두 데이터를 합침
+        response_data = {
+            'challenges': challenge_serializer.data,
+            'participate_users': participate_users_data
+        }
+        return Response(response_data)  # 시리얼라이즈된 챌린지와 참여자 데이터를 응답으로 반환
+
 
 class CTFUserViewSet(viewsets.ModelViewSet):
     queryset=CTF.objects.all()
     serializer_class=CTFSerializer
+
 
 class CTFchallengeViewSet(viewsets.ModelViewSet):
     queryset = CTF_challenge.objects.all()

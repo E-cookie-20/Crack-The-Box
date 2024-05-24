@@ -22,11 +22,8 @@ class CTF(models.Model):
     ctf_description = models.CharField(max_length=100) #ctf 설명
     ctf_name = models.CharField(max_length=20) #ctf 이름
     ctf_onging=models.BooleanField(default=False) #현재 ctf 진행중인지 여부
-    guild = models.ForeignKey(Guild, on_delete=models.CASCADE) #출제 길드
+    guild = models.ForeignKey(Guild, on_delete=models.CASCADE,null=True) #출제 길드
 
-    #ctf가 종료되면 
-    #ctf_user_list=~~ -> foreign key
-    #problem_list....   
     def __str__(self):
         return self.ctf_name
 
@@ -45,9 +42,6 @@ class CTF_challenge(models.Model):
 class CTF_user(models.Model): #ctf 종료되면 이거 다 clear해야함
     # 푼 문제 (JSONField 사용 or ManyToManyField로 별도의 문제 모델과 연결 가능)
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='ctf_user')
-    #user_profile = models.OneToOneField(UserProfile, on_delete=models.CASCADE) # UserProfile 모델과 연결
-    ctf=models.ManyToManyField(CTF,on_delete=models.CASCADE,related_name='participate_user')
+    ctf=models.ForeignKey(CTF,on_delete=models.CASCADE,related_name='participate_user',blank=True, null=True)
     user_chall_solve = models.ManyToManyField(CTF_challenge, related_name='solved_by_users')
     user_pts=models.PositiveIntegerField(default=0) #점수
-    
-    
