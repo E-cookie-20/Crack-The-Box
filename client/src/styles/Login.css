@@ -1,0 +1,98 @@
+.login_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  margin-top: 100px;
+}
+
+.login_rectangle {
+  padding: 20px;
+  width: 30vw;
+  height: 60vh;
+  border-radius: 20px;
+  border: 0.5px solid #8098bc;
+}
+
+.login_input_area {
+  /* margin-left: 30px; */
+  padding-left: 30px;
+}
+
+.login_title {
+  margin-left: 30px;
+  color: #ffffff;
+  font-size: xx-large;
+}
+
+.welcome_text {
+  margin-left: 30px;
+  color: #ffffff;
+}
+
+.username_text {
+  margin-left: 50px;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.pw_text {
+  margin-left: 50px;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.login_input_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.login_button_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login_button {
+  width: 80%;
+  height: 40px;
+  border-radius: 5px;
+  background-color: #3c6ef0;
+  color: #ffffff;
+  border: 1px solid #8098bc;
+  margin-top: 30px;
+}
+
+.input_id {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 5px;
+  padding-left: 20px;
+  width: 80%;
+  height: 40px;
+
+  background-color: transparent;
+  border-radius: 30px;
+  border: 2px solid #495057;
+}
+
+.input_password {
+  width: 80%;
+  margin-top: 20px;
+  padding: 5px;
+  padding-left: 20px;
+  height: 40px;
+
+  background-color: transparent;
+  border-radius: 30px;
+  border: 2px solid #495057;
+}
+
+.forget_password_link {
+  color: #3c6ef0;
+  margin-left: 50px;
+  font-size: 10px;
+}

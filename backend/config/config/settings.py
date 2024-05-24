@@ -42,13 +42,21 @@ INSTALLED_APPS = [
     'corsheaders', #django-cors-headers
     'rest_framework', #djangorestframework
     'drf_yasg', #drf_yasg
+    'rest_framework.authtoken',
     
     
     # django-admin apps
     'users',
     'wargame',
     'guild',
+    'ctf'
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -92,6 +100,7 @@ DATABASES = {
     }
 }
 
+AUTH_USER_MODEL = 'users.User'
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -147,3 +156,4 @@ STATIC_ROOT = 'static'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
