@@ -100,6 +100,7 @@
   min-width: 300px;
   background-color: #242424;
   border-radius: 10px;
+  height: 450px;
 }
 
 .personal_guild_detail_container {
@@ -132,4 +133,26 @@
 .personal_detail_my_info_title {
   border-top: 1px solid #92acf2;
   padding-top: 20px;
+}
+
+.personal_detail_my_info {
+  width: auto;
+}
+
+.personal_detail_my_info {
+  background-color: #1c1c1c;
+  border-radius: 5px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.personal_detail_profile_sample {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.personal_detail_profile_txt {
+  margin-left: 20px;
 }

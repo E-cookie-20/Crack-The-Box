@@ -1,8 +1,28 @@
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import logo from "..//assets/crack_the_box_logo.png";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import logo from "../assets/crack_the_box_logo.png";
 
 const MyHeader = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkLoginStatus = async () => {
+      try {
+        const token = await AsyncStorage.getItem("userToken");
+        if (token !== null) {
+          setIsLoggedIn(true);
+        } else {
+          setIsLoggedIn(false);
+        }
+      } catch (error) {
+        console.error("Failed to fetch the user token from storage:", error);
+      }
+    };
+
+    checkLoginStatus();
+  }, []);
 
   const clickLogo = () => {
     navigate("/", { replace: true });
@@ -18,6 +38,15 @@ const MyHeader = () => {
   };
   const clickSignup = () => {
     navigate("/signup", { replace: true });
+  };
+  const clickLogout = async () => {
+    try {
+      await AsyncStorage.removeItem("userToken");
+      setIsLoggedIn(false);
+      navigate("/", { replace: true });
+    } catch (error) {
+      console.error("Failed to remove the user token from storage:", error);
+    }
   };
 
   return (
@@ -38,10 +67,16 @@ const MyHeader = () => {
           </div>
         </div>
         <div className="nav_2">
-          <text onClick={clickLogin}>로그인</text>
-          <button className="signup_button" onClick={clickSignup}>
-            회원가입하고 바로 시작하기
-          </button>
+          {isLoggedIn ? (
+            <button onClick={clickLogout}>로그아웃</button>
+          ) : (
+            <>
+              <text onClick={clickLogin}>로그인</text>
+              <button className="signup_button" onClick={clickSignup}>
+                회원가입하고 바로 시작하기
+              </button>
+            </>
+          )}
         </div>
       </div>
     </header>
