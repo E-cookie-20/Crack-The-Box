@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import WargameList from "../components/WargameList";
 import GuildWargameList from "../components/GuildWargameList";
 import CTF from "../components/CTF";
 import GuildManage from "../components/GuildManage";
