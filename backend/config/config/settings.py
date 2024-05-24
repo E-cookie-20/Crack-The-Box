@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'users',
     'wargame',
     'guild',
-    'ctf',
+    'ctf'
 ]
 
 REST_FRAMEWORK = {

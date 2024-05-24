@@ -66,7 +66,7 @@ class SubmitCTFFlagAPI(APIView):
 
         if challenge.challenge_flag == submitted_flag:
             if challenge not in ctf_user.user_quiz_solve.all():
-                ctf_user.user_quiz_solve.add(challenge)
+                ctf_user.user_chall_solve.add(challenge)
                 ctf_user.user_pts += challenge.challenge_pts
                 ctf_user.save()
                 return Response({'message': '정답입니다!', 'points': ctf_user.user_pts}, status=200)
