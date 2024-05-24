@@ -21,8 +21,9 @@ class CTF(models.Model):
     ctf_fin = models.DateTimeField() #ctf 종료일
     ctf_description = models.CharField(max_length=100) #ctf 설명
     ctf_name = models.CharField(max_length=20) #ctf 이름
-    ctf_onging= models.BooleanField(default=False) #현재 ctf 진행중인지 여부
-    #guild = models.ForeignKey(Guild, on_delete=models.CASCADE) #출제 길드
+    ctf_onging=models.BooleanField(default=False) #현재 ctf 진행중인지 여부
+    guild = models.ForeignKey(Guild, on_delete=models.CASCADE) #출제 길드
+
     #ctf가 종료되면 
     #ctf_user_list=~~ -> foreign key
     #problem_list....   
