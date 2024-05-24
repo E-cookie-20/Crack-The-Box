@@ -30,6 +30,23 @@ class Guild_WargameViewSet(viewsets.ModelViewSet):
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 
+class WargameSolversAPIView(APIView):
+    def get(self, request, pk):
+        wargame = get_object_or_404(Guild_Wargame, pk=pk)
+        solvers = wargame.get_solvers()
+        solvers_data = [
+            {
+                'id': solver.id,
+                'username': solver.username,
+                'email': solver.email,
+                'guild_admin': solver.is_staff,
+                'is_author': solver == wargame.author
+            }
+            for solver in solvers
+        ]
+        return Response(solvers_data, status=status.HTTP_200_OK)
+
+
 class GuildViewSet(viewsets.ModelViewSet):
     queryset = Guild.objects.all()
     serializer_class = GuildSerializer
@@ -49,27 +66,6 @@ class GuildViewSet(viewsets.ModelViewSet):
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
     
-    # @action(detail=True, methods=['get'])
-    # def members(self, request, pk=None):
-    #     guild = self.get_object()
-    #     members = guild.members.all()
-    #     serializer = UserSerializer(members, many=True)
-    #     return Response(serializer.data)
-    
-    # @action(detail=True, methods=['post'])
-    # def invite_member(self, request, pk=None):
-    #     guild_id = self.get_object().id
-    #     username = request.data.get('username')
-
-    #     try:
-    #         user = User.objects.get(username=username)
-    #     except User.DoesNotExist:
-    #         return Response({'message': '해당 사용자를 찾을 수 없습니다.'}, status=status.HTTP_404_NOT_FOUND)
-
-    #     user.user_guild_id = guild_id
-    #     user.save()
-
-    #     return Response({'message': f'{username}님이 길드에 초대되었습니다.'}, status=status.HTTP_200_OK)
 
 
 class GuildMembersAPIView(APIView):
@@ -132,9 +128,9 @@ class SubmitFlagAPI(APIView):
                 return Response({'message': '해당 ID를 가진 문제가 존재하지 않습니다.'}, status=status.HTTP_400_BAD_REQUEST)
 
             if quiz_flag == quiz.quiz_flag:
-                # 나중에 user 진짜 생기면 주석 풀기
                 # user = request.user.User
-                # user.user_quiz_solve.add(quiz)
+                # quiz.quiz_solvers.add(user)
+                # quiz.save()
                 return Response({'message': '정답입니다!'}, status=status.HTTP_200_OK)
             else:
                 return Response({'message': '틀렸습니다. 다시 시도하세요.'}, status=status.HTTP_400_BAD_REQUEST)
