@@ -19,6 +19,7 @@ const CTFDetail = ({
   const data = [
     { username: "user1", rank: 1, user_pts: 500 },
     { username: "user2", rank: 2, user_pts: 450 },
+
     // ... Add more sample data if needed
   ];
 

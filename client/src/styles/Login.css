@@ -68,6 +68,7 @@
 }
 
 .input_id {
+  color: #ffffff;
   margin-top: 20px;
   margin-bottom: 20px;
   padding: 5px;
@@ -81,6 +82,7 @@
 }
 
 .input_password {
+  color: #ffffff;
   width: 80%;
   margin-top: 20px;
   padding: 5px;

@@ -9,6 +9,7 @@
   margin-bottom: 20px;
   border-bottom: 0.5px solid #92acf2;
   width: 60%;
+  min-width: 700px;
   height: 30px;
 }
 
@@ -43,6 +44,7 @@
   padding: 30px;
   margin-right: 20px;
   border-radius: 10px;
+  min-width: 250px;
 }
 
 .move_to_ctf_txt {
@@ -63,6 +65,7 @@
 }
 
 .move_to_wargame {
+  min-width: 250px;
   border: 0.5px solid #8098bc;
   width: 23%;
   padding: 30px;
@@ -77,11 +80,56 @@
 .move_to_wargame_btn {
   background-color: #92acf2;
   color: #093ab9;
-  width: 60%;
+  width: 70%;
   height: 50px;
   border-radius: 5px;
   border: none;
   cursor: pointer;
   font-size: medium;
   font-weight: 600;
+}
+
+.guild_component_container {
+  display: flex;
+}
+
+.personal_guild_info_container {
+  margin-left: 60px;
+  padding: 20px;
+  width: 20%;
+  min-width: 300px;
+  background-color: #242424;
+  border-radius: 10px;
+}
+
+.personal_guild_detail_container {
+  padding: 20px;
+  background-color: #1c1c1c;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+}
+
+.personal_guild_detail {
+  display: flex;
+}
+
+.personal_guild_txt {
+  margin-left: 20px;
+}
+
+.personal_guild_btn {
+  align-self: center;
+  margin-top: 20px;
+  width: 80%;
+  background-color: #3c6ef0;
+  border: 1px solid #8098bc;
+  color: #ffffff;
+  border-radius: 5px;
+  height: 40px;
+}
+
+.personal_detail_my_info_title {
+  border-top: 1px solid #92acf2;
+  padding-top: 20px;
 }
