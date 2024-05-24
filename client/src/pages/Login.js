@@ -19,7 +19,12 @@ const Login = () => {
         password: password,
       });
 
+
       console.log(response.data);
+
+      sessionStorage.setItem("token", response.data.access);
+      axios.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem("token")}`;
+
       navigate("/");
 
     } catch (error) {
