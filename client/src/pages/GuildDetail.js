@@ -12,7 +12,7 @@ const WargameDetail = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/wargame/${id}/`);
+        const response = await axios.get(`http://localhost:8000/guild/guild-wargame/${id}/`);
         setWargameData(response.data);
       } catch (err) {
         setError(err);

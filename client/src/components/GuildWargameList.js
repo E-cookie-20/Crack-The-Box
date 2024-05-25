@@ -40,7 +40,12 @@ const Wargame = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/guild/${user.guild_id}/wargame-list`);
+        const token = sessionStorage.getItem("token"); // 세션 스토리지에서 토큰 가져오기
+        const response = await axios.get(`http://localhost:8000/guild/${user.guild_id}/wargame-list`, {
+          headers: {
+            Authorization: `Bearer ${token}` // 헤더에 토큰 포함
+          }
+        });
         setData(response.data);
       } catch (err) {
         setError(err);
@@ -48,9 +53,10 @@ const Wargame = () => {
         setLoading(false);
       }
     };
-
+  
     fetchData();
-  }, []);
+  }, [user.guild_id]); // user.guild_id가 변경될 때마다 실행
+  
 
   const handleClick = (id) => {
     navigate(`/guild/${id}`);
