@@ -8,13 +8,10 @@ router = DefaultRouter()
 router.register('',CTFViewSet)
 router.register('chall',CTFchallengeViewSet)
 
-
 #register
 urlpatterns = [
     path('', include(router.urls)),
     path('submit-flag', SubmitCTFFlagAPI.as_view(), name='submit_flag'),
-    #path('<int:ctf_id>/', CTFViewSet.as_view(), name='ctf_challenge_list'),
-
+    path('<int:ctf_id>/participate',ParticipateCTPAPI.as_view(),name='participate')
     #path('/ctf/<ctf_chall_id>', CTFchallengeViewSet.as_view()),
-
 ]

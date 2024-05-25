@@ -1,9 +1,9 @@
-from django.shortcuts import render
 from rest_framework import status, viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.decorators import action
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
@@ -11,7 +11,6 @@ from drf_yasg import openapi
 from .serializers import CTFSerializer, CTFchallengeSerializer, CTFUserSerializer
 from .models import CTF, CTF_challenge, CTF_user, User
 from .forms import challangeForm
-from django.db.models import Count
 
 
 class CTFViewSet(viewsets.ModelViewSet):
@@ -38,20 +37,26 @@ class CTFViewSet(viewsets.ModelViewSet):
 
 class CTFUserViewSet(viewsets.ModelViewSet):
     queryset=CTF.objects.all()
-    serializer_class=CTFSerializer
+    serializer_class=CTFUserSerializer
+  
 
-
+'''
+  "detail": "Method \"POST\" not allowed." 해결 필요
+'''
 class CTFchallengeViewSet(viewsets.ModelViewSet):
     queryset = CTF_challenge.objects.all()
     serializer_class = CTFchallengeSerializer
 
+''' 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         
+        self.perform_create(serializer) #create 내부에서 perform_create 정의해주어야 잘 생성됨
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
         # get_queryset 메서드 오버라이드: 특정 CTF에 속한 챌린지들만 조회
+'''
 
 '''
 class CTFChallengeListView(APIView):
@@ -61,38 +66,60 @@ class CTFChallengeListView(APIView):
         return Response(serializer.data)
 '''
 
-
-
+@method_decorator(login_required, name='dispatch')
+class ParticipateCTPAPI(APIView):
+    @swagger_auto_schema(
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'user_id':openapi.Schema(type=openapi.TYPE_INTEGER),
+            }
+        ),
+        #responses={200: '정답입니다!', 400: '틀렸습니다. 다시 시도하세요.'},
+    )    
+    def post(self, request, *args, **kwargs):
+        user_id=request.data.get('user_id')
+        ctf_id = kwargs.get('ctf_id')  # URL에서 ctf_id를 가져옴
+        try:
+        # 이미 해당 사용자와 CTF 간의 관계가 있는지 확인
+            ctf_user = CTF_user.objects.filter(user_id=user_id, ctf_id=ctf_id).first()
+            if ctf_user is None:
+            # 모델의 인스턴스를 생성 및 저장
+                ctf_user = CTF_user.objects.create(user_id=user_id, ctf_id=ctf_id, user_pts=0)
+            return Response({'ctf_user_id': ctf_user.id}, status=status.HTTP_200_OK)            
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)   
+        
+@method_decorator(login_required, name='dispatch')
 class SubmitCTFFlagAPI(APIView):
     @swagger_auto_schema(
         request_body=openapi.Schema(
             type=openapi.TYPE_OBJECT,
             properties={
-                'flag': openapi.Schema(type=openapi.TYPE_STRING),
-                'challenge_id': openapi.Schema(type=openapi.TYPE_INTEGER),
+                'ctf_user_id':openapi.Schema(type=openapi.TYPE_INTEGER),
+                'challenge_flag': openapi.Schema(type=openapi.TYPE_STRING),
+                'ctf_chall_id': openapi.Schema(type=openapi.TYPE_INTEGER),
             }
         ),
         responses={200: '정답입니다!', 400: '틀렸습니다. 다시 시도하세요.'},
     )
-    def submit_challenge(request):
-        user = request.user
-        id = request.data.get('id') #ctf_chall_id
-        ctf_user = CTF_user.objects.get(user=user)
-        challenge = CTF_challenge.objects.get(id=id)
-        submitted_flag = request.POST.get('challenge_flag')
+    def post(self, request, *args, **kwargs):
+        ctf_user_id = request.data.get('ctf_user_id')
+        id = request.data.get('ctf_chall_id') #ctf_chall_id
+        ctf_user = CTF_user.objects.get(user=ctf_user_id)
+        submitted_flag = request.data.get('challenge_flag')
 
         try:
             challenge = CTF_challenge.objects.get(id=id)
         except CTF_challenge.DoesNotExist:
-            return Response({'message': '해당 ID를 가진 문제가 존재하지 않습니다.'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'message': '해당 ID를 가진 문제가 존재하지 않습니다.'}, status=400)
 
-        if challenge.challenge_flag == submitted_flag:
-            if challenge not in ctf_user.user_chall_solve.all():
-                ctf_user.user_chall_solve.add(challenge)
-                ctf_user.user_pts += challenge.challenge_pts
-                ctf_user.save()
-                return Response({'message': '정답입니다!', 'points': ctf_user.user_pts}, status=200)
-            else:
-                return Response({'message': '이미 푼 문제입니다!'}, status=400)
+        if challenge in ctf_user.user_chall_solve.all():
+            return Response({'message': '이미 푼 문제입니다!'}, status=400)        
+        elif challenge.challenge_flag == submitted_flag:
+            ctf_user.user_chall_solve.add(challenge)
+            ctf_user.user_pts += challenge.challenge_pts
+            ctf_user.save()
+            return Response({'message': '정답입니다!', 'points': ctf_user.user_pts}, status=200)
         else:
             return Response({'message': '틀렸습니다. 다시 시도하세요.'}, status=400)
