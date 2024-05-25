@@ -1,9 +1,10 @@
 from rest_framework import viewsets
 from rest_framework import status
 from rest_framework.response import Response
-from .models import Guild_Wargame, Guild
+from rest_framework.exceptions import PermissionDenied
+from .models import Guild_Wargame, Guild, GuildNotice
 from users.models import User
-from .serializers import Guild_WargameSerializer, GuildSerializer, UserSerializer
+from .serializers import Guild_WargameSerializer, GuildSerializer, UserSerializer, GuildNoticeSerializer
 
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
@@ -149,3 +150,22 @@ class SubmitFlagAPI(APIView):
                 return Response({'message': '정답입니다!'}, status=status.HTTP_200_OK)
             else:
                 return Response({'message': '틀렸습니다. 다시 시도하세요.'}, status=status.HTTP_400_BAD_REQUEST)
+            
+
+class GuildNoticeViewSet(viewsets.ModelViewSet):
+    queryset = GuildNotice.objects.all()
+    serializer_class = GuildNoticeSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        guild_id = self.kwargs.get('guild_id')
+        if guild_id:
+            return GuildNotice.objects.filter(guild_id=guild_id)
+        return super().get_queryset()
+
+    def perform_create(self, serializer):
+        guild_id = self.kwargs.get('guild_id')
+        guild = Guild.objects.get(id=guild_id)
+        if self.request.user != guild.guild_leader:
+            raise PermissionDenied("Only the guild leader can create notices.")
+        serializer.save(guild=guild)
