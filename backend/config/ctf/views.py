@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from rest_framework.decorators import action
 
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
@@ -19,39 +20,53 @@ class CTFViewSet(viewsets.ModelViewSet):
     queryset = CTF.objects.all()  # 모든 CTF 객체를 조회
     serializer_class = CTFSerializer  # CTF 객체를 시리얼라이즈할 때 사용할 시리얼라이저 클래스 지정
 
+    
+    #프론트에서 확인 필요
+    @action(methods=["post"], detail=False, url_path="chall", url_name="chall")
+    def route2chall(self, request, *args, **kwargs):
+        # "chall"에 대한 처리를 수행하는 다른 viewset으로 연결하거나 Response 반환
+        return CTFchallengeViewSet.as_view({
+                'get': 'list',
+                'post': 'create',
+                'put': 'update',
+                'patch': 'partial_update',
+                'delete': 'destroy'
+        })(request._request, *args, **kwargs)  
+
     # retrieve 메서드 오버라이드: 특정 CTF의 상세 정보 조회 시 호출
     def retrieve(self, request, *args, **kwargs):
         ctf_id = kwargs.get('pk')  # URL에서 ctf_id를 가져옴
+        
         ctf = get_object_or_404(CTF, pk=ctf_id)  # 해당 ctf_id의 CTF 객체를 조회, 없으면 404 반환
         challenges = CTF_challenge.objects.filter(ctf_id=ctf)  # 해당 CTF에 속한 모든 챌린지 조회
         challenge_serializer = CTFchallengeSerializer(challenges, many=True)  # 챌린지들을 시리얼라이즈
-        
-        
+            
+            
         '''
-        로그인 되어있었을 때 swagger test를 위한 코드
-        
-        # 임시 사용자 생성
-        temp_user = User.objects.filter(id=1)
-        temp_user_id = temp_user.id
-        
-        # 임시 사용자로 request.user 설정
-        request.user = temp_user
+            로그인 되어있었을 때 swagger test를 위한 코드
+            
+            # 임시 사용자 생성
+            temp_user = User.objects.filter(id=1)
+            temp_user_id = temp_user.id
+            
+            # 임시 사용자로 request.user 설정
+            request.user = temp_user
         '''
 
         participate_users = ctf.participate_user.all()
         participate_users_data = CTFUserSerializer(participate_users, many=True).data
 
-         #만약 일반 사용자라면 자기 정보도 추가해서 보내줌
-        ctf_user=CTF_user.objects.filter(user_id=request.user.id, ctf_id=ctf_id).first()
-        ctf_user_id=ctf_user.id
-        
+        #만약 일반 사용자라면 자기 정보도 추가해서 보내줌
+        #ctf_user=CTF_user.objects.filter(user_id=request.user.id, ctf_id=ctf_id).first()
+        #ctf_user_id=ctf_user.id
+            
         #딕셔너리를 사용하여 데이터를 합침
         response_data = {
-            'challenges': challenge_serializer.data,
-            'participate_users': participate_users_data, #랭킹 기능에 필요
-            'ctf_user_id': ctf_user_id
+                'challenges': challenge_serializer.data,
+                'participate_users': participate_users_data, #랭킹 기능에 필요
+                'ctf_user_id': 1 #이부분 수정 필요..테스트여서
         }
-        
+            
         return Response(response_data)  # 시리얼라이즈된 챌린지와 참여자 데이터를 응답으로 반환
 
 
@@ -65,16 +80,7 @@ class CTFchallengeViewSet(viewsets.ModelViewSet):
     queryset = CTF_challenge.objects.all()
     serializer_class = CTFchallengeSerializer
 
-''' 
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        
-        self.perform_create(serializer) #create 내부에서 perform_create 정의해주어야 잘 생성됨
-        headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
-        # get_queryset 메서드 오버라이드: 특정 CTF에 속한 챌린지들만 조회
-'''
+
 
 '''
 class CTFChallengeListView(APIView):
@@ -85,7 +91,7 @@ class CTFChallengeListView(APIView):
 '''
 
 @method_decorator(login_required, name='dispatch')
-class ParticipateCTPAPI(APIView):
+class ParticipateCTFAPI(APIView):
     @swagger_auto_schema(
         request_body=openapi.Schema(
             type=openapi.TYPE_OBJECT,

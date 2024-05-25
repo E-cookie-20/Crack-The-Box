@@ -12,6 +12,6 @@ router.register('chall',CTFchallengeViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('submit-flag', SubmitCTFFlagAPI.as_view(), name='submit_flag'),
-    path('<int:ctf_id>/participate',ParticipateCTPAPI.as_view(),name='participate')
+    path('<int:ctf_id>/participate',ParticipateCTFAPI.as_view(),name='participate')
     #path('/ctf/<ctf_chall_id>', CTFchallengeViewSet.as_view()),
 ]
