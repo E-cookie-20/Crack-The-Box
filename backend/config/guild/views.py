@@ -5,6 +5,9 @@ from .models import Guild_Wargame, Guild
 from users.models import User
 from .serializers import Guild_WargameSerializer, GuildSerializer, UserSerializer
 
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
+
 from rest_framework.decorators import action
 from rest_framework.views import APIView
 from drf_yasg.utils import swagger_auto_schema
@@ -68,11 +71,12 @@ class GuildViewSet(viewsets.ModelViewSet):
     
     
 class GuildWargameListView(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
     def get(self, request, pk):
         try:
             guild = Guild.objects.get(pk=pk)
             wargame_list = guild.guild_wargame_list.all()
-            # Serialize wargame_list if needed
             wargame_list_data = Guild_WargameSerializer(wargame_list, many=True).data
             return Response({'guild_wargame_list': wargame_list_data}, status=status.HTTP_200_OK)
         except Guild.DoesNotExist:
