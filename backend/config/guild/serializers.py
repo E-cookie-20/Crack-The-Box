@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import Guild_Wargame, Guild
+from .models import Guild_Wargame,Guild
+from ctf.models import CTF
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -22,3 +23,8 @@ class GuildSerializer(serializers.ModelSerializer):
     class Meta:
         model = Guild
         fields = '__all__'
+
+class Guild_CTFSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CTF
+        fields = ['ctf_name','ctf_onging']

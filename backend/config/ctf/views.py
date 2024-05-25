@@ -13,6 +13,7 @@ from .models import CTF, CTF_challenge, CTF_user, User
 from .forms import challangeForm
 
 
+
 class CTFViewSet(viewsets.ModelViewSet):
     queryset = CTF.objects.all()  # 모든 CTF 객체를 조회
     serializer_class = CTFSerializer  # CTF 객체를 시리얼라이즈할 때 사용할 시리얼라이저 클래스 지정

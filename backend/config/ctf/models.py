@@ -22,7 +22,7 @@ class CTF(models.Model):
     ctf_description = models.CharField(max_length=100) #ctf 설명
     ctf_name = models.CharField(max_length=20) #ctf 이름
     ctf_onging=models.BooleanField(default=False) #현재 ctf 진행중인지 여부
-    guild = models.ForeignKey(Guild, on_delete=models.CASCADE,null=True) #출제 길드
+    guild = models.ForeignKey(Guild, on_delete=models.CASCADE,null=True,related_name='guild_ctf') #출제 길드
 
     def __str__(self):
         return self.ctf_name
