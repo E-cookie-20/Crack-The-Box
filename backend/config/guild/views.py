@@ -155,7 +155,6 @@ class SubmitFlagAPI(APIView):
 class GuildNoticeViewSet(viewsets.ModelViewSet):
     queryset = GuildNotice.objects.all()
     serializer_class = GuildNoticeSerializer
-    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         guild_id = self.kwargs.get('guild_id')
