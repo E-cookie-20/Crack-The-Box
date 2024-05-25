@@ -3,7 +3,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from .models import Guild_Wargame, Guild
 from users.models import User
-from .serializers import Guild_WargameSerializer, GuildSerializer, UserSerializer
+from .serializers import Guild_WargameSerializer, GuildSerializer, UserSerializer,Guild_CTFSerializer
 
 from rest_framework.decorators import action
 from rest_framework.views import APIView
@@ -66,6 +66,18 @@ class GuildViewSet(viewsets.ModelViewSet):
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
     
+class GuildCTFListView(APIView):
+    def get(self, request, pk):
+        try:
+            guild = Guild.objects.get(pk=pk)
+            ctf_list = guild.guild_ctf.all()
+            ctf_list_data = Guild_CTFSerializer(ctf_list, many=True).data
+            return Response({'guild_CTF_list': ctf_list_data}, status=status.HTTP_200_OK)
+        except Guild.DoesNotExist:
+            return Response({'error': '해당 ID를 가진 길드가 존재하지 않습니다.'}, status=status.HTTP_404_NOT_FOUND)
+
+
+
     
 class GuildWargameListView(APIView):
     def get(self, request, pk):
