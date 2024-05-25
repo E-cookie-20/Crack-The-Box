@@ -60,14 +60,3 @@ class Guild(models.Model):
     
     def get_members(self):
         return self.members.all()
-    
-
-# 길드 공지사항
-class GuildNotice(models.Model):
-    guild = models.ForeignKey(Guild, on_delete=models.CASCADE, related_name='notices')
-    title = models.CharField(max_length=200)
-    content = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.title

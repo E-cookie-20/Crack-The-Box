@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import logo from "../assets/crack_the_box_logo.png";
 
 const MyHeader = () => {
@@ -9,7 +10,7 @@ const MyHeader = () => {
   useEffect(() => {
     const checkLoginStatus = async () => {
       try {
-        const token = sessionStorage.getItem("token"); // 변경된 부분
+        const token = await AsyncStorage.getItem("userToken");
         if (token !== null) {
           setIsLoggedIn(true);
         } else {
@@ -19,7 +20,7 @@ const MyHeader = () => {
         console.error("Failed to fetch the user token from storage:", error);
       }
     };
-  
+
     checkLoginStatus();
   }, []);
 
@@ -40,7 +41,7 @@ const MyHeader = () => {
   };
   const clickLogout = async () => {
     try {
-      sessionStorage.removeItem("userToken");
+      await AsyncStorage.removeItem("userToken");
       setIsLoggedIn(false);
       navigate("/", { replace: true });
     } catch (error) {
