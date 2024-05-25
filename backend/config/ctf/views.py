@@ -9,11 +9,12 @@ from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 
 from .serializers import CTFSerializer, CTFchallengeSerializer, CTFUserSerializer
-from .models import CTF, CTF_challenge, CTF_user, User
+from .models import CTF, CTF_challenge, CTF_user
+from users.models import User
 from .forms import challangeForm
 
 
-
+@method_decorator(login_required, name='dispatch')
 class CTFViewSet(viewsets.ModelViewSet):
     queryset = CTF.objects.all()  # 모든 CTF 객체를 조회
     serializer_class = CTFSerializer  # CTF 객체를 시리얼라이즈할 때 사용할 시리얼라이저 클래스 지정
@@ -25,14 +26,32 @@ class CTFViewSet(viewsets.ModelViewSet):
         challenges = CTF_challenge.objects.filter(ctf_id=ctf)  # 해당 CTF에 속한 모든 챌린지 조회
         challenge_serializer = CTFchallengeSerializer(challenges, many=True)  # 챌린지들을 시리얼라이즈
         
+        
+        '''
+        로그인 되어있었을 때 swagger test를 위한 코드
+        
+        # 임시 사용자 생성
+        temp_user = User.objects.filter(id=1)
+        temp_user_id = temp_user.id
+        
+        # 임시 사용자로 request.user 설정
+        request.user = temp_user
+        '''
+
         participate_users = ctf.participate_user.all()
         participate_users_data = CTFUserSerializer(participate_users, many=True).data
 
-       # 딕셔너리를 사용하여 두 데이터를 합침
+         #만약 일반 사용자라면 자기 정보도 추가해서 보내줌
+        ctf_user=CTF_user.objects.filter(user_id=request.user.id, ctf_id=ctf_id).first()
+        ctf_user_id=ctf_user.id
+        
+        #딕셔너리를 사용하여 데이터를 합침
         response_data = {
             'challenges': challenge_serializer.data,
-            'participate_users': participate_users_data
+            'participate_users': participate_users_data, #랭킹 기능에 필요
+            'ctf_user_id': ctf_user_id
         }
+        
         return Response(response_data)  # 시리얼라이즈된 챌린지와 참여자 데이터를 응답으로 반환
 
 
@@ -41,9 +60,7 @@ class CTFUserViewSet(viewsets.ModelViewSet):
     serializer_class=CTFUserSerializer
   
 
-'''
-  "detail": "Method \"POST\" not allowed." 해결 필요
-'''
+
 class CTFchallengeViewSet(viewsets.ModelViewSet):
     queryset = CTF_challenge.objects.all()
     serializer_class = CTFchallengeSerializer
