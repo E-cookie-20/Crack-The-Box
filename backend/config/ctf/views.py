@@ -57,14 +57,14 @@ class CTFViewSet(viewsets.ModelViewSet):
         participate_users_data = CTFUserSerializer(participate_users, many=True).data
 
         #만약 일반 사용자라면 자기 정보도 추가해서 보내줌
-        #ctf_user=CTF_user.objects.filter(user_id=request.user.id, ctf_id=ctf_id).first()
-        #ctf_user_id=ctf_user.id
+        ctf_user=CTF_user.objects.filter(user_id=request.user.id, ctf_id=ctf_id).first()
+        ctf_user_id=ctf_user.id
             
         #딕셔너리를 사용하여 데이터를 합침
         response_data = {
                 'challenges': challenge_serializer.data,
                 'participate_users': participate_users_data, #랭킹 기능에 필요
-                'ctf_user_id': 1 #이부분 수정 필요..테스트여서
+                'ctf_user_id': ctf_user_id #이부분 수정 필요..테스트여서
         }
             
         return Response(response_data)  # 시리얼라이즈된 챌린지와 참여자 데이터를 응답으로 반환
@@ -102,7 +102,8 @@ class ParticipateCTFAPI(APIView):
         #responses={200: '정답입니다!', 400: '틀렸습니다. 다시 시도하세요.'},
     )    
     def post(self, request, *args, **kwargs):
-        user_id=request.data.get('user_id')
+        #user_id=request.data.get('user_id')
+        user_id=request.user.id
         ctf_id = kwargs.get('ctf_id')  # URL에서 ctf_id를 가져옴
         try:
         # 이미 해당 사용자와 CTF 간의 관계가 있는지 확인
@@ -112,7 +113,7 @@ class ParticipateCTFAPI(APIView):
                 ctf_user = CTF_user.objects.create(user_id=user_id, ctf_id=ctf_id, user_pts=0)
             return Response({'ctf_user_id': ctf_user.id}, status=status.HTTP_200_OK)            
         except Exception as e:
-            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)   
+            return Response({'message': '이미 참여 중인 CTF입니다.'}, status=status.HTTP_400_BAD_REQUEST)   
         
 @method_decorator(login_required, name='dispatch')
 class SubmitCTFFlagAPI(APIView):
