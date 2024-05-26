@@ -1,28 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useAuth } from "../contexts/AuthContext"; // useAuth 훅 import
 import logo from "../assets/crack_the_box_logo.png";
 
 const MyHeader = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const checkLoginStatus = async () => {
-      try {
-        const token = await AsyncStorage.getItem("userToken");
-        if (token !== null) {
-          setIsLoggedIn(true);
-        } else {
-          setIsLoggedIn(false);
-        }
-      } catch (error) {
-        console.error("Failed to fetch the user token from storage:", error);
-      }
-    };
-
-    checkLoginStatus();
-  }, []);
+  const { isLoggedIn, logout } = useAuth(); // useAuth 훅을 사용하여 isLoggedIn 상태와 logout 함수 가져오기
 
   const clickLogo = () => {
     navigate("/", { replace: true });
@@ -39,14 +22,9 @@ const MyHeader = () => {
   const clickSignup = () => {
     navigate("/signup", { replace: true });
   };
-  const clickLogout = async () => {
-    try {
-      await AsyncStorage.removeItem("userToken");
-      setIsLoggedIn(false);
-      navigate("/", { replace: true });
-    } catch (error) {
-      console.error("Failed to remove the user token from storage:", error);
-    }
+  const handleLogout = () => {
+    logout(); // 로그아웃 함수 호출
+    navigate("/", { replace: true }); // 홈페이지로 이동
   };
 
   return (
@@ -68,7 +46,7 @@ const MyHeader = () => {
         </div>
         <div className="nav_2">
           {isLoggedIn ? (
-            <button onClick={clickLogout}>로그아웃</button>
+            <button onClick={handleLogout}>로그아웃</button>
           ) : (
             <>
               <text onClick={clickLogin}>로그인</text>

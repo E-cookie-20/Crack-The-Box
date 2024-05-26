@@ -20,7 +20,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import React, { useEffect } from 'react';
 import axios from 'axios';
 
-// import CTF from "./pages/CTF";
 import Guild from "./pages/Guild";
 import GuildDetail from "./pages/GuildDetail";
 import Login from "./pages/Login";
@@ -33,6 +32,8 @@ import WargameDetail from "./pages/WargameDetail";
 import FindPassword from "./pages/FindPassword";
 import MyPage from "./pages/MyPage";
 
+import { AuthProvider } from './contexts/AuthContext'; // AuthProvider import
+
 function App() {
   useEffect(() => {
     const token = sessionStorage.getItem('token');
@@ -43,24 +44,25 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className="App">
-        <MyHeader />
-        <div id="wrapper">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            {/* <Route path="/ctf" element={<CTF />} /> */}
-            <Route path="/guild" element={<Guild />} />
-            <Route path="/guild/:id" element={<GuildDetail />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/wargame" element={<Wargame />} />
-            <Route path="/wargame/:id" element={<WargameDetail />} />
-            <Route path="/findpassword" element={<FindPassword />} />
-            <Route path="/mypage" element={<MyPage />} />
-          </Routes>
+      <AuthProvider> {/* AuthProvider로 전체 앱을 감싸줍니다. */}
+        <div className="App">
+          <MyHeader />
+          <div id="wrapper">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/guild" element={<Guild />} />
+              <Route path="/guild/:id" element={<GuildDetail />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/wargame" element={<Wargame />} />
+              <Route path="/wargame/:id" element={<WargameDetail />} />
+              <Route path="/findpassword" element={<FindPassword />} />
+              <Route path="/mypage" element={<MyPage />} />
+            </Routes>
+          </div>
+          <MyFooter />
         </div>
-        <MyFooter />
-      </div>
+      </AuthProvider>
     </BrowserRouter>
   );
 }
