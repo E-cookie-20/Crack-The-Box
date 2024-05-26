@@ -1,106 +1,49 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 const Signup = () => {
-  const [step, setStep] = useState(1);
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [name, setName] = useState('');
-  const [birthdate, setBirthdate] = useState('');
-  const [phone, setPhone] = useState('');
-  const [email, setEmail] = useState('');
-  const [gender, setGender] = useState('');
+  const [formData, setFormData] = useState({
+    signup_username: "",
+    signup_password: "",
+    confirm_password: ""
+  });
 
-  const nextStep = () => {
-    setStep(step + 1);
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
   };
 
-  const prevStep = () => {
-    setStep(step - 1);
-  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (formData.signup_password !== formData.confirm_password) {
+      alert("Passwords do not match");
+      return;
+    }
 
-  const handleSubmit = async () => {
-    const userData = {
-      username,
-      password,
-      first_name: name, // 이름 필드에 해당
-      last_name: "",    // 성 필드에 해당
-      email,
-      user_birth: birthdate,
-      user_phone: phone,
-      user_gender: gender
-    };
-  
     try {
-      const response = await fetch('http://localhost:8000/users/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(userData)
+      const response = await axios.post("http://localhost:8000/users/", {
+        username: formData.signup_username,
+        password: formData.signup_password,
       });
-  
-      if (response.ok) {
-        console.log('회원가입이 완료되었습니다!');
-        // Additional actions after successful signup
+
+      if (response.status === 201) {
+        alert('Signup successful');
       } else {
-        console.error('회원가입에 실패하였습니다.');
+        alert('Signup failed');
       }
     } catch (error) {
-      console.error('서버와의 통신 중 오류가 발생하였습니다.', error);
+      console.error("There was an error signing up!", error);
+      alert('Signup failed');
     }
-  };
-  
-
-  switch (step) {
-    case 1:
-      return (
-        <Step1
-          username={username}
-          setUsername={setUsername}
-          password={password}
-          setPassword={setPassword}
-          confirmPassword={confirmPassword}
-          setConfirmPassword={setConfirmPassword}
-          nextStep={nextStep}
-        />
-      );
-    case 2:
-      return (
-        <Step2
-          name={name}
-          setName={setName}
-          birthdate={birthdate}
-          setBirthdate={setBirthdate}
-          phone={phone}
-          setPhone={setPhone}
-          email={email}
-          setEmail={setEmail}
-          gender={gender}
-          setGender={setGender}
-          prevStep={prevStep}
-          nextStep={nextStep}
-        />
-      );
-    case 3:
-      return <Step3 handleSubmit={handleSubmit} />;
-    default:
-      return null;
-  }
-};
-
-const Step1 = ({ username, setUsername, password, setPassword, confirmPassword, setConfirmPassword, nextStep }) => {
-  const handleNext = (e) => {
-    e.preventDefault();
-    // Validate inputs if needed
-    nextStep();
   };
 
   return (
     <div className="signup_container">
       <div className="signup_rectangle">
-        <h2 className="signup_title">회원가입 - Step 1</h2>
-        <form onSubmit={handleNext}>
+        <h2 className="signup_title">회원가입</h2>
+        <form onSubmit={handleSubmit}>
           <div className="input_container">
             <label className="username_text" htmlFor="signup_username">
               아이디
@@ -112,8 +55,8 @@ const Step1 = ({ username, setUsername, password, setPassword, confirmPassword, 
                 type="text"
                 id="signup_username"
                 name="signup_username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                value={formData.signup_username}
+                onChange={handleChange}
                 required
               />
             </div>
@@ -129,8 +72,8 @@ const Step1 = ({ username, setUsername, password, setPassword, confirmPassword, 
                 type="password"
                 id="signup_password"
                 name="signup_password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={formData.signup_password}
+                onChange={handleChange}
                 required
               />
             </div>
@@ -146,8 +89,8 @@ const Step1 = ({ username, setUsername, password, setPassword, confirmPassword, 
                 type="password"
                 id="confirm_password"
                 name="confirm_password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
+                value={formData.confirm_password}
+                onChange={handleChange}
                 required
               />
             </div>
