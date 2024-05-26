@@ -96,9 +96,118 @@ const Signup = () => {
             </div>
           </div>
           <div className="signup_button_container">
-            <input className="signup_button_2" type="submit" value="회원가입" />
+            <button className="signup_button_2" type="submit">다음</button>
           </div>
         </form>
+      </div>
+    </div>
+  );
+};
+
+const Step2 = ({ name, setName, birthdate, setBirthdate, phone, setPhone, email, setEmail, gender, setGender, prevStep, nextStep }) => {
+  const handleNext = (e) => {
+    e.preventDefault();
+    // Validate inputs if needed
+    nextStep();
+  };
+
+  return (
+    <div className="signup_container">
+      <div className="signup_rectangle">
+        <h2 className="signup_title">회원가입 - Step 2</h2>
+        <form onSubmit={handleNext}>
+          <div className="input_container">
+            <label className="name_text" htmlFor="name">
+              이름
+            </label>
+            <input
+              type="text"
+              id="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+          </div>
+          <div className="input_container">
+            <label className="birthdate_text" htmlFor="birthdate">
+              생년월일
+            </label>
+            <input
+              type="text"
+              id="birthdate"
+              value={birthdate}
+              onChange={(e) => setBirthdate(e.target.value)}
+              required
+            />
+          </div>
+          <div className="input_container">
+            <label className="phone_text" htmlFor="phone">
+              핸드폰 번호
+            </label>
+            <input
+              type="text"
+              id="phone"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              required
+            />
+          </div>
+          <div className="input_container">
+            <label className="email_text" htmlFor="email">
+              이메일
+            </label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className="input_container">
+            <label className="gender_text">성별</label>
+            <div>
+              <label htmlFor="male">Male</label>
+              <input
+                type="radio"
+                id="male"
+                name="gender"
+                value="male"
+                checked={gender === 'male'}
+                onChange={() => setGender('male')}
+              />
+              <label htmlFor="female">Female</label>
+              <input
+                type="radio"
+                id="female"
+                name="gender"
+                value="female"
+                checked={gender === 'female'}
+                onChange={() => setGender('female')}
+              />
+            </div>
+          </div>
+          <div className="signup_button_container">
+            <button onClick={prevStep}>이전</button>
+            <button type="submit">다음</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+
+
+const Step3 = ({ handleSubmit }) => {
+  return (
+    <div className="signup_container">
+      <div className="signup_rectangle">
+        <h2 className="signup_title">회원가입 - Step 3</h2>
+        <div>
+          <h2>회원가입이 완료되었습니다!</h2>
+          <button onClick={handleSubmit}>확인</button>
+        </div>
       </div>
     </div>
   );
