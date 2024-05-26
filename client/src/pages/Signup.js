@@ -2,48 +2,105 @@ import React, { useState } from "react";
 import axios from "axios";
 
 const Signup = () => {
-  const [formData, setFormData] = useState({
-    signup_username: "",
-    signup_password: "",
-    confirm_password: ""
-  });
+  const [step, setStep] = useState(1);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [name, setName] = useState('');
+  const [birthdate, setBirthdate] = useState('');
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+  const [gender, setGender] = useState('');
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+  const nextStep = () => {
+    setStep(step + 1);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (formData.signup_password !== formData.confirm_password) {
-      alert("Passwords do not match");
-      return;
-    }
+  const prevStep = () => {
+    setStep(step - 1);
+  };
 
+  const handleSubmit = async () => {
+    const userData = {
+      username,
+      password,
+      first_name: name,
+      last_name: "",
+      email,
+      user_birth: birthdate,
+      user_phone: phone,
+      user_gender: gender
+    };
+  
     try {
-      const response = await axios.post("http://localhost:8000/users/", {
-        username: formData.signup_username,
-        password: formData.signup_password,
+      const response = await axios.post('http://localhost:8000/users/', userData, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
       });
-
+      console.log(response.data);
+  
       if (response.status === 201) {
-        alert('Signup successful');
+        console.log('회원가입이 완료되었습니다!');
+        // Additional actions after successful signup
       } else {
-        alert('Signup failed');
+        console.error('회원가입에 실패하였습니다.');
       }
     } catch (error) {
-      console.error("There was an error signing up!", error);
-      alert('Signup failed');
+      console.error('서버와의 통신 중 오류가 발생하였습니다.', error);
     }
+  };
+  
+
+  switch (step) {
+    case 1:
+      return (
+        <Step1
+          username={username}
+          setUsername={setUsername}
+          password={password}
+          setPassword={setPassword}
+          confirmPassword={confirmPassword}
+          setConfirmPassword={setConfirmPassword}
+          nextStep={nextStep}
+        />
+      );
+    case 2:
+      return (
+        <Step2
+          name={name}
+          setName={setName}
+          birthdate={birthdate}
+          setBirthdate={setBirthdate}
+          phone={phone}
+          setPhone={setPhone}
+          email={email}
+          setEmail={setEmail}
+          gender={gender}
+          setGender={setGender}
+          prevStep={prevStep}
+          nextStep={nextStep}
+        />
+      );
+    case 3:
+      return <Step3 handleSubmit={handleSubmit} />;
+    default:
+      return null;
+  }
+};
+
+const Step1 = ({ username, setUsername, password, setPassword, confirmPassword, setConfirmPassword, nextStep }) => {
+  const handleNext = (e) => {
+    e.preventDefault();
+    // Validate inputs if needed
+    nextStep();
   };
 
   return (
     <div className="signup_container">
       <div className="signup_rectangle">
-        <h2 className="signup_title">회원가입</h2>
-        <form onSubmit={handleSubmit}>
+        <h2 className="signup_title">회원가입 - Step 1</h2>
+        <form onSubmit={handleNext}>
           <div className="input_container">
             <label className="username_text" htmlFor="signup_username">
               아이디
@@ -55,8 +112,9 @@ const Signup = () => {
                 type="text"
                 id="signup_username"
                 name="signup_username"
-                value={formData.signup_username}
-                onChange={handleChange}
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+
                 required
               />
             </div>
@@ -72,8 +130,8 @@ const Signup = () => {
                 type="password"
                 id="signup_password"
                 name="signup_password"
-                value={formData.signup_password}
-                onChange={handleChange}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 required
               />
             </div>
@@ -89,8 +147,9 @@ const Signup = () => {
                 type="password"
                 id="confirm_password"
                 name="confirm_password"
-                value={formData.confirm_password}
-                onChange={handleChange}
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+
                 required
               />
             </div>
@@ -133,7 +192,7 @@ const Step2 = ({ name, setName, birthdate, setBirthdate, phone, setPhone, email,
               생년월일
             </label>
             <input
-              type="text"
+              type="date"
               id="birthdate"
               value={birthdate}
               onChange={(e) => setBirthdate(e.target.value)}
@@ -174,7 +233,8 @@ const Step2 = ({ name, setName, birthdate, setBirthdate, phone, setPhone, email,
                 name="gender"
                 value="male"
                 checked={gender === 'male'}
-                onChange={() => setGender('male')}
+                onChange={() => setGender('M')}
+
               />
               <label htmlFor="female">Female</label>
               <input
@@ -183,7 +243,7 @@ const Step2 = ({ name, setName, birthdate, setBirthdate, phone, setPhone, email,
                 name="gender"
                 value="female"
                 checked={gender === 'female'}
-                onChange={() => setGender('female')}
+                onChange={() => setGender('F')}
               />
             </div>
           </div>
