@@ -32,7 +32,7 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
             'user_name': user.username,
             'user_birth':user.user_birth,
             'user_phone':user.user_phone,
-            'user_gender':user.get_user_gender_display(),
+            'user_gender':user.user_gender,
             'user_quiz_solve':user_quiz_ids,
             'user_email': user.email,
             'guild_id': user.user_guild.id if user.user_guild else None,
