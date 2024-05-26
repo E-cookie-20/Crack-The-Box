@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 const Signup = () => {
   const [step, setStep] = useState(1);
@@ -23,8 +24,8 @@ const Signup = () => {
     const userData = {
       username,
       password,
-      first_name: name, // 이름 필드에 해당
-      last_name: "",    // 성 필드에 해당
+      first_name: name,
+      last_name: "",
       email,
       user_birth: birthdate,
       user_phone: phone,
@@ -32,15 +33,14 @@ const Signup = () => {
     };
   
     try {
-      const response = await fetch('http://localhost:8000/users/', {
-        method: 'POST',
+      const response = await axios.post('http://localhost:8000/users/', userData, {
         headers: {
           'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(userData)
+        }
       });
+      console.log(response.data);
   
-      if (response.ok) {
+      if (response.status === 201) {
         console.log('회원가입이 완료되었습니다!');
         // Additional actions after successful signup
       } else {
@@ -190,7 +190,7 @@ const Step2 = ({ name, setName, birthdate, setBirthdate, phone, setPhone, email,
               생년월일
             </label>
             <input
-              type="text"
+              type="date"
               id="birthdate"
               value={birthdate}
               onChange={(e) => setBirthdate(e.target.value)}
@@ -231,7 +231,7 @@ const Step2 = ({ name, setName, birthdate, setBirthdate, phone, setPhone, email,
                 name="gender"
                 value="male"
                 checked={gender === 'male'}
-                onChange={() => setGender('male')}
+                onChange={() => setGender('M')}
               />
               <label htmlFor="female">Female</label>
               <input
@@ -240,7 +240,7 @@ const Step2 = ({ name, setName, birthdate, setBirthdate, phone, setPhone, email,
                 name="gender"
                 value="female"
                 checked={gender === 'female'}
-                onChange={() => setGender('female')}
+                onChange={() => setGender('F')}
               />
             </div>
           </div>
