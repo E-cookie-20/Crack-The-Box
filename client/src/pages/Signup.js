@@ -114,6 +114,7 @@ const Step1 = ({ username, setUsername, password, setPassword, confirmPassword, 
                 name="signup_username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
+
                 required
               />
             </div>
@@ -148,6 +149,7 @@ const Step1 = ({ username, setUsername, password, setPassword, confirmPassword, 
                 name="confirm_password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
+
                 required
               />
             </div>
@@ -232,6 +234,7 @@ const Step2 = ({ name, setName, birthdate, setBirthdate, phone, setPhone, email,
                 value="male"
                 checked={gender === 'male'}
                 onChange={() => setGender('M')}
+
               />
               <label htmlFor="female">Female</label>
               <input
