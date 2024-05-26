@@ -58,7 +58,8 @@ class CTFViewSet(viewsets.ModelViewSet):
 
         #만약 일반 사용자라면 자기 정보도 추가해서 보내줌
         ctf_user=CTF_user.objects.filter(user_id=request.user.id, ctf_id=ctf_id).first()
-        ctf_user_id=ctf_user.id
+        #ctf_user_id=ctf_user.id
+        ctf_user_id=1 #테스트용
             
         #딕셔너리를 사용하여 데이터를 합침
         response_data = {
