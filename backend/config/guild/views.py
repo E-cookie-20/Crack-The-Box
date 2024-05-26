@@ -84,8 +84,8 @@ class GuildCTFListView(APIView):
 
     
 class GuildWargameListView(APIView):
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
+    # authentication_classes = [TokenAuthentication]
+    # permission_classes = [IsAuthenticated]
     def get(self, request, pk):
         try:
             guild = Guild.objects.get(pk=pk)
