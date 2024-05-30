@@ -13,11 +13,9 @@ body {
 /* MyHeader */
 header .nav_left {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  height: 80px;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
 .nav_logo {
