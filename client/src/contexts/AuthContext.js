@@ -4,25 +4,23 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(sessionStorage.getItem('token') || null);
-  const [user, setUser] = useState(() => {
-    const userData = sessionStorage.getItem('user');
-    return userData ? userData : null;
-  });
+  const [userId, setUserId] = useState(sessionStorage.getItem('userId') || null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const checkLoginStatus = () => {
     try {
-      const token = sessionStorage.getItem("token");
-      const user = sessionStorage.getItem("user");
-      if (token && user) {
+      const token = sessionStorage.getItem('token');
+      const userId = sessionStorage.getItem('userId');
+      if (token && userId) {
         setToken(token);
-        setUser(user);
+        setUserId(userId);
         setIsLoggedIn(true);
       } else {
         setIsLoggedIn(false);
       }
     } catch (error) {
-      console.error("Failed to fetch the user token from storage:", error);
+      console.error('Failed to fetch the user token from storage:', error);
+      setIsLoggedIn(false);
     }
   };
 
@@ -30,24 +28,24 @@ export const AuthProvider = ({ children }) => {
     checkLoginStatus();
   }, []);
 
-  const login = (token, user) => {
+  const login = (token, user_id) => {
     setToken(token);
-    setUser(user);
+    setUserId(user_id);
     sessionStorage.setItem('token', token);
-    sessionStorage.setItem('user', user);
+    sessionStorage.setItem('userId', user_id); // 수정된 부분
     setIsLoggedIn(true);
   };
 
   const logout = () => {
     setToken(null);
-    setUser(null);
+    setUserId(null);
     sessionStorage.removeItem('token');
-    sessionStorage.removeItem('user');
+    sessionStorage.removeItem('userId');
     setIsLoggedIn(false);
   };
 
   return (
-    <AuthContext.Provider value={{ token, user, login, logout, isLoggedIn }}>
+    <AuthContext.Provider value={{ token, userId, login, logout, isLoggedIn }}>
       {children}
     </AuthContext.Provider>
   );
