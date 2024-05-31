@@ -15,19 +15,32 @@ const WargameDetailList = ({
   const [inputValue, setInputValue] = useState("");
   const [resultMessage, setResultMessage] = useState("");
   const [authorUsername, setAuthorUsername] = useState("");
+  const [authorGuild, setAuthorGuild] = useState("");
+  const [guildName, setGuildName] = useState("");
 
   useEffect(() => {
-    const fetchAuthorUsername = async () => {
+    const fetchAuthorDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/users/${author}`);
-        setAuthorUsername(response.data.username);
+        const userResponse = await axios.get(`http://localhost:8000/users/${author}`);
+        setAuthorUsername(userResponse.data.username);
+        const guildId = userResponse.data.user_guild;
+        setAuthorGuild(guildId);
+
+        if (guildId) {
+          const guildResponse = await axios.get(`http://localhost:8000/guild/guild/${guildId}`);
+          setGuildName(guildResponse.data.guild_name);
+        } else {
+          setGuildName("Unknown");
+        }
       } catch (error) {
-        console.error("Error fetching author username:", error);
-        setAuthorUsername("Unknown"); // Fallback if there's an error
+        console.error("Error fetching author or guild details:", error);
+        setAuthorUsername("Unknown");
+        setAuthorGuild("Unknown");
+        setGuildName("Unknown");
       }
     };
 
-    fetchAuthorUsername();
+    fetchAuthorDetails();
   }, [author]);
 
   const handleDownload = () => {
@@ -108,6 +121,8 @@ const WargameDetailList = ({
         <h3 className="author_title">출제자 정보</h3>
         <div className="author_sub_container">
           <div className="quiz_author">{authorUsername}</div>
+          <span className="quiz_author">길드: </span>
+          <span className="quiz_author">{guildName}</span>
         </div>
       </div>
     </div>
