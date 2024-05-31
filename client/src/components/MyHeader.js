@@ -40,8 +40,8 @@ const MyHeader = () => {
             ></img>
           </div>
           <div className="nav_1">
-            <text onClick={clickWargame}>워게임</text>
-            <text onClick={clickGuild}>길드</text>
+            <span className="header_text" onClick={clickWargame}>워게임</span>
+            <span className="header_text" onClick={clickGuild}>길드</span>
           </div>
         </div>
         <div className="nav_2">
@@ -49,7 +49,7 @@ const MyHeader = () => {
             <button onClick={handleLogout}>로그아웃</button>
           ) : (
             <>
-              <text onClick={clickLogin}>로그인</text>
+              <span className="header_text" onClick={clickLogin}>로그인</span>
               <button className="signup_button" onClick={clickSignup}>
                 회원가입하고 바로 시작하기
               </button>
