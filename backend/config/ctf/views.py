@@ -38,10 +38,13 @@ class CTFViewSet(viewsets.ModelViewSet):
         ctf_id = kwargs.get('pk')  # URL에서 ctf_id를 가져옴
         #user_id=request.user.id
         user_id=1
-        ctf = get_object_or_404(CTF, pk=ctf_id)  # 해당 ctf_id의 CTF 객체를 조회, 없으면 404 반환
-        challenges = CTF_challenge.objects.filter(ctf_id=ctf)  # 해당 CTF에 속한 모든 챌린지 조회
+        ctf =CTF.objects.filter(pk=ctf_id)  # 해당 ctf_id의 CTF 객체를 조회
+        participate_users = ctf.participate_user.all()
+        participate_users_data = CTFUserSerializer(participate_users, many=True).data
+
+        challenges = CTF_challenge.objects.filter(ctf_id=ctf_id)  # 해당 CTF에 속한 모든 챌린지 조회
         challenge_serializer = CTFchallengeSerializer(challenges, many=True)  # 챌린지들을 시리얼라이즈
-            
+        ctf_detail_serializer=CTFSerializer(ctf,many=True)    
             
         '''
             로그인 되어있었을 때 swagger test를 위한 코드
@@ -54,8 +57,6 @@ class CTFViewSet(viewsets.ModelViewSet):
             request.user = temp_user
         '''
 
-        participate_users = ctf.participate_user.all()
-        participate_users_data = CTFUserSerializer(participate_users, many=True).data
 
         #만약 일반 사용자라면 자기 정보도 추가해서 보내줌
         ctf_user=CTF_user.objects.filter(user_id=user_id, ctf_id=ctf_id).first()
@@ -64,6 +65,7 @@ class CTFViewSet(viewsets.ModelViewSet):
         ctf_user_name=ctf_user.ctf_user_name
         #딕셔너리를 사용하여 데이터를 합침
         response_data = {
+                'ctf_detail': ctf_detail_serializer.data,
                 'challenges': challenge_serializer.data,
                 'participate_users': participate_users_data, #랭킹 기능에 필요
                 'ctf_user_id': ctf_user_id, #이부분 수정 필요..테스트여서
