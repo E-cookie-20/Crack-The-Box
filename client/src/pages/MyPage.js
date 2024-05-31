@@ -1,30 +1,37 @@
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext"; // useAuth 훅 import
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import profile_image from "../assets/profile_sample.jpg";
 import guild_sample from "../assets/guild_sample.png";
 
 const MyPage = () => {
   const navigate = useNavigate();
-  const data = [
-    {
-      id: "cuckoo20",
-      last_login: "2024-04-19T11:52:49.149375Z",
-      is_superuser: true,
-      username: "admin",
-      first_name: "아영",
-      last_name: "",
-      email: "gaeun9566@ewhain.net",
-      is_staff: true,
-      is_active: true,
-      date_joined: "2024-04-19T11:52:30.234401Z",
-      guild_id: 1, // 또는 다른 guild_id 값
-      user_birth: "2024-04-19",
-      user_phone: "010-1234-1234",
-      user_gender: "F",
-    },
-  ];
+  const { userId, token } = useAuth();
+  const [userInfo, setUserInfo] = useState(null);
 
-  // Access the first item in the data array
-  const user = data[0];
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8000/users/${userId}/`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        setUserInfo(response.data);
+      } catch (error) {
+        console.error('Failed to fetch user info:', error);
+      }
+    };
+
+    if (userId) {
+      fetchUserInfo();
+    }
+  }, [userId, token]);
+
+  if (!userInfo) {
+    return <div>Loading...</div>;
+  }
 
   const handleGuildButtonClick = () => {
     navigate("/guild");
@@ -47,13 +54,13 @@ const MyPage = () => {
             />
           </div>
           <div className="basic_info_name_container">
-            <h2 className="basic_info_name">{user.username}</h2>
+            <h2 className="basic_info_name">{userInfo.first_name} {userInfo.last_name}</h2>
             <div className="basic_info_id">
-              <h2>{user.id}</h2>
+              <h2>{userInfo.user_id}</h2>
             </div>
           </div>
           <div className="email_info_container">
-            <h3>{user.email}</h3>
+            <h3>{userInfo.user_email}</h3>
           </div>
           <div>
             <div className="guild_info_container">
@@ -66,12 +73,12 @@ const MyPage = () => {
               </div>
               <div className="mypage_guild_component">
                 <div>
-                  {user.guild_id === null ? (
+                  {userInfo.guild_id === null ? (
                     "가입한 길드가 없습니다"
                   ) : (
                     <>
                       <div className="mypage_guild_to_go_btn_container">
-                        {user.guild_id}
+                        {userInfo.guild_id}
                         <button
                           className="guild_to_bo_btn"
                           onClick={handleGuildButtonClick}
@@ -91,17 +98,17 @@ const MyPage = () => {
           <div className="account_info">
             <div className="account_info_component">
               <div>이름</div>
-              <div className="account_info_content">{user.first_name}</div>
+              <div className="account_info_content">{userInfo.first_name}</div>
             </div>
             <div className="account_info_component">
               <div>소속 | 직위</div>
               <div className="account_info_content">
-                {user.guild_id} | <>{user.is_staff ? <>길드장</> : <>팀원</>}</>
+                {userInfo.guild_id} | <>{userInfo.is_staff ? <>길드장</> : <>팀원</>}</>
               </div>
             </div>
             <div className="account_info_component">
               <div>계정(ID)</div>
-              <div className="account_info_content">{user.id}</div>
+              <div className="account_info_content">{userInfo.username}</div>
             </div>
             <div className="account_info_component">
               <div>비밀번호</div>
@@ -112,19 +119,19 @@ const MyPage = () => {
           <div className="etc_info">
             <div className="account_info_component">
               <div>성별</div>
-              <div className="account_info_content">{user.user_gender}</div>
+              <div className="account_info_content">{userInfo.user_gender}</div>
             </div>
             <div className="account_info_component">
               <div>생년월일</div>
-              <div className="account_info_content">{user.user_birth} </div>
+              <div className="account_info_content">{userInfo.user_birth} </div>
             </div>
             <div className="account_info_component">
               <div>이메일</div>
-              <div className="account_info_content">{user.email}</div>
+              <div className="account_info_content">{userInfo.email}</div>
             </div>
             <div className="account_info_component">
               <div>전화번호</div>
-              <div className="account_info_content">{user.user_phone}</div>
+              <div className="account_info_content">{userInfo.user_phone}</div>
             </div>
           </div>
         </div>
