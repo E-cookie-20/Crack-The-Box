@@ -90,7 +90,7 @@ const CTF = () => {
       //const response = await axios.get('http://127.0.0.1:8000/guild/${user.guild_id}/ctf');
       const response = await axios.get('http://127.0.0.1:8000/guild/1/ctf'); //테스트용
       const fetchedData = response.data.guild_CTF_list.map((item, index) => ({
-        id: index.toString(),
+        id: index.id,
         ctf_name: item.ctf_name,
         progress: item.ctf_onging ? 1 : 0,
         img: ctf_icon,

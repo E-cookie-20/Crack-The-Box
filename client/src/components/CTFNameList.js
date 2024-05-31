@@ -8,7 +8,7 @@ const CTFNameProblem = ({
   profile_name,
   profile_position,
 }) => {
-  // /ctf/{ctf_id}
+  
   return (
     <div>
       <div className="ctf_name_container">
