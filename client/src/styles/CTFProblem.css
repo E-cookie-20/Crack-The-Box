@@ -2,7 +2,8 @@
 }
 
 .ctf_problem_title_container {
-  width: 60%;
+  width: 70%;
+  min-width: 700px;
   border-bottom: 1px solid #323232;
   display: flex;
   align-items: center;

@@ -16,9 +16,11 @@ import "../src/styles/MyPage.css";
 import "../src/styles/GuildManage.css";
 import "../src/styles/GuildMember.css";
 import "../src/styles/LeaderBoard.css";
+import "../src/styles/CTFManage.css";
+import "../src/styles/GuildInvitePopup.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import React, { useEffect } from 'react';
-import axios from 'axios';
+import React, { useEffect } from "react";
+import axios from "axios";
 
 import Guild from "./pages/Guild";
 import GuildDetail from "./pages/GuildDetail";
@@ -32,19 +34,21 @@ import WargameDetail from "./pages/WargameDetail";
 import FindPassword from "./pages/FindPassword";
 import MyPage from "./pages/MyPage";
 
-import { AuthProvider } from './contexts/AuthContext'; // AuthProvider import
+import { AuthProvider } from "./contexts/AuthContext"; // AuthProvider import
 
 function App() {
   useEffect(() => {
-    const token = sessionStorage.getItem('token');
+    const token = sessionStorage.getItem("token");
     if (token) {
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     }
   }, []);
 
   return (
     <BrowserRouter>
-      <AuthProvider> {/* AuthProvider로 전체 앱을 감싸줍니다. */}
+      <AuthProvider>
+        {" "}
+        {/* AuthProvider로 전체 앱을 감싸줍니다. */}
         <div className="App">
           <MyHeader />
           <div id="wrapper">

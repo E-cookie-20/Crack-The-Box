@@ -17,9 +17,6 @@ const CTFProblemList = ({ challenges, onChallengeClick }) => {
           >
             <div className="ctf_problem_title">{challenge.challenge_title}</div>
             <h1 className="ctf_problem_points">{challenge.challenge_pts}</h1>
-            {/* <p className="ctf_problem_solve">
-              Status: {challenge.solve ? "Solved" : "Unsolved"}
-            </p> */}
           </div>
         ))
       )}
