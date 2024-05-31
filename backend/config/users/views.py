@@ -19,12 +19,4 @@ class UsersViewSet(viewsets.ModelViewSet):
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
 
-# class UserDetailView(APIView):
-#     permission_classes = [IsAuthenticated]
-
-#     def get(self, request):
-#         user = request.user
-#         serializer = UsersSerializer(user)
-#         return Response(serializer.data)
-
 
