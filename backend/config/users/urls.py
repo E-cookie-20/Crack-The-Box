@@ -14,5 +14,4 @@ urlpatterns = [
     path('', include(router.urls)),
     path('api/token/', CustomTokenObtainPairView.as_view(), name='token_refresh'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    #path('detail/', UserDetailView.as_view(), name='user-detail'),
 ]
