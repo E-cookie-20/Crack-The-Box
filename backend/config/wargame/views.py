@@ -56,8 +56,8 @@ class SubmitFlagAPI(APIView):
 
             if quiz_flag == quiz.quiz_flag:
                 # 나중에 user 진짜 생기면 주석 풀기
-                # user = request.user.User
-                # user.user_quiz_solve.add(quiz)
+                user = request.user.User
+                user.user_quiz_solve.add(quiz)
                 return Response({'message': '정답입니다!'}, status=status.HTTP_200_OK)
             else:
                 return Response({'message': '틀렸습니다. 다시 시도하세요.'}, status=status.HTTP_400_BAD_REQUEST)

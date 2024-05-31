@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import GuildWargameList from "../components/GuildWargameList";
 import CTF from "../components/CTF";
 import GuildManage from "../components/GuildManage";
-import ctf_example_image from "../assets/guild_sample.png";
-import profile_sample from "../assets/profile_sample.jpg";
+import CTFManage from "../components/CTFManage";
+import GuildPersonalInfo from "../components/GuildPersonalInfo";
 
 const data = [
   {
@@ -31,7 +31,6 @@ const Guild = () => {
   const [guildName, setGuildName] = useState("");
   const user = data[0];
 
-
   const handleClickCTF = () => {
     setActiveMenu("ctf");
   };
@@ -43,7 +42,9 @@ const Guild = () => {
   // 서버로부터 사용자의 길드 정보를 가져오는 함수
   const fetchGuildInfo = async () => {
     try {
-      const response = await fetch(`http://localhost:8000/guild/guild/${user.guild_id}`);
+      const response = await fetch(
+        `http://localhost:8000/guild/guild/${user.guild_id}`
+      );
       const d = await response.json();
       setGuildName(d.guild_name);
     } catch (error) {
@@ -153,30 +154,13 @@ const Guild = () => {
             )}
           </div>
         </div>
-        <div className="personal_guild_info_container">
-          <h3>내 길드</h3>
-          <div className="personal_guild_detail_container">
-            <div className="personal_guild_detail">
-              <div className="personal_guild_img">
-                <img src={ctf_example_image}></img>
-              </div>
-              <div className="personal_guild_txt">
-                <h3>{guildName}</h3>
-              </div>
+        <div>
+          <GuildPersonalInfo user={user} guildName={guildName} />
+          {user.guild_admin && activeMenu === "ctf" && (
+            <div>
+              <CTFManage />
             </div>
-            <button className="personal_guild_btn">초대하기</button>
-          </div>
-          <h3 className="personal_detail_my_info_title">내 정보</h3>
-          <div className="personal_detail_my_info">
-            <div className="personal_detail_profile_img">
-              <img
-                className="personal_detail_profile_sample"
-                src={profile_sample}
-                alt="profile_sample"
-              ></img>
-            </div>
-            <div className="personal_detail_profile_txt">{user.first_name}</div>
-          </div>
+          )}
         </div>
       </div>
     </div>

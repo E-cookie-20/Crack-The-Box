@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import CTFProblem from "../pages/CTFProblem";
-import Leaderboard from "./LeaderBoard"; // Assuming the correct path
+import Leaderboard from "./LeaderBoard";
 
 const CTFDetail = ({
   id,
