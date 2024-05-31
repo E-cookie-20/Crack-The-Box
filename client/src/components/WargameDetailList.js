@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { saveAs } from "file-saver";
+import React, { useState, useEffect } from "react";
+import axios from "axios"; // Ensure you have axios installed, or use fetch if preferred
+import { saveAs } from "file-saver"; // Assuming you have file-saver installed
 
 const WargameDetailList = ({
   id,
@@ -11,14 +12,41 @@ const WargameDetailList = ({
   quiz_file,
   author,
 }) => {
-  const handleDownload = () => {
-    // 파일을 blob으로 변환
-    const blob = new Blob({ quiz_file }, { type: "application/octet-stream" });
-    // Blob을 파일로 저장하여 다운로드
-    saveAs(blob, { quiz_title });
-  };
   const [inputValue, setInputValue] = useState("");
   const [resultMessage, setResultMessage] = useState("");
+  const [authorUsername, setAuthorUsername] = useState("");
+  const [authorGuild, setAuthorGuild] = useState("");
+  const [guildName, setGuildName] = useState("");
+
+  useEffect(() => {
+    const fetchAuthorDetails = async () => {
+      try {
+        const userResponse = await axios.get(`http://localhost:8000/users/${author}`);
+        setAuthorUsername(userResponse.data.username);
+        const guildId = userResponse.data.user_guild;
+        setAuthorGuild(guildId);
+
+        if (guildId) {
+          const guildResponse = await axios.get(`http://localhost:8000/guild/guild/${guildId}`);
+          setGuildName(guildResponse.data.guild_name);
+        } else {
+          setGuildName("Unknown");
+        }
+      } catch (error) {
+        console.error("Error fetching author or guild details:", error);
+        setAuthorUsername("Unknown");
+        setAuthorGuild("Unknown");
+        setGuildName("Unknown");
+      }
+    };
+
+    fetchAuthorDetails();
+  }, [author]);
+
+  const handleDownload = () => {
+    const blob = new Blob([quiz_file], { type: "application/octet-stream" });
+    saveAs(blob, quiz_title);
+  };
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
@@ -31,6 +59,7 @@ const WargameDetailList = ({
       setResultMessage("틀렸습니다. 다시 시도하세요.");
     }
   };
+
   return (
     <div className="quiz_info_container">
       <div>
@@ -74,7 +103,6 @@ const WargameDetailList = ({
         <div className="flag_submit_container">
           <h1>답안 제출</h1>
           <div className="flag_input_container">
-            {/* 백엔드 배포 후에 post 요청으로 수정할 것  */}
             <input
               className="flag_input"
               type="text"
@@ -92,7 +120,9 @@ const WargameDetailList = ({
       <div className="author_container">
         <h3 className="author_title">출제자 정보</h3>
         <div className="author_sub_container">
-          <div className="quiz_author">{author}</div>
+          <div className="quiz_author">{authorUsername}</div>
+          <span className="quiz_author">길드: </span>
+          <span className="quiz_author">{guildName}</span>
         </div>
       </div>
     </div>
