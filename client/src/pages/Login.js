@@ -33,7 +33,10 @@ const Login = () => {
       console.log(response.data);
 
       const token = response.data.access;
-      login(token); // 로그인 상태 변경
+      const userId = response.data.user.user_id; // 서버에서 반환되는 user 정보 추출
+
+      login(token, userId); // token과 user를 함께 전달하여 로그인 상태 변경
+
     } catch (error) {
       console.error("로그인 실패:", error);
     }

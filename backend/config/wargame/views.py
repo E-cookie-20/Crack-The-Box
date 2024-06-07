@@ -17,17 +17,17 @@ class WargameViewSet(viewsets.ModelViewSet):
     queryset = Wargame.objects.all()
     serializer_class = WargameSerializer
 
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        if request.user.is_authenticated:  # 사용자가 인증되었는지 확인
-            serializer.save(author=request.user)  # 인증된 사용자일 경우 작성자로 저장
-        else:
-            # 사용자가 인증되지 않았을 경우 작성자 필드를 빈 상태로 저장하거나 다른 처리를 수행할 수 있습니다.
-            serializer.save(author=None)
-            pass
-        headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+    # def create(self, request, *args, **kwargs):
+    #     serializer = self.get_serializer(data=request.data)
+    #     serializer.is_valid(raise_exception=True)
+    #     if request.user.is_authenticated:  # 사용자가 인증되었는지 확인
+    #         serializer.save(author=request.user)  # 인증된 사용자일 경우 작성자로 저장
+    #     else:
+    #         # 사용자가 인증되지 않았을 경우 작성자 필드를 빈 상태로 저장하거나 다른 처리를 수행할 수 있습니다.
+    #         serializer.save(author=None)
+    #         pass
+    #     headers = self.get_success_headers(serializer.data)
+    #     return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 
 
@@ -56,8 +56,8 @@ class SubmitFlagAPI(APIView):
 
             if quiz_flag == quiz.quiz_flag:
                 # 나중에 user 진짜 생기면 주석 풀기
-                # user = request.user.User
-                # user.user_quiz_solve.add(quiz)
+                user = request.user.User
+                user.user_quiz_solve.add(quiz)
                 return Response({'message': '정답입니다!'}, status=status.HTTP_200_OK)
             else:
                 return Response({'message': '틀렸습니다. 다시 시도하세요.'}, status=status.HTTP_400_BAD_REQUEST)
