@@ -44,7 +44,7 @@ class Guild_Wargame(models.Model):
     """
     Guild Wargame 모델은 각 문제에 대한 정보를 저장합니다.
     """
-    guild_id = models.ForeignKey(Guild, related_name='guild_wargame_list', null=True, blank=True, on_delete=models.SET_NULL)
+    guild_id = models.ForeignKey(Guild, related_name='guild_wargame_list', blank=True, on_delete=models.CASCADE)
 
     # 작성자 ID (User 모델과의 연결)
     author = models.ForeignKey(
