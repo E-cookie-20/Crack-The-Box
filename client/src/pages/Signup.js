@@ -1,16 +1,28 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
+import signup_status_1 from "../assets/signup_status_1.png";
+import signup_status_2 from "../assets/signup_status_2.png";
+import signup_status_3 from "../assets/signup_status_3.png";
 
 const Signup = () => {
   const [step, setStep] = useState(1);
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [name, setName] = useState('');
-  const [birthdate, setBirthdate] = useState('');
-  const [phone, setPhone] = useState('');
-  const [email, setEmail] = useState('');
-  const [gender, setGender] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [name, setName] = useState("");
+  const [birthdate, setBirthdate] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [gender, setGender] = useState("");
 
+  const navigate = useNavigate();
+
+  const handleButtonClick = async () => {
+    await handleSubmit(); // handleSubmit 호출
+    navigate("/"); // navigate 호출
+  };
   const nextStep = () => {
     setStep(step + 1);
   };
@@ -23,34 +35,36 @@ const Signup = () => {
     const userData = {
       username,
       password,
-      first_name: name, // 이름 필드에 해당
-      last_name: "",    // 성 필드에 해당
+      first_name: name,
+      last_name: "",
       email,
       user_birth: birthdate,
       user_phone: phone,
-      user_gender: gender
+      user_gender: gender,
     };
-  
+
     try {
-      const response = await fetch('http://localhost:8000/users/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(userData)
-      });
-  
-      if (response.ok) {
-        console.log('회원가입이 완료되었습니다!');
+      const response = await axios.post(
+        "http://localhost:8000/users/",
+        userData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(response.data);
+
+      if (response.status === 201) {
+        console.log("회원가입이 완료되었습니다!");
         // Additional actions after successful signup
       } else {
-        console.error('회원가입에 실패하였습니다.');
+        console.error("회원가입에 실패하였습니다.");
       }
     } catch (error) {
-      console.error('서버와의 통신 중 오류가 발생하였습니다.', error);
+      console.error("서버와의 통신 중 오류가 발생하였습니다.", error);
     }
   };
-  
 
   switch (step) {
     case 1:
@@ -83,13 +97,21 @@ const Signup = () => {
         />
       );
     case 3:
-      return <Step3 handleSubmit={handleSubmit} />;
+      return <Step3 handleSubmit={handleButtonClick} />;
     default:
       return null;
   }
 };
 
-const Step1 = ({ username, setUsername, password, setPassword, confirmPassword, setConfirmPassword, nextStep }) => {
+const Step1 = ({
+  username,
+  setUsername,
+  password,
+  setPassword,
+  confirmPassword,
+  setConfirmPassword,
+  nextStep,
+}) => {
   const handleNext = (e) => {
     e.preventDefault();
     // Validate inputs if needed
@@ -99,7 +121,14 @@ const Step1 = ({ username, setUsername, password, setPassword, confirmPassword, 
   return (
     <div className="signup_container">
       <div className="signup_rectangle">
-        <h2 className="signup_title">회원가입 - Step 1</h2>
+        <div className="status_img_container">
+          <img
+            className="signup_status_1"
+            src={signup_status_1}
+            alt="signup_status_1"
+          ></img>
+        </div>
+        <h2 className="signup_title">회원가입</h2>
         <form onSubmit={handleNext}>
           <div className="input_container">
             <label className="username_text" htmlFor="signup_username">
@@ -153,7 +182,9 @@ const Step1 = ({ username, setUsername, password, setPassword, confirmPassword, 
             </div>
           </div>
           <div className="signup_button_container">
-            <button className="signup_button_2" type="submit">다음</button>
+            <button className="signup_button_2" type="submit">
+              다음
+            </button>
           </div>
         </form>
       </div>
@@ -161,7 +192,20 @@ const Step1 = ({ username, setUsername, password, setPassword, confirmPassword, 
   );
 };
 
-const Step2 = ({ name, setName, birthdate, setBirthdate, phone, setPhone, email, setEmail, gender, setGender, prevStep, nextStep }) => {
+const Step2 = ({
+  name,
+  setName,
+  birthdate,
+  setBirthdate,
+  phone,
+  setPhone,
+  email,
+  setEmail,
+  gender,
+  setGender,
+  prevStep,
+  nextStep,
+}) => {
   const handleNext = (e) => {
     e.preventDefault();
     // Validate inputs if needed
@@ -171,13 +215,22 @@ const Step2 = ({ name, setName, birthdate, setBirthdate, phone, setPhone, email,
   return (
     <div className="signup_container">
       <div className="signup_rectangle">
-        <h2 className="signup_title">회원가입 - Step 2</h2>
+        <div className="status_img_container">
+          <img
+            className="signup_status_2"
+            src={signup_status_2}
+            alt="signup_status_2"
+          ></img>
+        </div>
+        <h2 className="signup_title">정보 입력</h2>
         <form onSubmit={handleNext}>
-          <div className="input_container">
+          <div className="input_container_step_2">
             <label className="name_text" htmlFor="name">
               이름
             </label>
             <input
+              placeholder="실명을 입력해주세요"
+              className="signup_name_input"
               type="text"
               id="name"
               value={name}
@@ -185,23 +238,26 @@ const Step2 = ({ name, setName, birthdate, setBirthdate, phone, setPhone, email,
               required
             />
           </div>
-          <div className="input_container">
+          <div className="input_container_step_2">
             <label className="birthdate_text" htmlFor="birthdate">
               생년월일
             </label>
             <input
-              type="text"
+              className="signup_birthdate_input"
+              type="date"
               id="birthdate"
               value={birthdate}
               onChange={(e) => setBirthdate(e.target.value)}
               required
             />
           </div>
-          <div className="input_container">
+          <div className="input_container_step_2">
             <label className="phone_text" htmlFor="phone">
               핸드폰 번호
             </label>
             <input
+              placeholder="'-' 구분 없이 입력해주세요"
+              className="signup_phone_input"
               type="text"
               id="phone"
               value={phone}
@@ -209,11 +265,13 @@ const Step2 = ({ name, setName, birthdate, setBirthdate, phone, setPhone, email,
               required
             />
           </div>
-          <div className="input_container">
+          <div className="input_container_step_2">
             <label className="email_text" htmlFor="email">
               이메일
             </label>
             <input
+              placeholder="이메일을 입력해주세요"
+              className="signup_email_input"
               type="email"
               id="email"
               value={email}
@@ -221,32 +279,45 @@ const Step2 = ({ name, setName, birthdate, setBirthdate, phone, setPhone, email,
               required
             />
           </div>
-          <div className="input_container">
-            <label className="gender_text">성별</label>
-            <div>
-              <label htmlFor="male">Male</label>
-              <input
-                type="radio"
-                id="male"
-                name="gender"
-                value="male"
-                checked={gender === 'male'}
-                onChange={() => setGender('male')}
-              />
-              <label htmlFor="female">Female</label>
-              <input
-                type="radio"
-                id="female"
-                name="gender"
-                value="female"
-                checked={gender === 'female'}
-                onChange={() => setGender('female')}
-              />
-            </div>
+          <div class="input_container_step_2">
+            <form>
+              <label class="gender_text">성별</label>
+              <div class="radio-group">
+                <input
+                  class="signup_input_male"
+                  type="radio"
+                  id="male"
+                  name="gender"
+                  value="male"
+                  checked
+                  onChange={() => setGender("M")}
+                />
+                <label for="male" class="custom-radio">
+                  <span class="radio-button"></span> Male
+                </label>
+
+                <input
+                  class="signup_input_female"
+                  type="radio"
+                  id="female"
+                  name="gender"
+                  value="female"
+                  checked
+                  onChange={() => setGender("F")}
+                />
+                <label for="female" class="custom-radio">
+                  <span class="radio-button"></span> Female
+                </label>
+              </div>
+            </form>
           </div>
           <div className="signup_button_container">
-            <button onClick={prevStep}>이전</button>
-            <button type="submit">다음</button>
+            <button className="signup_previous_button" onClick={prevStep}>
+              이전
+            </button>
+            <button className="signup_next_button" type="submit">
+              다음
+            </button>
           </div>
         </form>
       </div>
@@ -254,16 +325,32 @@ const Step2 = ({ name, setName, birthdate, setBirthdate, phone, setPhone, email,
   );
 };
 
-
-
-const Step3 = ({ handleSubmit }) => {
+const Step3 = ({ handleButtonClick }) => {
   return (
     <div className="signup_container">
       <div className="signup_rectangle">
-        <h2 className="signup_title">회원가입 - Step 3</h2>
-        <div>
-          <h2>회원가입이 완료되었습니다!</h2>
-          <button onClick={handleSubmit}>확인</button>
+        <div className="status_img_container">
+          <img
+            className="signup_status_3"
+            src={signup_status_3}
+            alt="signup_status_3"
+          ></img>
+        </div>
+        <h2 className="signup_title">회원가입 완료🎉</h2>
+        <div className="signup_success_container">
+          <div className="signup_success_text_container">
+            크랙더박스 가입을 축하합니다!
+            <br />
+            길드를 직접 생성하거나 길드장에게 계정(ID) 초대를 받을 수 있어요
+          </div>
+          <div className="signup_success_btn_container">
+            <button
+              className="signup_success_button"
+              onClick={handleButtonClick}
+            >
+              메인 홈으로 이동하기
+            </button>
+          </div>
         </div>
       </div>
     </div>

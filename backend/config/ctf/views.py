@@ -36,11 +36,15 @@ class CTFViewSet(viewsets.ModelViewSet):
     # retrieve 메서드 오버라이드: 특정 CTF의 상세 정보 조회 시 호출
     def retrieve(self, request, *args, **kwargs):
         ctf_id = kwargs.get('pk')  # URL에서 ctf_id를 가져옴
-        
-        ctf = get_object_or_404(CTF, pk=ctf_id)  # 해당 ctf_id의 CTF 객체를 조회, 없으면 404 반환
-        challenges = CTF_challenge.objects.filter(ctf_id=ctf)  # 해당 CTF에 속한 모든 챌린지 조회
+         #user_id=request.user.id
+        user_id=2
+        ctf =CTF.objects.get(pk=ctf_id)  # 해당 ctf_id의 CTF 객체를 조회
+        participate_users = ctf.participate_user.all()
+        participate_users_data = CTFUserSerializer(participate_users, many=True).data
+
+        challenges = CTF_challenge.objects.filter(ctf_id=ctf_id)  # 해당 CTF에 속한 모든 챌린지 조회
         challenge_serializer = CTFchallengeSerializer(challenges, many=True)  # 챌린지들을 시리얼라이즈
-            
+        ctf_detail_serializer=CTFSerializer(ctf)    
             
         '''
             로그인 되어있었을 때 swagger test를 위한 코드
@@ -53,19 +57,19 @@ class CTFViewSet(viewsets.ModelViewSet):
             request.user = temp_user
         '''
 
-        participate_users = ctf.participate_user.all()
-        participate_users_data = CTFUserSerializer(participate_users, many=True).data
 
         #만약 일반 사용자라면 자기 정보도 추가해서 보내줌
-        ctf_user=CTF_user.objects.filter(user_id=request.user.id, ctf_id=ctf_id).first()
+        ctf_user=CTF_user.objects.filter(user_id=user_id, ctf_id=ctf_id).first()
         #ctf_user_id=ctf_user.id
         ctf_user_id=1 #테스트용
-            
+        ctf_user_name=ctf_user.ctf_user_name
         #딕셔너리를 사용하여 데이터를 합침
         response_data = {
+                'ctf_detail': ctf_detail_serializer.data,
                 'challenges': challenge_serializer.data,
                 'participate_users': participate_users_data, #랭킹 기능에 필요
-                'ctf_user_id': ctf_user_id #이부분 수정 필요..테스트여서
+                'ctf_user_id': ctf_user_id, #이부분 수정 필요..테스트여서
+                'ctf_user_name':ctf_user_name 
         }
             
         return Response(response_data)  # 시리얼라이즈된 챌린지와 참여자 데이터를 응답으로 반환
@@ -103,8 +107,8 @@ class ParticipateCTFAPI(APIView):
         #responses={200: '정답입니다!', 400: '틀렸습니다. 다시 시도하세요.'},
     )    
     def post(self, request, *args, **kwargs):
-        #user_id=request.data.get('user_id')
-        user_id=request.user.id
+        user_id=request.data.get('user_id')
+        #user_id=request.user.id <-로그인 연결되면 이걸로 고쳐야함
         ctf_id = kwargs.get('ctf_id')  # URL에서 ctf_id를 가져옴
         try:
         # 이미 해당 사용자와 CTF 간의 관계가 있는지 확인

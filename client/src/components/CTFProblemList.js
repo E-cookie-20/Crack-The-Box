@@ -22,7 +22,7 @@ const CTFProblemList = ({ ctf_challenges, onChallengeClick }) => {
   return (
     <>
       {challenges.length === 0 ? (
-        <p>No challenges available in this category.</p>
+        <p>아직 문제가 없습니다!</p>
       ) : (
         challenges.map((challenge) => (
           <div
@@ -35,9 +35,6 @@ const CTFProblemList = ({ ctf_challenges, onChallengeClick }) => {
           >
             <div className="ctf_problem_title">{challenge.challenge_title}</div>
             <h1 className="ctf_problem_points">{challenge.challenge_pts}</h1>
-            {/* <p className="ctf_problem_solve">
-              Status: {challenge.solve ? "Solved" : "Unsolved"}
-            </p> */}
           </div>
         ))
       )}
