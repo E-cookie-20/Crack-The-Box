@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Guild_Wargame,Guild, GuildNotice
+from .models import Guild_Wargame,Guild
 from ctf.models import CTF
 
 from django.contrib.auth import get_user_model
@@ -18,23 +18,17 @@ class Guild_WargameSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class GuildSerializer(serializers.ModelSerializer):
-    guild_wargame_list = Guild_WargameSerializer(many=True, read_only=True)
     members = UserSerializer(many=True, read_only=True, source='get_members')
 
     class Meta:
         model = Guild
         fields = '__all__'
 
+    def get_guild_wargame(self, obj):
+        return Guild_WargameSerializer(obj.get_wargame()).data if obj.get_wargame() else None
+
 
 class Guild_CTFSerializer(serializers.ModelSerializer):
     class Meta:
         model = CTF
         fields = ['id','ctf_name','ctf_onging'] #ctf id도 반환하게 추가
-
-
-class GuildNoticeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = GuildNotice
-        fields = ['id', 'guild', 'title', 'content', 'created_at']
-        read_only_fields = ['id', 'guild', 'created_at']
-
