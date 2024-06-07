@@ -18,10 +18,34 @@ QUIZ_LEVELS = [
     ('beginner', 'Beginner'),
 ]
 
+class Guild(models.Model):
+    """
+    Guild 모델은 길드에 대한 정보를 저장합니다.
+    """
+    guild_name = models.CharField(max_length=100, unique=True)
+    guild_leader = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='leader_guilds'
+    )
+    guild_created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.guild_name
+    
+    def get_members(self):
+        return self.members.all()
+    
+    def get_wargame_list(self):
+        return self.guild_wargame_list.all()
+
+
 class Guild_Wargame(models.Model):
     """
     Guild Wargame 모델은 각 문제에 대한 정보를 저장합니다.
     """
+    guild_id = models.ForeignKey(Guild, related_name='guild_wargame_list', null=True, blank=True, on_delete=models.SET_NULL)
+
     # 작성자 ID (User 모델과의 연결)
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -42,33 +66,3 @@ class Guild_Wargame(models.Model):
     
     def get_solvers(self):
         return self.quiz_solvers.all()
-
-class Guild(models.Model):
-    """
-    Guild 모델은 길드에 대한 정보를 저장합니다.
-    """
-    guild_name = models.CharField(max_length=100, unique=True)
-    guild_leader = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-        related_name='leader_guilds'
-    )
-    guild_wargame_list = models.ManyToManyField(Guild_Wargame, related_name='guild_wargame', blank=True)
-    guild_created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.guild_name
-    
-    def get_members(self):
-        return self.members.all()
-    
-
-# 길드 공지사항
-class GuildNotice(models.Model):
-    guild = models.ForeignKey(Guild, on_delete=models.CASCADE, related_name='notices')
-    title = models.CharField(max_length=200)
-    content = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.title
