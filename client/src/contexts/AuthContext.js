@@ -4,47 +4,48 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(sessionStorage.getItem('token') || null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태를 저장하는 상태 추가
+  const [userId, setUserId] = useState(sessionStorage.getItem('userId') || null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // 로그인 상태를 체크하는 함수
   const checkLoginStatus = () => {
     try {
-      const token = sessionStorage.getItem("token");
-      if (token !== null) {
+      const token = sessionStorage.getItem('token');
+      const userId = sessionStorage.getItem('userId');
+      if (token && userId) {
+        setToken(token);
+        setUserId(userId);
         setIsLoggedIn(true);
       } else {
         setIsLoggedIn(false);
       }
     } catch (error) {
-      console.error("Failed to fetch the user token from storage:", error);
+      console.error('Failed to fetch the user token from storage:', error);
+      setIsLoggedIn(false);
     }
   };
 
   useEffect(() => {
-    checkLoginStatus(); // 컴포넌트가 마운트될 때 로그인 상태 체크
-  }, []); // 빈 배열을 전달하여 컴포넌트가 처음 마운트될 때만 실행되도록 설정
+    checkLoginStatus();
+  }, []);
 
-  const login = (token) => {
+  const login = (token, user_id) => {
     setToken(token);
+    setUserId(user_id);
     sessionStorage.setItem('token', token);
-    setIsLoggedIn(true); // 로그인 상태를 true로 변경
+    sessionStorage.setItem('userId', user_id); // 수정된 부분
+    setIsLoggedIn(true);
   };
 
   const logout = () => {
     setToken(null);
+    setUserId(null);
     sessionStorage.removeItem('token');
-    setIsLoggedIn(false); // 로그아웃 상태를 false로 변경
-  };
-
-  const authValues = {
-    token,
-    login,
-    logout,
-    isLoggedIn, // 로그인 상태를 제공
+    sessionStorage.removeItem('userId');
+    setIsLoggedIn(false);
   };
 
   return (
-    <AuthContext.Provider value={authValues}>
+    <AuthContext.Provider value={{ token, userId, login, logout, isLoggedIn }}>
       {children}
     </AuthContext.Provider>
   );
