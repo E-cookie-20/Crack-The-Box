@@ -117,6 +117,7 @@ const CTF = () => {
   return (
     <div>
       {selectedItem ? (
+        //<>{selectedItem}</>
         <CTFDetail {...selectedItem} onBack={handleBackClick} />
       ) : (
         <div className="ctf_container">

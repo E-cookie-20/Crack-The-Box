@@ -7,6 +7,8 @@ import CTFManage from "../components/CTFManage";
 import GuildPersonalInfo from "../components/GuildPersonalInfo";
 import axios from 'axios';
 import { useAuth } from "../contexts/AuthContext"; // useAuth 훅 import
+import { useNavigate } from "react-router-dom";
+
 
 const Guild = () => {
   const [activeMenu, setActiveMenu] = useState("guild-home");

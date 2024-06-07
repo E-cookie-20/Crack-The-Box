@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState,useEffect } from "react";
 import CTFProblem from "../pages/CTFProblem";
 import Leaderboard from "./LeaderBoard";
-import axios from 'axios';
+import axios from "axios";
 
 const CTFDetail = ({
   id,
