@@ -5,7 +5,8 @@ import CTF from "../components/CTF";
 import GuildManage from "../components/GuildManage";
 import CTFManage from "../components/CTFManage";
 import GuildPersonalInfo from "../components/GuildPersonalInfo";
-import axios from 'axios';
+import NoGuild from "../components/NoGuild";
+import axios from "axios";
 import { useAuth } from "../contexts/AuthContext"; // useAuth 훅 import
 
 const Guild = () => {
@@ -28,15 +29,20 @@ const Guild = () => {
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/users/${userId}/`);
+        const response = await axios.get(
+          `http://localhost:8000/users/${userId}/`
+        );
         const user = response.data;
         setUserInfo(user);
         console.log(user); // 이 부분에서 userInfo가 설정된 후에 출력됩니다.
         console.log(user.guild_admin);
 
-        if (user) { // userInfo가 null이 아닌지 체크합니다.
-          console.log("guild axios ~~")
-          const guild_data = await axios.get(`http://localhost:8000/guild/guild/${user.user_guild}`);
+        if (user) {
+          // userInfo가 null이 아닌지 체크합니다.
+          console.log("guild axios ~~");
+          const guild_data = await axios.get(
+            `http://localhost:8000/guild/guild/${user.user_guild}`
+          );
           setGuildName(guild_data.data.guild_name);
           console.log(guild_data.data); // 이 부분에서 guildName이 설정된 후에 출력됩니다.
         }
@@ -53,12 +59,9 @@ const Guild = () => {
         // } catch (error) {
         //   console.error("Error fetching guild info:", error);
         // }
-
       } catch (error) {
-        console.error('Failed:', error);
+        console.error("Failed:", error);
       }
-
-
     };
 
     if (userId) {
@@ -85,7 +88,6 @@ const Guild = () => {
   //   fetchGuildInfo(); // 의존성 배열에서 userInfo를 제거합니다.
   // }, [userInfo]);
 
-
   const handleClickCTF = () => {
     setActiveMenu("ctf");
   };
@@ -93,6 +95,17 @@ const Guild = () => {
   const handleClickWargame = () => {
     setActiveMenu("wargame");
   };
+
+  if (userInfo.user_guild === null) {
+    return (
+      <div className="guild_container">
+        <h1 className="guild_title">길드</h1>
+        <div className="guild_component_container">
+          <NoGuild />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="guild_container">
