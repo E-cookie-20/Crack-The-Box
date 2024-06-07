@@ -31,4 +31,4 @@ class GuildSerializer(serializers.ModelSerializer):
 class Guild_CTFSerializer(serializers.ModelSerializer):
     class Meta:
         model = CTF
-        fields = ['ctf_name','ctf_onging']
+        fields = ['id','ctf_name','ctf_onging'] #ctf id도 반환하게 추가
