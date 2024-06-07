@@ -56,7 +56,7 @@ const CreateGuild = () => {
         data,
         {
           headers: {
-            // Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
         }
@@ -73,7 +73,7 @@ const CreateGuild = () => {
         inviteData,
         {
           headers: {
-            // Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
         }
