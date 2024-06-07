@@ -52,7 +52,7 @@ const CreateGuild = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/guild/guild",
+        "http://localhost:8000/guild/guild/",
         data,
         {
           headers: {
