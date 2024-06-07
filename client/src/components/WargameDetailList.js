@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios"; // Ensure you have axios installed, or use fetch if preferred
-import { saveAs } from "file-saver"; // Assuming you have file-saver installed
+import axios from "axios";
+import { saveAs } from "file-saver";
 import { useParams } from 'react-router-dom';
 
 const WargameDetailList = () => {
@@ -9,7 +9,7 @@ const WargameDetailList = () => {
   const [authorUsername, setAuthorUsername] = useState("");
   const [authorGuild, setAuthorGuild] = useState("");
   const [guildName, setGuildName] = useState("");
-  const [quizData, setQuizData] = useState([]);
+  const [quizData, setQuizData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { id } = useParams(); // URL에서 id 값을 추출
@@ -17,7 +17,7 @@ const WargameDetailList = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/wargame/${id}`); //id로 받아와야하는 것 같은데.. 맞나?
+        const response = await axios.get(`http://localhost:8000/wargame/${id}`);
         setQuizData(response.data);
       } catch (err) {
         setError(err);
@@ -27,32 +27,34 @@ const WargameDetailList = () => {
     };
 
     fetchData();
-  }, []);
+  }, [id]); // id가 변경될 때마다 fetchData 호출
 
   useEffect(() => {
     const fetchAuthorDetails = async () => {
-      try {
-        const userResponse = await axios.get(`http://localhost:8000/users/${quizData.author}`);
-        setAuthorUsername(userResponse.data.username);
-        const guildId = userResponse.data.user_guild;
-        setAuthorGuild(guildId);
+      if (quizData && quizData.author) {
+        try {
+          const userResponse = await axios.get(`http://localhost:8000/users/${quizData.author}`);
+          setAuthorUsername(userResponse.data.username);
+          const guildId = userResponse.data.user_guild;
+          setAuthorGuild(guildId);
 
-        if (guildId) {
-          const guildResponse = await axios.get(`http://localhost:8000/guild/guild/${guildId}`);
-          setGuildName(guildResponse.data.guild_name);
-        } else {
+          if (guildId) {
+            const guildResponse = await axios.get(`http://localhost:8000/guild/guild/${guildId}`);
+            setGuildName(guildResponse.data.guild_name);
+          } else {
+            setGuildName("Unknown");
+          }
+        } catch (error) {
+          console.error("Error fetching author or guild details:", error);
+          setAuthorUsername("Unknown");
+          setAuthorGuild("Unknown");
           setGuildName("Unknown");
         }
-      } catch (error) {
-        console.error("Error fetching author or guild details:", error);
-        setAuthorUsername("Unknown");
-        setAuthorGuild("Unknown");
-        setGuildName("Unknown");
       }
     };
 
     fetchAuthorDetails();
-  }, []);
+  }, [quizData]); // quizData가 변경될 때마다 fetchAuthorDetails 호출
 
   const handleDownload = () => {
     const blob = new Blob([quizData.quiz_file], { type: "application/octet-stream" });
@@ -70,6 +72,14 @@ const WargameDetailList = () => {
       setResultMessage("틀렸습니다. 다시 시도하세요.");
     }
   };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
 
   return (
     <div className="quiz_info_container">

@@ -22,7 +22,7 @@ const WargameDetail = () => {
     };
 
     fetchData();
-  }, [id]); // 의존성 배열 추가
+  }, [id]);
 
   if (loading) {
     return <div>Loading...</div>;
