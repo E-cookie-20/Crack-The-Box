@@ -1,0 +1,83 @@
+.no_guild_container {
+  color: #ffffff;
+  margin-left: 5vw;
+}
+
+.no_guild_title {
+  min-width: 700px;
+  border-bottom: 1px solid #323232;
+  padding-bottom: 10px;
+}
+
+.no_guild_option_container {
+  display: flex;
+}
+
+.no_guild_make_guild_container {
+  border: 1px solid #8098bc;
+  width: 300px;
+  min-width: 300px;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.no_guild_join_container {
+  border: 1px solid #8098bc;
+  width: 300px;
+  min-width: 300px;
+  margin-left: 20px;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.no_guild_make_guild_txt {
+  font-size: medium;
+}
+
+.no_guild_join_txt {
+  font-size: medium;
+}
+
+.no_guild_make_guild_des {
+  margin-top: 10px;
+}
+
+.no_guild_make_guild_img {
+  min-width: 200px;
+  width: 240px;
+}
+
+.no_guild_join_des {
+  margin-top: 10px;
+}
+
+.no_guild_join_img {
+  min-width: 200px;
+  width: 300px;
+}
+
+.no_guild_make_guild_btn {
+  margin-top: 30px;
+  width: 150px;
+  height: 50px;
+  border: none;
+  border-radius: 5px;
+  color: #ffffff;
+  background-color: #3c6ef0;
+  font-size: 15px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.no_guild_join_btn {
+  margin-top: 30px;
+  width: 150px;
+  height: 50px;
+  border: none;
+  border-radius: 5px;
+  color: #093ab9;
+  background-color: #92acf2;
+  font-size: 15px;
+  font-weight: 900;
+  cursor: pointer;
+}

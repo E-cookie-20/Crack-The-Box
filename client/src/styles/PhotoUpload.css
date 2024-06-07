@@ -1,0 +1,13 @@
+.photo_upload_img {
+  width: 200px;
+  height: 200px;
+  margin-top: 10px;
+  border-radius: 50%;
+  object-fit: cover; /* 이미지가 원형 안에 꽉 차도록 */
+  margin-left: 30px;
+}
+
+.file-info {
+  margin-top: 20px;
+  margin-left: 30px;
+}

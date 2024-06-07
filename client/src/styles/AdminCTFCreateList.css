@@ -1,0 +1,67 @@
+.admin_ctf_create_list_container {
+  margin-left: 5vw;
+  color: #ffffff;
+}
+
+.admin_ctf_create_list_title {
+  margin-left: 50px;
+}
+
+.admin_ctf_create_list_title_2 {
+  padding-top: 20px;
+  margin-left: 50px;
+  border-bottom: 1px solid #323232;
+  padding-bottom: 5px;
+  min-width: 600px;
+  max-width: 800px;
+  color: #323232;
+}
+
+.admin_ctf_create_list_title_3 {
+  padding-top: 20px;
+  margin-left: 50px;
+  border-bottom: 1px solid #323232;
+  padding-bottom: 5px;
+  min-width: 600px;
+  max-width: 800px;
+}
+
+.create_problem_btn_contaienr {
+  margin-left: 50px;
+}
+
+.create_problem_btn {
+  width: 150px;
+  cursor: pointer;
+}
+
+.admin_ctf_create_list_btn_container {
+  display: flex;
+  margin-left: 600px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.admin_ctf_create_list_btn_go_back {
+  background-color: transparent;
+  border: 1px solid #b2b2b2;
+  color: #ffffff;
+  border-radius: 7px;
+  padding: 10px;
+  width: 60px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.admin_ctf_create_list_btn_next {
+  width: 100px;
+  border: none;
+  border-radius: 7px;
+  background-color: #3c6ef0;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.admin_ctf_create_list_made_container {
+  margin-left: 50px;
+}
