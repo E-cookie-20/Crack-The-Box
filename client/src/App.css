@@ -80,6 +80,12 @@ header span {
   cursor: pointer;
 }
 
+.logout_btn {
+  background-color: transparent;
+  color: #ffffff;
+  border: none;
+}
+
 /* MyFooter */
 .my_footer {
   background-color: #222529;
