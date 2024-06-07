@@ -36,15 +36,15 @@ class CTFViewSet(viewsets.ModelViewSet):
     # retrieve 메서드 오버라이드: 특정 CTF의 상세 정보 조회 시 호출
     def retrieve(self, request, *args, **kwargs):
         ctf_id = kwargs.get('pk')  # URL에서 ctf_id를 가져옴
-        #user_id=request.user.id
-        user_id=1
-        ctf =CTF.objects.filter(pk=ctf_id)  # 해당 ctf_id의 CTF 객체를 조회
+         #user_id=request.user.id
+        user_id=2
+        ctf =CTF.objects.get(pk=ctf_id)  # 해당 ctf_id의 CTF 객체를 조회
         participate_users = ctf.participate_user.all()
         participate_users_data = CTFUserSerializer(participate_users, many=True).data
 
         challenges = CTF_challenge.objects.filter(ctf_id=ctf_id)  # 해당 CTF에 속한 모든 챌린지 조회
         challenge_serializer = CTFchallengeSerializer(challenges, many=True)  # 챌린지들을 시리얼라이즈
-        ctf_detail_serializer=CTFSerializer(ctf,many=True)    
+        ctf_detail_serializer=CTFSerializer(ctf)    
             
         '''
             로그인 되어있었을 때 swagger test를 위한 코드
@@ -107,8 +107,8 @@ class ParticipateCTFAPI(APIView):
         #responses={200: '정답입니다!', 400: '틀렸습니다. 다시 시도하세요.'},
     )    
     def post(self, request, *args, **kwargs):
-        #user_id=request.data.get('user_id')
-        user_id=request.user.id
+        user_id=request.data.get('user_id')
+        #user_id=request.user.id <-로그인 연결되면 이걸로 고쳐야함
         ctf_id = kwargs.get('ctf_id')  # URL에서 ctf_id를 가져옴
         try:
         # 이미 해당 사용자와 CTF 간의 관계가 있는지 확인
