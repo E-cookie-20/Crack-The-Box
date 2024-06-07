@@ -41,8 +41,8 @@
 
 .ctf_problem_area_grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 10px; /* Adjust the gap as needed */
+  grid-template-columns: repeat(5, 1fr 1fr 1fr 1fr 1fr);
+  gap: 20px; /* Adjust the gap as needed */
 }
 
 .guild_member_info_container {

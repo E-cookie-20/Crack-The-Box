@@ -1,0 +1,62 @@
+.create_guild_container {
+  margin-left: 5vw;
+  padding-left: 50px;
+  color: #ffffff;
+  padding-top: 20px;
+}
+
+.create_guild_txt {
+  padding-top: 30px;
+  border-bottom: 1px solid #323232;
+  min-width: 600px;
+  width: 700px;
+  padding-bottom: 10px;
+}
+
+.create_guild_photo_container {
+  display: flex;
+}
+
+.create_guild_info_container {
+  margin-left: 20px;
+}
+
+.guild_info_txt {
+  display: flex;
+  background-color: #242424;
+  padding: 15px;
+  border-radius: 10px;
+  min-width: 300px;
+  margin-bottom: 10px;
+  color: #888888;
+}
+
+.guild_info_input {
+  background-color: transparent;
+  border: none;
+  text-align: right;
+  color: #888888;
+  margin-left: auto;
+}
+
+.create_guild_btn_container {
+  margin-left: 250px;
+  margin-top: 20px;
+}
+
+.create_guild_btn_cancel {
+  color: #ffffff;
+  border: 1px solid #b2b2b2b2;
+  background-color: transparent;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.create_guild_btn_create {
+  color: #ffffff;
+  background-color: #3c6ef0;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  margin-left: 5px;
+}
