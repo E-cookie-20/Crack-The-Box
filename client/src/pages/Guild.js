@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import NoGuild from "../components/NoGuild"; // NoGuild.js 파일을 import합니다.
 import GuildWargameList from "../components/GuildWargameList";
 import CTF from "../components/CTF";
 import GuildManage from "../components/GuildManage";
@@ -52,116 +52,125 @@ const Guild = () => {
     }
   };
 
-  useEffect(() => {
-    fetchGuildInfo();
-  }, []);
-
   return (
     <div className="guild_container">
       <div className="guild_title_container">
         <h1 className="guild_title">길드</h1>
       </div>
       <div className="guild_component_container">
-        <div className="guild_menu_container">
-          <nav className="guild_menu">
-            <div
-              className="guild_menu_component"
-              onClick={() => setActiveMenu("guild-home")}
-              style={{
-                borderBottom:
-                  activeMenu === "guild-home" ? "4px solid #3C6EF0" : "none",
-              }}
-            >
-              길드 홈
-            </div>
-            <div
-              className="guild_menu_component"
-              onClick={handleClickCTF}
-              style={{
-                borderBottom:
-                  activeMenu === "ctf" ? "4px solid #3C6EF0" : "none",
-              }}
-            >
-              CTF
-            </div>
-            <div
-              className="guild_menu_component"
-              onClick={handleClickWargame}
-              style={{
-                borderBottom:
-                  activeMenu === "wargame" ? "4px solid #3C6EF0" : "none",
-              }}
-            >
-              워게임
-            </div>
-            {user.guild_admin && (
-              <div
-                className="guild_menu_component"
-                onClick={() => setActiveMenu("guild-management")}
-                style={{
-                  borderBottom:
-                    activeMenu === "guild-management"
-                      ? "4px solid #3C6EF0"
-                      : "none",
-                }}
-              >
-                길드관리
-              </div>
-            )}
-          </nav>
-          <div className="guild_menu_content">
-            {activeMenu === "guild-home" && (
-              <div className="guild-home-container">
-                <div className="move_to_ctf">
-                  <div className="move_to_ctf_txt">
-                    멤버들과 함께
-                    <br />
-                    CTF에 참여해볼까요?
-                  </div>
-                  <button className="move_to_ctf_btn" onClick={handleClickCTF}>
-                    CTF로 이동하기 &gt;
-                  </button>
+        {user.guild_id ? (
+          <>
+            <div className="guild_menu_container">
+              <nav className="guild_menu">
+                <div
+                  className="guild_menu_component"
+                  onClick={() => setActiveMenu("guild-home")}
+                  style={{
+                    borderBottom:
+                      activeMenu === "guild-home"
+                        ? "4px solid #3C6EF0"
+                        : "none",
+                  }}
+                >
+                  길드 홈
                 </div>
-                <div className="move_to_wargame">
-                  <div className="move_to_wargame_txt">
-                    직접 문제를 만들고
-                    <br />
-                    길드 내에서 아카이빙해요
-                  </div>
-                  <button
-                    className="move_to_wargame_btn"
-                    onClick={handleClickWargame}
+                <div
+                  className="guild_menu_component"
+                  onClick={handleClickCTF}
+                  style={{
+                    borderBottom:
+                      activeMenu === "ctf" ? "4px solid #3C6EF0" : "none",
+                  }}
+                >
+                  CTF
+                </div>
+                <div
+                  className="guild_menu_component"
+                  onClick={handleClickWargame}
+                  style={{
+                    borderBottom:
+                      activeMenu === "wargame" ? "4px solid #3C6EF0" : "none",
+                  }}
+                >
+                  워게임
+                </div>
+                {user.guild_admin && (
+                  <div
+                    className="guild_menu_component"
+                    onClick={() => setActiveMenu("guild-management")}
+                    style={{
+                      borderBottom:
+                        activeMenu === "guild-management"
+                          ? "4px solid #3C6EF0"
+                          : "none",
+                    }}
                   >
-                    워게임으로 이동하기 &gt;
-                  </button>
-                </div>
+                    길드관리
+                  </div>
+                )}
+              </nav>
+              <div className="guild_menu_content">
+                {activeMenu === "guild-home" && (
+                  <div className="guild-home-container">
+                    <div className="move_to_ctf">
+                      <div className="move_to_ctf_txt">
+                        멤버들과 함께
+                        <br />
+                        CTF에 참여해볼까요?
+                      </div>
+                      <button
+                        className="move_to_ctf_btn"
+                        onClick={handleClickCTF}
+                      >
+                        CTF로 이동하기 &gt;
+                      </button>
+                    </div>
+                    <div className="move_to_wargame">
+                      <div className="move_to_wargame_txt">
+                        직접 문제를 만들고
+                        <br />
+                        길드 내에서 아카이빙해요
+                      </div>
+                      <button
+                        className="move_to_wargame_btn"
+                        onClick={handleClickWargame}
+                      >
+                        워게임으로 이동하기 &gt;
+                      </button>
+                    </div>
+                  </div>
+                )}
+                {activeMenu === "ctf" && (
+                  <div>
+                    <CTF />
+                  </div>
+                )}
+                {activeMenu === "wargame" && (
+                  <div className="guild_wargame_list">
+                    <GuildWargameList />
+                  </div>
+                )}
+                {user.guild_admin && activeMenu === "guild-management" && (
+                  <div>
+                    <GuildManage />
+                  </div>
+                )}
               </div>
-            )}
-            {activeMenu === "ctf" && (
-              <div>
-                <CTF />
-              </div>
-            )}
-            {activeMenu === "wargame" && (
-              <div className="guild_wargame_list">
-                <GuildWargameList />
-              </div>
-            )}
-            {user.guild_admin && activeMenu === "guild-management" && (
-              <div>
-                <GuildManage />
-              </div>
-            )}
-          </div>
-        </div>
-        <div>
-          <GuildPersonalInfo user={user} guildName={guildName} />
-          {user.guild_admin && activeMenu === "ctf" && (
-            <div>
-              <CTFManage />
             </div>
-          )}
-        </div>
+            <div>
+              <GuildPersonalInfo user={user} guildName={guildName} />
+              {user.guild_admin && activeMenu === "ctf" && (
+                <div>
+                  <CTFManage />
+                </div>
+              )}
+            </div>
+          </>
+        ) : (
+          <>
+            <NoGuild />
+          </>
+        )}
       </div>
     </div>
   );

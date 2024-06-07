@@ -35,7 +35,8 @@ header .nav_left {
 }
 
 .nav_1 {
-  padding-left: 15px;
+  margin-left: 15px;
+  display: flex;
 }
 
 .nav_2 {

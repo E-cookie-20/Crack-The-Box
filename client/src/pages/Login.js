@@ -22,16 +22,18 @@ const Login = () => {
     console.log(username);
     console.log(password);
     try {
-      const response = await axios.post("http://localhost:8000/users/api/token/", {
-        username: username,
-        password: password,
-      });
+      const response = await axios.post(
+        "http://localhost:8000/users/api/token/",
+        {
+          username: username,
+          password: password,
+        }
+      );
 
       console.log(response.data);
 
       const token = response.data.access;
       login(token); // 로그인 상태 변경
-
     } catch (error) {
       console.error("로그인 실패:", error);
     }
@@ -76,7 +78,7 @@ const Login = () => {
           </div>
 
           <div className="login_button_container">
-            <button className="login_button" type="submit">
+            <button className="login_button_1" type="submit">
               로그인
             </button>
           </div>
