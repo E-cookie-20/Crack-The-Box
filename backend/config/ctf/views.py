@@ -37,7 +37,7 @@ class CTFViewSet(viewsets.ModelViewSet):
     def retrieve(self, request, *args, **kwargs):
         ctf_id = kwargs.get('pk')  # URL에서 ctf_id를 가져옴
          #user_id=request.user.id
-        user_id=2
+        user_id=1 #바꿔야함
         ctf =CTF.objects.get(pk=ctf_id)  # 해당 ctf_id의 CTF 객체를 조회
         participate_users = ctf.participate_user.all()
         participate_users_data = CTFUserSerializer(participate_users, many=True).data

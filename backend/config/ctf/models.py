@@ -45,7 +45,7 @@ class CTF_user(models.Model):  # ctf 종료되면 이거 다 clear해야함
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ctf_user')  # one to one으로 하면 user 객체 자체가 저장됨
     ctf_user_name = models.CharField(max_length=150,blank=True, null=True)  # User 모델의 username을 저장!!!!!!!!!!!!!!!
     ctf = models.ForeignKey(CTF, on_delete=models.CASCADE, related_name='participate_user', blank=True, null=True)
-    user_chall_solve = models.ManyToManyField(CTF_challenge, related_name='solved_by_users', blank=True, null=True)
+    user_chall_solve = models.ManyToManyField(CTF_challenge, related_name='solved_by_users', blank=True)
     user_pts = models.PositiveIntegerField(default=0)  # 점수
 
     def save(self, *args, **kwargs):

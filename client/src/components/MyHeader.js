@@ -1,18 +1,27 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext"; // useAuth 훅 import
 import logo from "../assets/crack_the_box_logo.png";
 
 const MyHeader = () => {
-  const [active, setActive] = useState(""); // 현재 활성화된 메뉴를 추적하는 상태
   const navigate = useNavigate();
   const { isLoggedIn, logout } = useAuth(); // useAuth 훅을 사용하여 isLoggedIn 상태와 logout 함수 가져오기
 
-  const handleClick = (menu) => {
-    setActive(menu);
-    navigate(`/${menu}`, { replace: true });
+  const clickLogo = () => {
+    navigate("/", { replace: true });
   };
-
+  const clickGuild = () => {
+    navigate("/guild", { replace: true });
+  };
+  const clickWargame = () => {
+    navigate("/wargame", { replace: true });
+  };
+  const clickLogin = () => {
+    navigate("/login", { replace: true });
+  };
+  const clickSignup = () => {
+    navigate("/signup", { replace: true });
+  };
   const handleLogout = () => {
     logout(); // 로그아웃 함수 호출
     navigate("/", { replace: true }); // 홈페이지로 이동
@@ -27,7 +36,7 @@ const MyHeader = () => {
               alt="logo"
               className="logo"
               src={logo}
-              onClick={() => handleClick("")}
+              onClick={clickLogo}
             ></img>
           </div>
           <div className="nav_1">
