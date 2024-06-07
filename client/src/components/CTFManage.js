@@ -1,4 +1,13 @@
+import React from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
+
 const CTFManage = () => {
+  const navigate = useNavigate(); // Initialize useNavigate
+
+  const handleAdminMove = () => {
+    navigate("/ctfadminmode"); // Navigate to /ctfadminmode
+  };
+
   return (
     <div>
       <div className="CTF_manage_container">
@@ -8,7 +17,9 @@ const CTFManage = () => {
           있어요
         </div>
         <div className="CTF_manage_btn_container">
-          <button className="CTF_manage_btn">관리자 이동</button>
+          <button className="CTF_manage_btn" onClick={handleAdminMove}>
+            관리자 이동
+          </button>
         </div>
       </div>
     </div>

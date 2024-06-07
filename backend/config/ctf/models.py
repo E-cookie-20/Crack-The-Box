@@ -39,9 +39,21 @@ class CTF_challenge(models.Model):
     challenge_file = models.FileField(upload_to='challange_files/', blank=True, null=True) # 문제 파일 업로드(zip 권장)
 
 
-class CTF_user(models.Model): #ctf 종료되면 이거 다 clear해야함
+class CTF_user(models.Model):  # ctf 종료되면 이거 다 clear해야함
     # 푼 문제 (JSONField 사용 or ManyToManyField로 별도의 문제 모델과 연결 가능)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ctf_user') #one to one으로 하면 user 객체 자체가 저장됨;;;
-    ctf=models.ForeignKey(CTF,on_delete=models.CASCADE,related_name='participate_user',blank=True, null=True)
-    user_chall_solve = models.ManyToManyField(CTF_challenge, related_name='solved_by_users',blank=True)
-    user_pts=models.PositiveIntegerField(default=0) #점수
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ctf_user')  # one to one으로 하면 user 객체 자체가 저장됨
+    ctf_user_name = models.CharField(max_length=150,blank=True, null=True)  # User 모델의 username을 저장!!!!!!!!!!!!!!!
+    ctf = models.ForeignKey(CTF, on_delete=models.CASCADE, related_name='participate_user', blank=True, null=True)
+    user_chall_solve = models.ManyToManyField(CTF_challenge, related_name='solved_by_users', blank=True)
+    user_pts = models.PositiveIntegerField(default=0)  # 점수
+
+    def save(self, *args, **kwargs):
+        # user가 연결된 경우 ctf_user_name을 user의 username으로 설정
+        if self.user:
+            self.ctf_user_name = self.user.username
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.ctf_user_name}"
+

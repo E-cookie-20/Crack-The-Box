@@ -2,7 +2,7 @@
 }
 
 .ctf_problem_title_container {
-  width: 70%;
+  width: 65%;
   min-width: 700px;
   border-bottom: 1px solid #323232;
   display: flex;
@@ -15,7 +15,6 @@
   font-size: smaller;
   font-weight: 2=300;
   width: 60%;
-  margin-left: auto;
 }
 
 .ctf_problem_start_time {
@@ -41,8 +40,8 @@
 
 .ctf_problem_area_grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 10px; /* Adjust the gap as needed */
+  grid-template-columns: repeat(5, 1fr 1fr 1fr 1fr 1fr);
+  gap: 20px; /* Adjust the gap as needed */
 }
 
 .guild_member_info_container {

@@ -201,7 +201,12 @@ const Wargame = () => {
             Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam,
             purus sit amet luctus{" "}
           </div>
-          <button className="wargame-make-button">이동하기</button>
+          <button
+            className="wargame-make-button"
+            onClick={() => navigate("/createwargame")}
+          >
+            이동하기
+          </button>
         </div>
       </div>
     </div>

@@ -9,7 +9,8 @@ class WargameSerializer(serializers.ModelSerializer):
 class WargameCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Wargame
-        exclude = ['author']
+        fields = '__all__'
+        # exclude = ['author']
 
     # def create(self, validated_data):
     #     # 현재 요청을 보낸 사용자를 작성자로 할당

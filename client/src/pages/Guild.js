@@ -8,6 +8,7 @@ import GuildPersonalInfo from "../components/GuildPersonalInfo";
 import axios from 'axios';
 import { useAuth } from "../contexts/AuthContext"; // useAuth 훅 import
 
+
 const Guild = () => {
   const [activeMenu, setActiveMenu] = useState("guild-home");
   const [guildName, setGuildName] = useState("");
@@ -58,14 +59,14 @@ const Guild = () => {
         console.error('Failed:', error);
       }
 
-      
+
     };
-  
+
     if (userId) {
       fetchUserInfo();
     }
   }, [userId, token]); // userInfo를 의존성 배열에서 제거합니다.
-  
+
   // useEffect(() => {
   //   const fetchGuildInfo = async () => {
   //     try {
@@ -81,10 +82,10 @@ const Guild = () => {
   //       console.error("Error fetching guild info:", error);
   //     }
   //   };
-  
+
   //   fetchGuildInfo(); // 의존성 배열에서 userInfo를 제거합니다.
   // }, [userInfo]);
-  
+
 
   const handleClickCTF = () => {
     setActiveMenu("ctf");
