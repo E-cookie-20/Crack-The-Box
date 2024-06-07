@@ -168,17 +168,20 @@ const CTFProblem = ({
         </div>
       </div>
       <div className="ctf_problem_area">
-        {Object.keys(categorizedChallenges).map((type) => (
-          <div key={type} className={`${type.toLowerCase()}_container`}>
-            <h3>{type}</h3>
-            <div className="ctf_problem_area_grid">
-              <CTFProblemList
-                challenges={categorizedChallenges[type]}
-                onChallengeClick={handleChallengeClick}
-              />
-            </div>
-          </div>
-        ))}
+        {Object.keys(categorizedChallenges).map(
+          (type) =>
+            categorizedChallenges[type].length > 0 && (
+              <div key={type} className={`${type.toLowerCase()}_container`}>
+                <h3>{type}</h3>
+                <div className="ctf_problem_area_grid">
+                  <CTFProblemList
+                    challenges={categorizedChallenges[type]}
+                    onChallengeClick={handleChallengeClick}
+                  />
+                </div>
+              </div>
+            )
+        )}
       </div>
       {isPopupOpen && selectedChallenge && (
         <CTFProblemPopup

@@ -22,7 +22,7 @@ const CTFProblemList = ({ ctf_challenges, onChallengeClick }) => {
   return (
     <>
       {challenges.length === 0 ? (
-        <p>No challenges available in this category.</p>
+        <p>아직 문제가 없습니다!</p>
       ) : (
         challenges.map((challenge) => (
           <div
