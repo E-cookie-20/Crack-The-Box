@@ -1,5 +1,6 @@
 .home_wrapper {
   padding: 50px;
+  min-width: 1600px;
 }
 
 .home_text {
@@ -25,7 +26,7 @@
   border-radius: 16px;
   width: 20%;
   max-width: 20%;
-  min-width: 20%;
+  min-width: 200px;
   height: 350px;
   margin-right: 20px;
   overflow: auto;
@@ -166,6 +167,7 @@
   flex-direction: row;
   margin-left: 6%;
   margin-top: 20px;
+  min-width: 600px;
 }
 
 /* 하단 ctf 리스트 */
@@ -179,6 +181,7 @@
   display: flex;
   flex-direction: row;
   position: relative;
+  min-width: 800px;
 }
 
 .ctf_cover_img {

@@ -1,0 +1,32 @@
+.CTF_manage_container {
+  margin-left: 60px;
+  padding: 20px;
+  width: 20%;
+  min-width: 300px;
+  background-color: #222529;
+  border-radius: 10px;
+  height: 180px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+.CTF_manage_text {
+  font-size: small;
+  padding: 5px;
+}
+
+.CTF_manage_btn {
+  margin-top: 20px;
+  width: 80%;
+  background-color: #3c6ef0;
+  border: 1px solid #8098bc;
+  color: #ffffff;
+  border-radius: 5px;
+  height: 40px;
+  cursor: pointer;
+}
+
+.CTF_manage_btn_container {
+  display: flex;
+  justify-content: center;
+}

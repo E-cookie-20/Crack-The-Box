@@ -24,7 +24,8 @@ class Wargame(models.Model):
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL, 
         on_delete=models.CASCADE,
-        related_name='wargames'
+        related_name='wargames',
+        null = True
     )
 
     quiz_description = models.TextField()  # 문제 설명
