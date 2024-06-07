@@ -28,7 +28,7 @@ class Guild(models.Model):
         on_delete=models.CASCADE,
         related_name='leader_guilds'
     )
-    guild_created_at = models.DateTimeField(auto_now_add=True)
+    guild_created_at = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
         return self.guild_name
