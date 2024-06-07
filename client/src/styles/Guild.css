@@ -128,6 +128,7 @@
   color: #ffffff;
   border-radius: 5px;
   height: 40px;
+  cursor: pointer;
 }
 
 .personal_detail_my_info_title {
@@ -155,4 +156,40 @@
 
 .personal_detail_profile_txt {
   margin-left: 20px;
+}
+
+.personal_detail_profile_group_txt {
+  font-size: small;
+  margin-top: 10px;
+}
+
+.personal_detail_name_id_container {
+  display: flex;
+}
+
+.personal_info_id_copy_button {
+  background-color: transparent;
+  border: none;
+  color: #878887;
+  cursor: pointer;
+  margin-left: 20px;
+}
+
+.personal_detail_guild_admin {
+  margin-bottom: 5px;
+  color: #093ab9;
+  background-color: #92acf2;
+  font-size: small;
+  width: 30%;
+  border-radius: 10px;
+  padding: 2px;
+}
+
+.my_guild_invite_btn {
+  background-color: transparent;
+  cursor: pointer;
+  border: 1px solid #818181;
+  color: #818181;
+  border-radius: 10px;
+  margin-left: auto;
 }

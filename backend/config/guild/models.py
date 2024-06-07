@@ -54,6 +54,7 @@ class Guild(models.Model):
         related_name='leader_guilds'
     )
     guild_wargame_list = models.ManyToManyField(Guild_Wargame, related_name='guild_wargame', blank=True)
+    guild_created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.guild_name

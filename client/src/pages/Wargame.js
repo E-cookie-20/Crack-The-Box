@@ -11,16 +11,15 @@ const Wargame = () => {
   const [typeFilter, setTypeFilter] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
 
-
   const navigate = useNavigate();
 
-  // 로그인 유지 확인 
+  // 로그인 유지 확인
   useEffect(() => {
-    const token = sessionStorage.getItem('token');
+    const token = sessionStorage.getItem("token");
     if (token) {
-      console.log('JWT Token:', token);
+      console.log("JWT Token:", token);
     } else {
-      console.log('No token found');
+      console.log("No token found");
     }
   }, []);
 
@@ -94,19 +93,19 @@ const Wargame = () => {
                 all
               </button>
               <button
-                className={levelFilter === "상" ? "active" : ""}
+                className={levelFilter === "high" ? "active" : ""}
                 onClick={() => setLevelFilter("high")}
               >
                 상
               </button>
               <button
-                className={levelFilter === "중" ? "active" : ""}
+                className={levelFilter === "intermediate" ? "active" : ""}
                 onClick={() => setLevelFilter("intermediate")}
               >
                 중
               </button>
               <button
-                className={levelFilter === "하" ? "active" : ""}
+                className={levelFilter === "beginner" ? "active" : ""}
                 onClick={() => setLevelFilter("beginner")}
               >
                 하
@@ -122,37 +121,37 @@ const Wargame = () => {
                 all
               </button>
               <button
-                className={typeFilter === "시스템해킹" ? "active" : ""}
+                className={typeFilter === "system" ? "active" : ""}
                 onClick={() => setTypeFilter("system")}
               >
                 시스템해킹
               </button>
               <button
-                className={typeFilter === "리버싱" ? "active" : ""}
+                className={typeFilter === "reversing" ? "active" : ""}
                 onClick={() => setTypeFilter("reversing")}
               >
                 리버싱
               </button>
               <button
-                className={typeFilter === "웹해킹" ? "active" : ""}
+                className={typeFilter === "web" ? "active" : ""}
                 onClick={() => setTypeFilter("web")}
               >
                 웹해킹
               </button>
               <button
-                className={typeFilter === "암호화" ? "active" : ""}
+                className={typeFilter === "crypto" ? "active" : ""}
                 onClick={() => setTypeFilter("crypto")}
               >
                 암호화
               </button>
               <button
-                className={typeFilter === "포렌식" ? "active" : ""}
+                className={typeFilter === "forensic" ? "active" : ""}
                 onClick={() => setTypeFilter("forensic")}
               >
                 포렌식
               </button>
               <button
-                className={typeFilter === "기타" ? "active" : ""}
+                className={typeFilter === "misc" ? "active" : ""}
                 onClick={() => setTypeFilter("misc")}
               >
                 기타
