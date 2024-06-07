@@ -4,10 +4,10 @@ import WargameDetailList from "../components/WargameDetailList";
 import axios from "axios";
 
 const WargameDetail = () => {
-  let { id } = useParams();
   const [wargameData, setWargameData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { id } = useParams();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,7 +22,7 @@ const WargameDetail = () => {
     };
 
     fetchData();
-  }, [id]);
+  }, [id]); // 의존성 배열 추가
 
   if (loading) {
     return <div>Loading...</div>;
