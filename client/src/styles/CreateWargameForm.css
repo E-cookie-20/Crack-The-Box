@@ -1,0 +1,258 @@
+.wargame-form-container {
+  color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  min-width: 900px;
+  margin-left: 5vw;
+  padding-left: 50px;
+}
+
+.wargame-form-container h1 {
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.wargmae-form-title {
+  margin-bottom: 10px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form_group_title {
+  min-width: 100px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 5px;
+  border-radius: 25px;
+  border: 2px solid #444;
+  background-color: transparent;
+  color: #fff;
+  height: 30px;
+  margin-left: 10px;
+}
+
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 5px;
+  border-radius: 20px;
+  border: 2px solid #444;
+  background-color: #333;
+  color: #fff;
+}
+
+.form-group textarea {
+  height: 100px;
+}
+
+.ql-container {
+  height: auto;
+  min-height: 100px;
+  background-color: #333;
+  color: #fff;
+  border-radius: 10px;
+  border: none; /* 기존의 border를 없앱니다 */
+}
+
+.ql-toolbar {
+  background-color: #495057;
+  border: none;
+  border-radius: 10px;
+}
+
+.create_wargame_submit {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: #3c6ef0;
+  border: 1px solid #8098bc;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button[type="submit"]:hover {
+  background-color: #3c6ef0;
+}
+
+.ql-editor {
+  color: #ffffff;
+}
+
+.ql-editor::placeholder {
+  color: #ffffff;
+}
+
+/* Change icon colors */
+.ql-toolbar .ql-formats button,
+.ql-toolbar .ql-formats button .ql-stroke,
+.ql-toolbar .ql-formats button .ql-fill,
+.ql-toolbar .ql-formats button .ql-stroke-miter,
+.ql-toolbar .ql-picker,
+.ql-toolbar .ql-picker .ql-picker-label,
+.ql-toolbar .ql-picker .ql-picker-item {
+  color: #ffffff;
+  stroke: #ffffff;
+}
+
+.ql-toolbar .ql-formats button:hover,
+.ql-toolbar .ql-formats button .ql-stroke:hover,
+.ql-toolbar .ql-formats button .ql-fill:hover,
+.ql-toolbar .ql-formats button .ql-stroke-miter:hover,
+.ql-toolbar .ql-picker:hover,
+.ql-toolbar .ql-picker .ql-picker-label:hover,
+.ql-toolbar .ql-picker .ql-picker-item:hover {
+  color: #555;
+  fill: #555;
+  stroke: #555;
+}
+
+.ql-toolbar .ql-formats button:focus,
+.ql-toolbar .ql-formats button .ql-stroke:focus,
+.ql-toolbar .ql-formats button .ql-fill:focus,
+.ql-toolbar .ql-formats button .ql-stroke-miter:focus,
+.ql-toolbar .ql-picker:focus,
+.ql-toolbar .ql-picker .ql-picker-label:focus,
+.ql-toolbar .ql-picker .ql-picker-item:focus {
+  color: #555;
+  fill: #555;
+  stroke: #555;
+}
+
+.form_title_group {
+  display: flex;
+}
+
+.form_score_group {
+  display: flex;
+}
+
+.wargame-page-container {
+  display: flex;
+  flex-direction: row;
+  margin-left: 20px;
+}
+
+/* New CSS */
+.category-buttons,
+.difficulty-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.category-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+
+.difficulty-button {
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border: none;
+  border-radius: 50%;
+  background-color: transparent;
+  color: #fff;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.category-button.selected,
+.difficulty-button.selected {
+  background-color: #5f87f2;
+  border-color: #8098bc;
+}
+
+.category-button:hover,
+.difficulty-button:hover {
+  background-color: #555;
+}
+
+/* 오른쪽 부분 */
+
+.create_wargame_other_info_container {
+  margin-left: 50px;
+}
+
+.writer_info_container {
+  color: #ffffff;
+  background-color: #282828;
+  min-width: 300px;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.writer_info_box {
+  display: flex;
+  background-color: #242424;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.create_wargame_caution {
+  margin-top: 20px;
+  background-color: #222529;
+  min-width: 300px;
+  max-width: 300px;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.create_wargame_caution_txt {
+  font-size: small;
+}
+
+.status-form-group {
+  background-color: #222529;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 10px;
+}
+
+.status-form-group select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 5px;
+  border-radius: 20px;
+  border: none;
+  background-color: #92acf2;
+  color: #093ab9;
+  font-size: x-small;
+}
+
+.status-form-txt {
+  font-size: small;
+  margin-bottom: 20px;
+}
+
+.status-form-select-txt {
+  font-size: small;
+}
+
+.status-form-select {
+  background-color: #343a43;
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.status-form-select-option {
+  margin-left: auto;
+}
