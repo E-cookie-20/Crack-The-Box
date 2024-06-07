@@ -4,6 +4,7 @@ import profile_ex_img from "../assets/profile_example_img.png";
 import CTFNameList from "./CTFNameList";
 import CTFDetail from "./CTFDetail";
 import ctf_icon from "../assets/ctf_icon.png";
+import axios from "axios";
 
 const CTF = () => {
   const [listData, setListData] = useState([]);
@@ -84,27 +85,25 @@ const CTF = () => {
     },
   ];
 
-  const getData = async () => {
-    const initData = data.slice(0, 20).map((it) => {
-      return {
-        id: it.id,
-        date: it.date,
-        ctf_start: it.ctf_start,
-        ctf_fin: it.ctf_fin,
-        img: it.img,
-        ctf_name: it.ctf_name,
-        profile_img: it.profile_img,
-        profile_name: it.profile_name,
-        profile_position: it.profile_position,
-        progress: it.progress,
-        ctf_description: it.ctf_description,
-      };
-    });
-    setListData(initData);
+  const fetchData = async () => {
+    try {
+      //const response = await axios.get('http://127.0.0.1:8000/guild/${user.guild_id}/ctf');
+      const response = await axios.get('http://127.0.0.1:8000/guild/1/ctf'); //테스트용
+      const fetchedData = response.data.guild_CTF_list.map((item, index) => ({
+        id: index.id,
+        ctf_name: item.ctf_name,
+        progress: item.ctf_onging ? 1 : 0,
+        img: ctf_icon,
+      }));
+      setListData(fetchedData);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   };
 
   useEffect(() => {
-    getData();
+    fetchData();
+    //getData();
   }, []);
 
   const handleItemClick = (item) => {
