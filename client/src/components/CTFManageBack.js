@@ -1,11 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 
-const CTFManage = () => {
+const CTFManageBack = () => {
   const navigate = useNavigate(); // Initialize useNavigate
 
-  const handleAdminMove = () => {
-    navigate("/ctfadminmode"); // Navigate to /ctfadminmode
+  const handleAdminBack = () => {
+    navigate("/guild"); // Navigate to /guild
   };
 
   return (
@@ -17,8 +17,8 @@ const CTFManage = () => {
           있어요
         </div>
         <div className="CTF_manage_btn_container">
-          <button className="CTF_manage_btn" onClick={handleAdminMove}>
-            관리자 이동
+          <button className="CTF_manage_btn" onClick={handleAdminBack}>
+            관리자 모드 종료
           </button>
         </div>
       </div>
@@ -26,4 +26,4 @@ const CTFManage = () => {
   );
 };
 
-export default CTFManage;
+export default CTFManageBack;

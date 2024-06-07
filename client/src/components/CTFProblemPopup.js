@@ -23,12 +23,20 @@ const CTFProblemPopup = ({ challenge, onClose }) => {
               {challenge.description || "No description available."}
             </p>
           </div>
+          <div className="popup_ctf_hint">이것은 힌트입니다.</div>
           <div className="ctf_popup_input_container">
             <input
               className="ctf_popup_input"
-              placeholder="플래그 형식을 기반으로 정답을 입력해주세요"
+              placeholder={
+                challenge.solve
+                  ? "이미 푼 문제입니다"
+                  : "플래그 형식을 기반으로 정답을 입력해주세요"
+              }
+              disabled={challenge.solve}
             ></input>
-            <button className="ctf_popup_button">제출하기</button>
+            {!challenge.solve && (
+              <button className="ctf_popup_button">제출하기</button>
+            )}
           </div>
         </div>
       </div>
