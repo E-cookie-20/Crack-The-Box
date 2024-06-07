@@ -206,7 +206,7 @@ const CreateCTFForm = () => {
             </div>
           </div>
           <div className="create_ctf_caution">
-            <h3>워게임 문제 출제 유의사항</h3>
+            <h3>CTF 문제 출제 유의사항</h3>
             <div className="create_ctf_caution_txt">
               크랙더박스 유저들이 문제를 푸는 충분한 조건이 제시되었다면 아래
               배포용 버튼을 눌러주세요
