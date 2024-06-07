@@ -7,12 +7,11 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Guild',
+            name="Guild",
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('guild_name', models.CharField(max_length=100, unique=True)),
@@ -20,24 +19,66 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='Guild_Wargame',
+            name="Guild_Wargame",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('quiz_description', models.TextField()),
-                ('quiz_flag', models.CharField(max_length=100)),
-                ('quiz_title', models.CharField(max_length=100)),
-                ('quiz_level', models.CharField(choices=[('high', 'High'), ('intermediate', 'Intermediate'), ('beginner', 'Beginner')], max_length=20)),
-                ('quiz_type', models.CharField(choices=[('web', 'Web'), ('system', 'System Hacking'), ('crypto', 'Crypto'), ('forensics', 'Forensics'), ('reversing', 'Reverse Engineering'), ('misc', 'Miscellaneous')], max_length=20)),
-                ('quiz_file', models.FileField(blank=True, null=True, upload_to='wargame_files/')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("quiz_description", models.TextField()),
+                ("quiz_flag", models.CharField(max_length=100)),
+                ("quiz_title", models.CharField(max_length=100)),
+                (
+                    "quiz_level",
+                    models.CharField(
+                        choices=[
+                            ("high", "High"),
+                            ("intermediate", "Intermediate"),
+                            ("beginner", "Beginner"),
+                        ],
+                        max_length=20,
+                    ),
+                ),
+                (
+                    "quiz_type",
+                    models.CharField(
+                        choices=[
+                            ("web", "Web"),
+                            ("system", "System Hacking"),
+                            ("crypto", "Crypto"),
+                            ("forensics", "Forensics"),
+                            ("reversing", "Reverse Engineering"),
+                            ("misc", "Miscellaneous"),
+                        ],
+                        max_length=20,
+                    ),
+                ),
+                (
+                    "quiz_file",
+                    models.FileField(blank=True, null=True, upload_to="wargame_files/"),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='GuildNotice',
+            name="GuildNotice",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=200)),
-                ('content', models.TextField()),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=200)),
+                ("content", models.TextField()),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
             ],
         ),
     ]

@@ -8,14 +8,16 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('users', '0001_initial'),
-        ('wargame', '0001_initial'),
+        ("users", "0001_initial"),
+        ("wargame", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='user',
-            name='user_quiz_solve',
-            field=models.ManyToManyField(blank=True, related_name='solved_by_users', to='wargame.wargame'),
+            model_name="user",
+            name="user_quiz_solve",
+            field=models.ManyToManyField(
+                blank=True, related_name="solved_by_users", to="wargame.wargame"
+            ),
         ),
     ]
