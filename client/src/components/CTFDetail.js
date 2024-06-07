@@ -14,19 +14,50 @@ const CTFDetail = ({
   profile_position,
   onBack,
   ctf_description,
-}) => {
+}) => {// /ctf/{ctf_id}
   const [showProblem, setShowProblem] = useState(false);
-  const data = [
+  /*const data = [
     { username: "user1", rank: 1, user_pts: 500 },
     { username: "user2", rank: 2, user_pts: 450 },
 
     // ... Add more sample data if needed
-  ];
+  ];*/
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`/ctf/${id}`);
+        setData(response.data);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchData();
+  }, [id]);
 
   const handleParticipateClick = () => {
     setShowProblem(true);
   };
 
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error loading data: {error.message}</p>;
+
+  const { challenges, participate_users } = data;
+
+  const leaderboardData = participate_users.map(user => ({
+    username: `user${user.user}`, // Assuming username can be derived from user ID or fetched separately
+    rank: user.user, // Replace with actual ranking logic if available
+    user_pts: user.user_pts,
+  }));
+  
   return (
     <div className="ctf_detail_container">
       {showProblem ? (
