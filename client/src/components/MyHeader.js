@@ -31,22 +31,8 @@ const MyHeader = () => {
             ></img>
           </div>
           <div className="nav_1">
-            <div className="nav_1_1">
-              <text
-                className={active === "wargame" ? "active" : ""}
-                onClick={() => handleClick("wargame")}
-              >
-                워게임
-              </text>
-            </div>
-            <div className="nav_1_2">
-              <text
-                className={active === "guild" ? "active" : ""}
-                onClick={() => handleClick("guild")}
-              >
-                길드
-              </text>
-            </div>
+            <span className="header_text" onClick={clickWargame}>워게임</span>
+            <span className="header_text" onClick={clickGuild}>길드</span>
           </div>
         </div>
         <div className="nav_2">
@@ -54,11 +40,8 @@ const MyHeader = () => {
             <button onClick={handleLogout}>로그아웃</button>
           ) : (
             <>
-              <text onClick={() => handleClick("login")}>로그인</text>
-              <button
-                className="signup_button"
-                onClick={() => handleClick("signup")}
-              >
+              <span className="header_text" onClick={clickLogin}>로그인</span>
+              <button className="signup_button" onClick={clickSignup}>
                 회원가입하고 바로 시작하기
               </button>
             </>
