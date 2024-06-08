@@ -49,7 +49,7 @@ const Home = () => {
 
   return (
     <div className="home_wrapper">
-      <span className="home_text">현재 뜨고 있는 워게임 풀기 {">"} </span>
+      <span className="home_text">사이버보안의 워게임 풀어보기 {">"} </span>
       <div className="wargame_wrapper">
         <div className="box1">
           <div className="wargame_text_area">
@@ -58,27 +58,12 @@ const Home = () => {
               className="present_logo"
               src={present_logo}
             ></img>
-            <span className="wargame_category">초보자용 입문 시리즈</span>
+            <span className="wargame_category">초보자용 입문</span>
             <span className="category_description">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit ut
-              aliquam, purus sit amet luctus venenatis, lectus magna fringilla
-            </span>
-            <button className="go_button">
-              <span>&gt;</span>
-            </button>
-          </div>
-        </div>
-        <div className="box2">
-          <div className="wargame_text_area">
-            <img
-              alt="present_logo"
-              className="present_logo"
-              src={present_logo}
-            ></img>
-            <span className="wargame_category">출제빈도 높은 문제 시리즈</span>
-            <span className="category_description">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit ut
-              aliquam, purus sit amet luctus venenatis, lectus magna fringilla
+              난이도 '하'로만 구성된 문제들을 풀어보고
+              <br />
+              <br />
+              보안의 기초를 다질 수 있어요
             </span>
             <button className="go_button">
               <span>&gt;</span>
@@ -92,10 +77,12 @@ const Home = () => {
               className="present_logo"
               src={present_logo}
             ></img>
-            <span className="wargame_category">아무도 풀지 못한 챌린지</span>
+            <span className="wargame_category">출제빈도 높은 기출</span>
             <span className="category_description">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit ut
-              aliquam, purus sit amet luctus venenatis, lectus magna fringilla
+              CTF 및 보안 문제에서 대표적으로 많이 나오는
+              <br />
+              <br />
+              문제들을 난이도'중'으로 모아봤어요!
             </span>
             <button className="go_button_2">
               <span>&gt;</span>
@@ -109,10 +96,12 @@ const Home = () => {
               className="present_logo"
               src={present_logo}
             ></img>
-            <span className="wargame_category">Rewards & Bonus</span>
+            <span className="wargame_category">아무도 풀지 못한 챌린지</span>
             <span className="category_description">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit ut
-              aliquam, purus sit amet luctus venenatis, lectus magna fringilla
+              아직 아무도 정복하지 못한 난이도 '상'의 문제!
+              <br />
+              <br />
+              도전 안해볼 순 없겠죠? 챌린지 스코어를 따내요
             </span>
             <button className="go_button_2">
               <span>&gt;</span>

@@ -45,13 +45,15 @@ class GuildViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        if request.user.is_authenticated():
-            user = request.user
-            user_guild = serializer.save(guild_leader=user)
-            user.user_guild = user_guild
-            user.save()
-        else:
-            serializer.save(guild_leader=None)
+        # if request.user.is_authenticated():
+        #     user = request.user
+        #     user_guild = serializer.save(guild_leader=user)
+        #     user.user_guild = user_guild
+        #     user.save()
+        # else:
+        #     serializer.save(guild_leader=None)
+
+        serializer.save()
 
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)

@@ -2,7 +2,7 @@
 }
 
 .ctf_problem_title_container {
-  width: 70%;
+  width: 65%;
   min-width: 700px;
   border-bottom: 1px solid #323232;
   display: flex;
@@ -15,7 +15,6 @@
   font-size: smaller;
   font-weight: 2=300;
   width: 60%;
-  margin-left: auto;
 }
 
 .ctf_problem_start_time {
