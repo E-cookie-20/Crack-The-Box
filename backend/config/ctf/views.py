@@ -15,7 +15,7 @@ from users.models import User
 from .forms import challangeForm
 
 
-@method_decorator(login_required, name='dispatch')
+#@method_decorator(login_required, name='dispatch')
 class CTFViewSet(viewsets.ModelViewSet):
     queryset = CTF.objects.all()  # 모든 CTF 객체를 조회
     serializer_class = CTFSerializer  # CTF 객체를 시리얼라이즈할 때 사용할 시리얼라이저 클래스 지정
@@ -37,7 +37,7 @@ class CTFViewSet(viewsets.ModelViewSet):
     def retrieve(self, request, *args, **kwargs):
         ctf_id = kwargs.get('pk')  # URL에서 ctf_id를 가져옴
          #user_id=request.user.id
-        user_id=1 #바꿔야함
+        user_id=2
         ctf =CTF.objects.get(pk=ctf_id)  # 해당 ctf_id의 CTF 객체를 조회
         participate_users = ctf.participate_user.all()
         participate_users_data = CTFUserSerializer(participate_users, many=True).data
@@ -59,7 +59,7 @@ class CTFViewSet(viewsets.ModelViewSet):
 
 
         #만약 일반 사용자라면 자기 정보도 추가해서 보내줌
-        ctf_user=CTF_user.objects.filter(user_id=user_id, ctf_id=ctf_id).first()
+        ctf_user=CTF_user.objects.filter(user_id=1, ctf_id=ctf_id).first()
         #ctf_user_id=ctf_user.id
         ctf_user_id=1 #테스트용
         ctf_user_name=ctf_user.ctf_user_name
@@ -108,7 +108,7 @@ class ParticipateCTFAPI(APIView):
     )    
     def post(self, request, *args, **kwargs):
         user_id=request.data.get('user_id')
-        #user_id=request.user.id <-로그인 연결되면 이걸로 고쳐야함
+        #user_id=request.user.id <-로그인 연결되면 이걸로
         ctf_id = kwargs.get('ctf_id')  # URL에서 ctf_id를 가져옴
         try:
         # 이미 해당 사용자와 CTF 간의 관계가 있는지 확인

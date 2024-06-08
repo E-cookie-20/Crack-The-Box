@@ -90,7 +90,7 @@ const CTF = () => {
       //const response = await axios.get('http://127.0.0.1:8000/guild/${user.guild_id}/ctf');
       const response = await axios.get('http://127.0.0.1:8000/guild/1/ctf'); //테스트용
       const fetchedData = response.data.guild_CTF_list.map((item, index) => ({
-        id: index.id,
+        id: item.id,
         ctf_name: item.ctf_name,
         progress: item.ctf_onging ? 1 : 0,
         img: ctf_icon,
@@ -106,8 +106,35 @@ const CTF = () => {
     //getData();
   }, []);
 
-  const handleItemClick = (item) => {
-    setSelectedItem(item);
+  const handleItemClick = async (it) => {
+    try {
+      const response = await axios.get(`http://127.0.0.1:8000/ctf/${it.id}`);
+      console.log({response})
+      /*const fetchedData = response.data.ctf_detail.map((item, index) => ({
+        id: item.id,
+        ctf_name: item.ctf_name,
+        ctf_description: item.ctf_description,
+        ctf_start: item.ctf_start,
+        ctf_fin: item.ctf_fin,
+        progress: item.ctf_onging ? 1 : 0,
+        img: ctf_icon,
+      }));
+      */
+      const fetchedData = response.data.ctf_detail; // 배열이 아닌 객체로 가정
+
+      setSelectedItem({
+        id: fetchedData.id,
+        ctf_name: fetchedData.ctf_name,
+        ctf_description: fetchedData.ctf_description,
+        ctf_start: fetchedData.ctf_start,
+        ctf_fin: fetchedData.ctf_fin,
+        progress: fetchedData.ctf_onging ? 1 : 0,
+        img: ctf_icon,
+      });
+      //setSelectedItem(fetchedData);
+    } catch (error) {
+      console.error("Error fetching CTF detail:", error);
+    }
   };
 
   const handleBackClick = () => {
@@ -117,7 +144,6 @@ const CTF = () => {
   return (
     <div>
       {selectedItem ? (
-        //<>{selectedItem}</>
         <CTFDetail {...selectedItem} onBack={handleBackClick} />
       ) : (
         <div className="ctf_container">
