@@ -92,9 +92,11 @@ const CTF = () => {
   
   const fetchData = async () => {
     try {
-
-      const response = await axios.get(`http://127.0.0.1:8000/guild/${userInfo.guild}/ctf`);
+      //const guild=userInfo.user_guild;
+      //console.log({guild})
+      const response = await axios.get(`http://127.0.0.1:8000/guild/${userInfo.user_guild}/ctf`);
       //const response = await axios.get('http://127.0.0.1:8000/guild/1/ctf'); //테스트용
+
       const fetchedData = response.data.guild_CTF_list.map((item, index) => ({
         id: item.id,
         ctf_name: item.ctf_name,
@@ -108,6 +110,7 @@ const CTF = () => {
   };
 
   useEffect(() => {
+    
     const fetchUserInfo = async () => {
       try {
         const response = await axios.get(`http://localhost:8000/users/${userId}/`, {
@@ -115,17 +118,40 @@ const CTF = () => {
             'Authorization': `Bearer ${token}`
           }
         });
-        console.log(userId)
+        console.log(response.data.user_guild)
+        const user_guild=response.data.user_guild
         setUserInfo(response.data);
-      } catch (error) {
+        //fetchData();
+
+        
+        if (response.data) {
+          // userInfo가 null이 아닌지 체크
+          console.log("~");
+          try {
+       
+            const response = await axios.get(`http://127.0.0.1:8000/guild/${user_guild}/ctf`);
+            //const response = await axios.get('http://127.0.0.1:8000/guild/1/ctf'); //테스트용
+        
+              const fetchedData = response.data.guild_CTF_list.map((item, index) => ({
+                id: item.id,
+                ctf_name: item.ctf_name,
+                progress: item.ctf_onging ? 1 : 0,
+                img: ctf_icon,
+              }));
+              setListData(fetchedData);
+            } catch (error) {
+              console.error("Error fetching data:", error);
+  
+          };
+        };
+      } 
+        catch (error) {
         console.error('Failed to fetch user info:', error);
       }
     };
 
     if (userId) {
       fetchUserInfo();
-      console.log({userId});
-      console.log({})
     }
   }, [userId, token]);
 

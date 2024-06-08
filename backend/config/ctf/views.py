@@ -65,17 +65,17 @@ class CTFViewSet(viewsets.ModelViewSet):
 
 
         #만약 일반 사용자라면 자기 정보도 추가해서 보내줌
-        ctf_user=CTF_user.objects.filter(user_id=user_id, ctf_id=ctf_id).first()
-        ctf_user_id=ctf_user.id
-        #ctf_user_id=1 #테스트용
-        ctf_user_name=ctf_user.ctf_user_name
+        ctf_user=CTF_user.objects.filter(ctf_id=ctf_id).all()
+        #ctf_user_id=ctf_user.id
+        ctf_user_id=2 #테스트용
+        #ctf_user_name=ctf_user.ctf_user_name
         #딕셔너리를 사용하여 데이터를 합침
         response_data = {
                 'ctf_detail': ctf_detail_serializer.data,
                 'challenges': challenge_serializer.data,
                 'participate_users': participate_users_data, #랭킹 기능에 필요
-                'ctf_user_id': ctf_user_id, #이부분 수정 필요..테스트여서
-                'ctf_user_name':ctf_user_name 
+                #'ctf_user_id': ctf_user_id, #이부분 수정 필요..테스트여서
+                #'ctf_user_name':ctf_user_name 
         }
             
         return Response(response_data)  # 시리얼라이즈된 챌린지와 참여자 데이터를 응답으로 반환
