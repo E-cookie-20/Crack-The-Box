@@ -24,6 +24,8 @@ class CTFViewSet(viewsets.ModelViewSet):
     #프론트에서 확인 필요
     @action(methods=["post"], detail=False, url_path="chall", url_name="chall")
     def route2chall(self, request, *args, **kwargs):
+        user_id=request.user.id
+        print("hye",user_id)
         # "chall"에 대한 처리를 수행하는 다른 viewset으로 연결하거나 Response 반환
         return CTFchallengeViewSet.as_view({
                 'get': 'list',
@@ -36,8 +38,12 @@ class CTFViewSet(viewsets.ModelViewSet):
     # retrieve 메서드 오버라이드: 특정 CTF의 상세 정보 조회 시 호출
     def retrieve(self, request, *args, **kwargs):
         ctf_id = kwargs.get('pk')  # URL에서 ctf_id를 가져옴
-         #user_id=request.user.id
-        user_id=2
+        
+        '''
+        user_id=request.user.id
+        print("userid",user_id)
+        '''
+        user_id=1
         ctf =CTF.objects.get(pk=ctf_id)  # 해당 ctf_id의 CTF 객체를 조회
         participate_users = ctf.participate_user.all()
         participate_users_data = CTFUserSerializer(participate_users, many=True).data
@@ -59,9 +65,9 @@ class CTFViewSet(viewsets.ModelViewSet):
 
 
         #만약 일반 사용자라면 자기 정보도 추가해서 보내줌
-        ctf_user=CTF_user.objects.filter(user_id=1, ctf_id=ctf_id).first()
-        #ctf_user_id=ctf_user.id
-        ctf_user_id=1 #테스트용
+        ctf_user=CTF_user.objects.filter(user_id=user_id, ctf_id=ctf_id).first()
+        ctf_user_id=ctf_user.id
+        #ctf_user_id=1 #테스트용
         ctf_user_name=ctf_user.ctf_user_name
         #딕셔너리를 사용하여 데이터를 합침
         response_data = {
@@ -95,7 +101,7 @@ class CTFChallengeListView(APIView):
         return Response(serializer.data)
 '''
 
-@method_decorator(login_required, name='dispatch')
+#@method_decorator(login_required, name='dispatch')
 class ParticipateCTFAPI(APIView):
     @swagger_auto_schema(
         request_body=openapi.Schema(
@@ -120,7 +126,7 @@ class ParticipateCTFAPI(APIView):
         except Exception as e:
             return Response({'message': '이미 참여 중인 CTF입니다.'}, status=status.HTTP_400_BAD_REQUEST)   
         
-@method_decorator(login_required, name='dispatch')
+#@method_decorator(login_required, name='dispatch')
 class SubmitCTFFlagAPI(APIView):
     @swagger_auto_schema(
         request_body=openapi.Schema(

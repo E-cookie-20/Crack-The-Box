@@ -109,7 +109,7 @@ const CTF = () => {
   const handleItemClick = async (it) => {
     try {
       const response = await axios.get(`http://127.0.0.1:8000/ctf/${it.id}`);
-      console.log({response})
+      //console.log({response})
       /*const fetchedData = response.data.ctf_detail.map((item, index) => ({
         id: item.id,
         ctf_name: item.ctf_name,
@@ -153,7 +153,7 @@ const CTF = () => {
               {listData
                 .filter((it) => it.progress === 1)
                 .map((it) => (
-                  <div onClick={() => handleItemClick(it)} key={it.id}>
+                  <div onClick={() => {;handleItemClick(it);}} key={it.id}>
                     <CTFNameList {...it} />
                   </div>
                 ))}
