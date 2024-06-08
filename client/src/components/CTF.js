@@ -90,6 +90,7 @@ const CTF = () => {
     },
   ];
   
+  /*
   const fetchData = async () => {
     try {
       //const guild=userInfo.user_guild;
@@ -108,6 +109,7 @@ const CTF = () => {
       console.error("Error fetching data:", error);
     }
   };
+  */
 
   useEffect(() => {
     
@@ -153,12 +155,13 @@ const CTF = () => {
     if (userId) {
       fetchUserInfo();
     }
-  }, [userId, token]);
+  }, [userId, token,selectedItem]);
 
   if (!userInfo) {
     return <div>Loading...</div>;
   }
 
+  //이제 여기서 it 정보를 업데이트해야함(20240608)
   const handleItemClick = async (it) => {
     try {
       const response = await axios.get(`http://127.0.0.1:8000/ctf/${it.id}`);
@@ -173,9 +176,8 @@ const CTF = () => {
         img: ctf_icon,
       }));
       */
-      const fetchedData = response.data.ctf_detail; // 배열이 아닌 객체로 가정
-
-      setSelectedItem({
+      const fetchedData = response.data; // 배열이 아닌 객체로 가정
+      /*setSelectedItem({
         id: fetchedData.id,
         ctf_name: fetchedData.ctf_name,
         ctf_description: fetchedData.ctf_description,
@@ -184,7 +186,35 @@ const CTF = () => {
         progress: fetchedData.ctf_onging ? 1 : 0,
         img: ctf_icon,
       });
-      //setSelectedItem(fetchedData);
+      */
+
+      const ctfDetailArray = [];
+
+            // 객체를 배열로 변환
+      for (const key in response.data.ctf_detail) {
+        if (response.data.ctf_detail.hasOwnProperty(key)) {
+          const item = response.data.ctf_detail[key];
+          ctfDetailArray.push(item);
+        }
+      }
+      console.log({ctfDetailArray});
+            
+      console.log(fetchedData);
+      const ctf_detail_info=ctfDetailArray.map((fetchedData, index) => ({
+        id: fetchedData.id,
+        ctf_name: fetchedData.ctf_name,
+        ctf_description: fetchedData.ctf_description,
+        ctf_start: fetchedData.ctf_start,
+        ctf_fin: fetchedData.ctf_fin,
+        progress: fetchedData.ctf_onging ? 1 : 0,
+        img: ctf_icon,
+      }));
+ //TypeError: response.data.ctf_detail.map is not a function
+      
+      //setListData(fetchedData);
+      setSelectedItem(ctf_detail_info);
+      console.log(selectedItem);
+      
     } catch (error) {
       console.error("Error fetching CTF detail:", error);
     }
@@ -206,7 +236,7 @@ const CTF = () => {
               {listData
                 .filter((it) => it.progress === 1)
                 .map((it) => (
-                  <div onClick={() => {;handleItemClick(it);}} key={it.id}>
+                  <div onClick={() => {handleItemClick(it);}} key={it.id}> 
                     <CTFNameList {...it} />
                   </div>
                 ))}
