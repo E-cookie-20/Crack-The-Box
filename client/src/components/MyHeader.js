@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext"; // useAuth 훅 import
 import logo from "../assets/crack_the_box_logo.png";
+import final_logo from "../assets/final_logo.png";
 
 const MyHeader = () => {
   const navigate = useNavigate();
@@ -35,21 +36,29 @@ const MyHeader = () => {
             <img
               alt="logo"
               className="logo"
-              src={logo}
+              src={final_logo}
               onClick={clickLogo}
             ></img>
           </div>
           <div className="nav_1">
-            <span className="header_text" onClick={clickWargame}>워게임</span>
-            <span className="header_text" onClick={clickGuild}>길드</span>
+            <span className="header_text" onClick={clickWargame}>
+              워게임
+            </span>
+            <span className="header_text" onClick={clickGuild}>
+              길드
+            </span>
           </div>
         </div>
         <div className="nav_2">
           {isLoggedIn ? (
-            <button onClick={handleLogout}>로그아웃</button>
+            <button className="logout_btn" onClick={handleLogout}>
+              로그아웃
+            </button>
           ) : (
             <>
-              <span className="header_text" onClick={clickLogin}>로그인</span>
+              <span className="header_text" onClick={clickLogin}>
+                로그인
+              </span>
               <button className="signup_button" onClick={clickSignup}>
                 회원가입하고 바로 시작하기
               </button>

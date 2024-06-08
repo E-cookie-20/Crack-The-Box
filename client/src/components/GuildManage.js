@@ -1,59 +1,42 @@
 import guild_sample from "../assets/guild_sample.png";
 import GuildMember from "./GuildMember";
 
+import axios from "axios";
+import { useAuth } from "../contexts/AuthContext"; // useAuth 훅 import
+import React, { useEffect, useState } from 'react';
+
+
 const GuildManage = () => {
-  const data = [
-    {
-      id: 0,
-      guild_wargame_list: [
-        {
-          id: 0,
-          quiz_description: "string",
-          quiz_flag: "string",
-          quiz_title: "string",
-          quiz_level: "high",
-          quiz_type: "web",
-          quiz_file: "string",
-          author: 0,
-        },
-      ],
-      members: [
-        {
-          id: 0,
-          username: "아영",
-          email: "user@example.com",
-          guild_admin: true,
-        },
-        {
-          id: 1,
-          username: "지은",
-          email: "user@example.com",
-          guild_admin: false,
-        },
-        {
-          id: 2,
-          username: "가은",
-          email: "user@example.com",
-          guild_admin: false,
-        },
-        {
-          id: 3,
-          username: "하은",
-          email: "user@example.com",
-          guild_admin: false,
-        },
-        {
-          id: 4,
-          username: "민주",
-          email: "user@example.com",
-          guild_admin: false,
-        },
-      ],
-      guild_name: "사보A",
-      guild_leader: 0,
-    },
-  ];
-  const guild = data[0];
+  const { userId, token } = useAuth();
+  const [guild, setGuild] = useState();
+  const [guildMembers, setGuildMembers] = useState([]);
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8000/users/${userId}/`);
+        const user = response.data;
+        console.log(user); // 이 부분에서 userInfo가 설정된 후에 출력됩니다.
+
+        const guild_data = await axios.get(
+          `http://localhost:8000/guild/guild/${user.user_guild}`
+        );
+        setGuild(guild_data.data)
+        console.log(guild_data.data); // 이 부분에서 guildName이 설정된 후에 출력됩니다.
+
+        const guild_members = await axios.get(`http://localhost:8000/guild/members/${user.user_guild}`);
+        setGuildMembers(guild_members.data);
+
+      } catch (error) {
+        console.error('Failed:', error);
+      }
+    };
+
+    if (userId) {
+      fetchUserInfo();
+    }
+  }, []);
+  
   return (
     <div className="guild_manage_container">
       <div className="guild_manage_info_container">
@@ -63,7 +46,8 @@ const GuildManage = () => {
             alt="guild_sample"
             src={guild_sample}
           ></img>
-          <h2 className="guild_manage_info_txt">{guild.guild_name}</h2>
+          {/* guild가 정의되었는지 확인 후에 출력 */}
+          <h2 className="guild_manage_info_txt">{guild && guild.guild_name}</h2>
         </div>
         <div className="add_member_container">
           <h2 className="add_member_title">길드 초대</h2>
@@ -79,8 +63,8 @@ const GuildManage = () => {
       <div className="guild_member_manage_container">
         <h2 className="guild_member_manage_title">길드 구성원</h2>
         <div className="guild_member_list">
-          {guild.members.map((member) => (
-            <GuildMember key={member.id} member={member} />
+          {guildMembers.map((member) => (
+            <GuildMember key={member.id} member={member.username} />
           ))}
         </div>
       </div>

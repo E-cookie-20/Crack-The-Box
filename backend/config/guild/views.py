@@ -2,9 +2,9 @@ from rest_framework import viewsets
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.exceptions import PermissionDenied
-from .models import Guild_Wargame, Guild, GuildNotice
+from .models import Guild_Wargame, Guild
 from users.models import User
-from .serializers import Guild_WargameSerializer, GuildSerializer, UserSerializer, GuildNoticeSerializer, Guild_CTFSerializer
+from .serializers import Guild_WargameSerializer, GuildSerializer, UserSerializer, Guild_CTFSerializer
 
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
@@ -18,20 +18,6 @@ from django.shortcuts import get_object_or_404
 class Guild_WargameViewSet(viewsets.ModelViewSet):
     queryset = Guild_Wargame.objects.all()
     serializer_class = Guild_WargameSerializer
-
-    def create(self, request, *args, **kwargs):  
-        # Serializer 인스턴스 생성
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-
-        if request.user.is_authenticated():
-            serializer.save(author=request.user)
-        else:
-            serializer.save(author=None)
-            pass
-        # Serializer 저장
-        headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 
 class WargameSolversAPIView(APIView):
@@ -59,13 +45,15 @@ class GuildViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        if request.user.is_authenticated():
-            user = request.user
-            user_guild = serializer.save(guild_leader=user)
-            user.user_guild = user_guild
-            user.save()
-        else:
-            serializer.save(guild_leader=None)
+        # if request.user.is_authenticated():
+        #     user = request.user
+        #     user_guild = serializer.save(guild_leader=user)
+        #     user.user_guild = user_guild
+        #     user.save()
+        # else:
+        #     serializer.save(guild_leader=None)
+
+        serializer.save()
 
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
@@ -163,20 +151,3 @@ class SubmitFlagAPI(APIView):
             else:
                 return Response({'message': '틀렸습니다. 다시 시도하세요.'}, status=status.HTTP_400_BAD_REQUEST)
             
-
-class GuildNoticeViewSet(viewsets.ModelViewSet):
-    queryset = GuildNotice.objects.all()
-    serializer_class = GuildNoticeSerializer
-
-    def get_queryset(self):
-        guild_id = self.kwargs.get('guild_id')
-        if guild_id:
-            return GuildNotice.objects.filter(guild_id=guild_id)
-        return super().get_queryset()
-
-    def perform_create(self, serializer):
-        guild_id = self.kwargs.get('guild_id')
-        guild = Guild.objects.get(id=guild_id)
-        if self.request.user != guild.guild_leader:
-            raise PermissionDenied("Only the guild leader can create notices.")
-        serializer.save(guild=guild)
