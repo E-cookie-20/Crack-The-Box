@@ -24,8 +24,8 @@ class CTFViewSet(viewsets.ModelViewSet):
     #프론트에서 확인 필요
     @action(methods=["post"], detail=False, url_path="chall", url_name="chall")
     def route2chall(self, request, *args, **kwargs):
-        user_id=request.user.id
-        print("hye",user_id)
+        #user_id=request.user.id
+        #print("hye",user_id)
         # "chall"에 대한 처리를 수행하는 다른 viewset으로 연결하거나 Response 반환
         return CTFchallengeViewSet.as_view({
                 'get': 'list',
@@ -43,7 +43,7 @@ class CTFViewSet(viewsets.ModelViewSet):
         user_id=request.user.id
         print("userid",user_id)
         '''
-        user_id=1
+        #user_id=1
         ctf =CTF.objects.get(pk=ctf_id)  # 해당 ctf_id의 CTF 객체를 조회
         participate_users = ctf.participate_user.all()
         participate_users_data = CTFUserSerializer(participate_users, many=True).data

@@ -5,6 +5,7 @@ import CTFNameList from "./CTFNameList";
 import CTFDetail from "./CTFDetail";
 import ctf_icon from "../assets/ctf_icon.png";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext"; // useAuth 훅 import
 
 const CTF = () => {
@@ -88,11 +89,12 @@ const CTF = () => {
       ctf_description: "이것은 test CTF입니다!",
     },
   ];
-
+  
   const fetchData = async () => {
     try {
-      //const response = await axios.get('http://127.0.0.1:8000/guild/${user.guild_id}/ctf');
-      const response = await axios.get('http://127.0.0.1:8000/guild/1/ctf'); //테스트용
+
+      const response = await axios.get(`http://127.0.0.1:8000/guild/${userInfo.guild}/ctf`);
+      //const response = await axios.get('http://127.0.0.1:8000/guild/1/ctf'); //테스트용
       const fetchedData = response.data.guild_CTF_list.map((item, index) => ({
         id: item.id,
         ctf_name: item.ctf_name,
@@ -113,6 +115,7 @@ const CTF = () => {
             'Authorization': `Bearer ${token}`
           }
         });
+        console.log(userId)
         setUserInfo(response.data);
       } catch (error) {
         console.error('Failed to fetch user info:', error);
@@ -121,6 +124,8 @@ const CTF = () => {
 
     if (userId) {
       fetchUserInfo();
+      console.log({userId});
+      console.log({})
     }
   }, [userId, token]);
 
