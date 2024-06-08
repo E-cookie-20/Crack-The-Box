@@ -5,10 +5,14 @@ import CTFNameList from "./CTFNameList";
 import CTFDetail from "./CTFDetail";
 import ctf_icon from "../assets/ctf_icon.png";
 import axios from "axios";
+import { useAuth } from "../contexts/AuthContext"; // useAuth 훅 import
 
 const CTF = () => {
   const [listData, setListData] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
+  const navigate = useNavigate();
+  const { userId, token } = useAuth();
+  const [userInfo, setUserInfo] = useState(null);
 
   const data = [
     {
@@ -102,9 +106,27 @@ const CTF = () => {
   };
 
   useEffect(() => {
-    fetchData();
-    //getData();
-  }, []);
+    const fetchUserInfo = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8000/users/${userId}/`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        setUserInfo(response.data);
+      } catch (error) {
+        console.error('Failed to fetch user info:', error);
+      }
+    };
+
+    if (userId) {
+      fetchUserInfo();
+    }
+  }, [userId, token]);
+
+  if (!userInfo) {
+    return <div>Loading...</div>;
+  }
 
   const handleItemClick = async (it) => {
     try {
