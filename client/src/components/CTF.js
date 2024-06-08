@@ -8,12 +8,15 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext"; // useAuth 훅 import
 
+
 const CTF = () => {
   const [listData, setListData] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
   const navigate = useNavigate();
   const { userId, token } = useAuth();
   const [userInfo, setUserInfo] = useState(null);
+  const [ctfId, setCtfId] = useState(null);
+
 
   const data = [
     {
@@ -90,6 +93,7 @@ const CTF = () => {
     },
   ];
   
+  /*
   const fetchData = async () => {
     try {
       //const guild=userInfo.user_guild;
@@ -107,7 +111,7 @@ const CTF = () => {
     } catch (error) {
       console.error("Error fetching data:", error);
     }
-  };
+  };*/
 
   useEffect(() => {
     
@@ -122,7 +126,6 @@ const CTF = () => {
         const user_guild=response.data.user_guild
         setUserInfo(response.data);
         //fetchData();
-
         
         if (response.data) {
           // userInfo가 null이 아닌지 체크
@@ -138,10 +141,12 @@ const CTF = () => {
                 progress: item.ctf_onging ? 1 : 0,
                 img: ctf_icon,
               }));
+
+              // ctf_id 상태를 업데이트합니다.
+         
               setListData(fetchedData);
             } catch (error) {
               console.error("Error fetching data:", error);
-  
           };
         };
       } 
@@ -159,45 +164,47 @@ const CTF = () => {
     return <div>Loading...</div>;
   }
 
-  const handleItemClick = async (it) => {
+
+  /*const handleItemClick = async (it) => {
     try {
       const response = await axios.get(`http://127.0.0.1:8000/ctf/${it.id}`);
-      //console.log({response})
-      /*const fetchedData = response.data.ctf_detail.map((item, index) => ({
-        id: item.id,
-        ctf_name: item.ctf_name,
-        ctf_description: item.ctf_description,
-        ctf_start: item.ctf_start,
-        ctf_fin: item.ctf_fin,
-        progress: item.ctf_onging ? 1 : 0,
-        img: ctf_icon,
-      }));
-      */
-      const fetchedData = response.data.ctf_detail; // 배열이 아닌 객체로 가정
-
-      setSelectedItem({
+      console.log("success")
+ 
+      const fetchedData = response.data; // 배열이 아닌 객체로 가정
+      console.log('fetchedData :>> ', fetchedData);
+      setSelectedItem(fetchedData);
+      //console.log('selectedItem :>> ', selectedItem);
+        
         id: fetchedData.id,
         ctf_name: fetchedData.ctf_name,
         ctf_description: fetchedData.ctf_description,
         ctf_start: fetchedData.ctf_start,
         ctf_fin: fetchedData.ctf_fin,
         progress: fetchedData.ctf_onging ? 1 : 0,
-        img: ctf_icon,
-      });
-      //setSelectedItem(fetchedData);
+        img: ctf_icon,}
+        
+
     } catch (error) {
       console.error("Error fetching CTF detail:", error);
     }
+  };
+  */
+
+  const handleItemClick = (item) => {
+    setCtfId(item.id);
+    setSelectedItem(item);
   };
 
   const handleBackClick = () => {
     setSelectedItem(null);
   };
 
+
   return (
     <div>
       {selectedItem ? (
-        <CTFDetail {...selectedItem} onBack={handleBackClick} />
+        <CTFDetail id={ctfId} onBack={handleBackClick} />
+        /*<CTFDetail {...selectedItem} onBack={handleBackClick} />*/
       ) : (
         <div className="ctf_container">
           <div className="ctf_in_progress_container">
@@ -206,7 +213,7 @@ const CTF = () => {
               {listData
                 .filter((it) => it.progress === 1)
                 .map((it) => (
-                  <div onClick={() => {;handleItemClick(it);}} key={it.id}>
+                  <div onClick={() => {handleItemClick(it);}} key={it.id}>
                     <CTFNameList {...it} />
                   </div>
                 ))}
