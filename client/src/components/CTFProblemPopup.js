@@ -1,7 +1,53 @@
 // components/CTFProblemPopup.js
+import axios from "axios";
 import React from "react";
+import { useState, useEffect } from "react";
+
 
 const CTFProblemPopup = ({ challenge, onClose }) => {
+  const [inputValue, setInputValue] = useState("");
+  const [error, setError] = useState(null);
+
+  const handleInputChange = (event) => {
+    setInputValue(event.target.value);
+  };
+
+  const handleCheckAnswer = () => {
+
+
+  const handleSubmit = async () => {
+    try {
+      const response = await axios.post('http://127.0.0.1:8000/ctf/submit-flag', {
+        user_id: 1, // userid로 대체 필요. 
+        challenge_flag: inputValue,
+        ctf_chall_id: challenge.id
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      /*
+      if (response.data.message === '정답입니다!') {
+        setSuccess(response.data.message);
+        setPoints(response.data.points);
+        setError(null);
+      } else {
+        setError(response.data.message);
+        setSuccess(null);
+        setPoints(null);
+      }
+      이 부분은 아직 프론트가 안한듯*/
+
+    } catch (error) {
+      console.log("flag 제출 오류");
+    }
+  };
+
+  }
+      
+
+
   return (
     <div className="ctf_problem_popup">
       <div className="ctf_problem_popup_content">
@@ -27,6 +73,9 @@ const CTFProblemPopup = ({ challenge, onClose }) => {
           <div className="ctf_popup_input_container">
             <input
               className="ctf_popup_input"
+              type="text"
+              value={inputValue}
+              onChange={handleInputChange}
               placeholder={
                 challenge.solve
                   ? "이미 푼 문제입니다"
