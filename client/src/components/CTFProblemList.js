@@ -3,11 +3,11 @@ import axios from "axios";
 import { useParams } from "react-router-dom"; // React Router의 useParams를 import
 
 
-const CTFProblemList = ({ ctf_challenges, onChallengeClick }) => {
+const CTFProblemList = ({ same_type_challenges, onChallengeClick }) => {
   const [challenges, setChallenges] = useState([]);
   const { ctf_id } = useParams(); // useParams를 사용하여 URL에서 ctf_id를 추출
 
-  useEffect(() => {
+  /*useEffect(() => {
     const fetchChallenges = async () => {
       try {
         const response = await axios.get(`/ctf/${ctf_id}`);
@@ -19,14 +19,15 @@ const CTFProblemList = ({ ctf_challenges, onChallengeClick }) => {
 
     fetchChallenges();
   }, [ctf_id]);
+  */
   return (
     <>
-      {challenges.length === 0 ? (
+      {same_type_challenges.length === 0 ? (
         <p>아직 문제가 없습니다!</p>
       ) : (
-        challenges.map((challenge) => (
+        same_type_challenges.map((challenge) => (
           <div
-            key={challenge.ctf_chall_id}
+            key={challenge.id}
             className="ctf_problem_item"
             style={{
               backgroundColor: challenge.solve ? "#3C6EF0" : "#242424",

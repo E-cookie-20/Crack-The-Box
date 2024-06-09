@@ -113,8 +113,9 @@ class ParticipateCTFAPI(APIView):
         #responses={200: '정답입니다!', 400: '틀렸습니다. 다시 시도하세요.'},
     )    
     def post(self, request, *args, **kwargs):
-        user_id=request.data.get('user_id')
-        #user_id=request.user.id <-로그인 연결되면 이걸로
+        #user_id=request.data.get('user_id')
+        #user_id=request.user.id #<-로그인 연결되면 이걸로
+        user_id=1
         ctf_id = kwargs.get('ctf_id')  # URL에서 ctf_id를 가져옴
         try:
         # 이미 해당 사용자와 CTF 간의 관계가 있는지 확인
