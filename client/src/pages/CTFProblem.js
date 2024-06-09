@@ -14,10 +14,12 @@ const CTFProblem = ({
   profile_position,
   onBack,
   ctf_description,
+  challenges,
 }) => {
   const [selectedChallenge, setSelectedChallenge] = useState(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
+  /*
   const data = [
     {
       ctf_id: 1,
@@ -124,9 +126,10 @@ const CTFProblem = ({
       solve: true,
     },
   ];
+  */
 
-  const filteredData = data.filter((item) => item.ctf_id == id);
-
+  //const filteredData = data.filter((item) => item.ctf_id == id);
+  const challenge_list=challenges;
   const categorizedChallenges = {
     System: [],
     Reversing: [],
@@ -136,11 +139,15 @@ const CTFProblem = ({
     Misc: [],
   };
 
-  filteredData.forEach((challenge) => {
-    if (categorizedChallenges[challenge.challenge_type]) {
-      categorizedChallenges[challenge.challenge_type].push(challenge);
+  challenge_list.forEach(challenge => {
+    const type = challenge.challenge_type.charAt(0).toUpperCase() + challenge.challenge_type.slice(1).toLowerCase();
+    if (categorizedChallenges[type]) {
+      categorizedChallenges[type].push(challenge);
+    } else {
+      categorizedChallenges.Misc.push(challenge); // 만약 예상치 못한 타입일 경우 Misc에 넣음
     }
   });
+  console.log(categorizedChallenges);
 
   const handleChallengeClick = (challenge) => {
     setSelectedChallenge(challenge);
@@ -174,8 +181,8 @@ const CTFProblem = ({
               <div key={type} className={`${type.toLowerCase()}_container`}>
                 <h3>{type}</h3>
                 <div className="ctf_problem_area_grid">
-                  <CTFProblemList
-                    challenges={categorizedChallenges[type]}
+                  <CTFProblemList /*문제 타입별로 나열된 ctf 문제 리스트 */
+                    same_type_challenges={categorizedChallenges[type]}
                     onChallengeClick={handleChallengeClick}
                   />
                 </div>

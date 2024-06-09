@@ -82,7 +82,6 @@ const CTFDetail = ({
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error loading data: {error.message}</p>;
 
-  const challenges=data.challenges;
   const participate_users = data.participate_users;
 
   const leaderboardData = participate_users.map(user => ({

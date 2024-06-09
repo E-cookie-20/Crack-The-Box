@@ -20,7 +20,7 @@ const CTFProblemPopup = ({ challenge, onClose }) => {
           <div className="popup_ctf_description">
             <p>
               Description:{" "}
-              {challenge.description || "No description available."}
+              {challenge.challenge_description || "No description available."}
             </p>
           </div>
           <div className="popup_ctf_hint">이것은 힌트입니다.</div>
