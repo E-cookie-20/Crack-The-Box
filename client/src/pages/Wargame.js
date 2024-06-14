@@ -14,15 +14,18 @@ const Wargame = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // Check if user is logged in
+  const token = sessionStorage.getItem("token");
+  const isLoggedIn = !!token; // double negation to convert to boolean
+
   // 로그인 유지 확인
   useEffect(() => {
-    const token = sessionStorage.getItem("token");
     if (token) {
       console.log("JWT Token:", token);
     } else {
       console.log("No token found");
     }
-  }, []);
+  }, [token]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -202,20 +205,24 @@ const Wargame = () => {
             ))}
           </div>
         </div>
-        <div className="wargame-make-container">
-          <div className="wargame-make-title">워게임 문제 출제하기</div>
-          <div className="wargame-make-txt">
-            본인이 만든 워게임 문제가 있으신가요?
-            <br></br>
-            함께 성장할 수 있는 토대를 만들어보세요{" "}
+
+        {/* Conditionally render create wargame section */}
+        {isLoggedIn && (
+          <div className="wargame-make-container">
+            <div className="wargame-make-title">워게임 문제 출제하기</div>
+            <div className="wargame-make-txt">
+              본인이 만든 워게임 문제가 있으신가요?
+              <br></br>
+              함께 성장할 수 있는 토대를 만들어보세요{" "}
+            </div>
+            <button
+              className="wargame-make-button"
+              onClick={() => navigate("/createwargame")}
+            >
+              이동하기
+            </button>
           </div>
-          <button
-            className="wargame-make-button"
-            onClick={() => navigate("/createwargame")}
-          >
-            이동하기
-          </button>
-        </div>
+        )}
       </div>
     </div>
   );

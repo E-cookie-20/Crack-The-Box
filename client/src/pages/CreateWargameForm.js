@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import CTFWriterInfo from "../components/CTFWriterInfo";
@@ -63,19 +62,48 @@ const CreateWargameForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Submit formData to the DB
-    console.log(formData);
-    navigate("/wargame"); // 이전 화면으로 돌아가기
+
+    const formDataToSend = {
+      title: formData.title,
+      points: formData.points,
+      category: formData.category,
+      difficulty: formData.difficulty,
+      description: formData.description,
+      hint: formData.hint,
+      flag: formData.flag,
+      state: formData.state,
+    };
+
+    try {
+      // Adjust the fetch URL according to your backend endpoint
+      const response = await fetch("http://127.0.0.1:8000/wargame/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formDataToSend),
+      });
+
+      if (!response.ok) {
+        throw new Error("문제 생성에 실패했습니다.");
+      }
+
+      const responseData = await response.json();
+      console.log(responseData);
+      navigate("/wargame");
+    } catch (error) {
+      console.error("문제 생성 중 오류 발생:", error);
+    }
   };
 
   return (
-    <div>
-      <div className="wargame-form-container">
-        <h1 className="wargame-form-title">Wargame 문제 출제</h1>
+    <div className="wargame-form-container">
+      <h1 className="wargame-form-title">Wargame 문제 출제</h1>
+      <div className="wargame_make_big_container">
         <div className="wargame-page-container">
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="wargame-form">
             <div className="form-group">
               <div className="form_title_group">
                 <h3 className="form_group_title">문제 제목</h3>
@@ -84,6 +112,7 @@ const CreateWargameForm = () => {
                   name="title"
                   value={formData.title}
                   onChange={handleChange}
+                  className="form-control"
                   placeholder="문제 제목을 작성해주세요"
                 />
               </div>
@@ -96,6 +125,7 @@ const CreateWargameForm = () => {
                   name="points"
                   value={formData.points}
                   onChange={handleChange}
+                  className="form-control"
                   placeholder="배점을 입력해주세요 (최대 500점)"
                 />
               </div>
@@ -148,13 +178,18 @@ const CreateWargameForm = () => {
                 onChange={handleDescriptionChange}
                 modules={CreateWargameForm.modules}
                 formats={CreateWargameForm.formats}
+                className="quill-editor"
                 placeholder="문제 내용을 작성해주세요"
               />
             </div>
             <div className="form-group">
               <div className="form_title_group">
                 <h3 className="form_group_title">파일 업로드</h3>
-                <input type="file" onChange={handleFileChange} />
+                <input
+                  type="file"
+                  onChange={handleFileChange}
+                  className="form-control-file"
+                />
               </div>
             </div>
             <div className="form-group">
@@ -165,41 +200,41 @@ const CreateWargameForm = () => {
                   name="hint"
                   value={formData.hint}
                   onChange={handleChange}
+                  className="form-control"
                   placeholder="풀이에 도움이 되는 힌트를 작성해 주세요"
                 />
               </div>
             </div>
             <div className="form-group">
               <div className="form_title_group">
-                <h3 h3 className="form_group_title">
-                  플래그
-                </h3>
+                <h3 className="form_group_title">플래그</h3>
                 <input
                   type="text"
                   name="flag"
                   value={formData.flag}
                   onChange={handleChange}
+                  className="form-control"
                   placeholder="문제 플래그를 입력해 주세요"
                 />
               </div>
             </div>
           </form>
-          <div className="create_wargame_other_info_container">
-            <CTFWriterInfo />
-            <div className="create_wargame_caution">
-              <h3>워게임 문제 출제 유의사항</h3>
-              <div className="create_wargame_caution_txt">
-                크랙더박스 유저들이 문제를 푸는 충분한 조건이 제시되었다면 아래
-                배포용 버튼을 눌러주세요
-              </div>
-              <button
-                className="create_wargame_submit"
-                type="submit"
-                onClick={handleSubmit}
-              >
-                제출
-              </button>
+        </div>
+        <div className="wargame_right_container">
+          <CTFWriterInfo />
+          <div className="create_wargame_caution">
+            <h3>워게임 문제 출제 유의사항</h3>
+            <div className="create_wargame_caution_txt">
+              크랙더박스 유저들이 문제를 푸는 충분한 조건이 제시되었다면 아래
+              배포용 버튼을 눌러주세요
             </div>
+            <button
+              className="create_wargame_submit_1"
+              type="submit"
+              onClick={handleSubmit}
+            >
+              제출
+            </button>
           </div>
         </div>
       </div>
