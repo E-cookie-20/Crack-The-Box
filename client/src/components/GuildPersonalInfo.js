@@ -53,7 +53,7 @@ const GuildPersonalInfo = ({ user, guildName }) => {
             <div className="personal_detail_guild_admin">길드장</div>
           )}
           <div className="personal_detail_name_id_container">
-            <div>{user.first_name}</div>
+            <div>{user.username}</div>
             <button
               className="personal_info_id_copy_button"
               onClick={() => copyToClipboard(user.id)}

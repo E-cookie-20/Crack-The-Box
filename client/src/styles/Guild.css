@@ -193,3 +193,28 @@
   border-radius: 10px;
   margin-left: auto;
 }
+
+.login-prompt-container {
+  padding: 50px;
+  margin-left: 50px;
+  color: white;
+}
+
+.login-prompt-btn {
+  margin-bottom: 5px;
+  color: #093ab9;
+  background-color: #92acf2;
+  font-size: small;
+  width: 200px;
+  height: 50px;
+  border-radius: 10px;
+  padding: 2px;
+  cursor: pointer;
+  margin-top: 10px;
+  border: none;
+}
+
+.login-prompt-btn:hover {
+  background-color: #3c6ef0; /* Change to desired hover color */
+  color: #ffffff; /* Change text color on hover */
+}

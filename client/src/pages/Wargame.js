@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 
 const Wargame = () => {
@@ -12,6 +12,7 @@ const Wargame = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   // 로그인 유지 확인
   useEffect(() => {
@@ -37,6 +38,12 @@ const Wargame = () => {
 
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if (location.state?.difficulty) {
+      setLevelFilter(location.state.difficulty);
+    }
+  }, [location.state]);
 
   const handleClick = (id) => {
     navigate(`/wargame/${id}`);
@@ -198,8 +205,9 @@ const Wargame = () => {
         <div className="wargame-make-container">
           <div className="wargame-make-title">워게임 문제 출제하기</div>
           <div className="wargame-make-txt">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam,
-            purus sit amet luctus{" "}
+            본인이 만든 워게임 문제가 있으신가요?
+            <br></br>
+            함께 성장할 수 있는 토대를 만들어보세요{" "}
           </div>
           <button
             className="wargame-make-button"

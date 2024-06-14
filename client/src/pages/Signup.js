@@ -20,6 +20,7 @@ const Signup = () => {
   const navigate = useNavigate();
 
   const handleButtonClick = async () => {
+    console.log("Button clicked");
     await handleSubmit(); // handleSubmit 호출
     navigate("/"); // navigate 호출
   };
@@ -97,7 +98,7 @@ const Signup = () => {
         />
       );
     case 3:
-      return <Step3 handleSubmit={handleButtonClick} />;
+      return <Step3 handleButtonClick={handleButtonClick} />;
     default:
       return null;
   }
@@ -279,40 +280,42 @@ const Step2 = ({
               required
             />
           </div>
-          <div class="input_container_step_2">
-            <form>
-              <label class="gender_text">성별</label>
-              <div class="radio-group">
-                <input
-                  class="signup_input_male"
-                  type="radio"
-                  id="male"
-                  name="gender"
-                  value="male"
-                  checked
-                  onChange={() => setGender("M")}
-                />
-                <label for="male" class="custom-radio">
-                  <span class="radio-button"></span> Male
-                </label>
+          <div className="input_container_step_2">
+            <label className="gender_text">성별</label>
+            <div className="radio-group">
+              <input
+                className="signup_input_male"
+                type="radio"
+                id="male"
+                name="gender"
+                value="M"
+                checked={gender === "M"}
+                onChange={() => setGender("M")}
+              />
+              <label htmlFor="male" className="custom-radio">
+                <span className="radio-button"></span> 남성
+              </label>
 
-                <input
-                  class="signup_input_female"
-                  type="radio"
-                  id="female"
-                  name="gender"
-                  value="female"
-                  checked
-                  onChange={() => setGender("F")}
-                />
-                <label for="female" class="custom-radio">
-                  <span class="radio-button"></span> Female
-                </label>
-              </div>
-            </form>
+              <input
+                className="signup_input_female"
+                type="radio"
+                id="female"
+                name="gender"
+                value="F"
+                checked={gender === "F"}
+                onChange={() => setGender("F")}
+              />
+              <label htmlFor="female" className="custom-radio">
+                <span className="radio-button"></span> 여성
+              </label>
+            </div>
           </div>
           <div className="signup_button_container">
-            <button className="signup_previous_button" onClick={prevStep}>
+            <button
+              className="signup_previous_button"
+              type="button"
+              onClick={prevStep}
+            >
               이전
             </button>
             <button className="signup_next_button" type="submit">
