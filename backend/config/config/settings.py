@@ -148,6 +148,10 @@ CORS_ALLOWED_ORIGINS = [
     'http://crackthebox.site',
     "http://localhost:3000",
     "http://127.0.0.1:3000",
+    'http://3.36.34.43:3000',
+    '3.36.34.43',
+    'crackthebox.site',
+    
     # 다른 허용할 출처들도 추가 가능
 ]
 
