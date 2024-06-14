@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import present_logo from "../assets/present_icon.png";
 import ctf_ex_img from "../assets/ctf_example_img.png";
 import profile_ex_img from "../assets/profile_example_img.png";
 import CTFList from "./CTFList";
 
 const Home = () => {
+  const navigate = useNavigate(); // Initialize useNavigate
+
   const data = [
     {
       date: "2024년 5월 10일",
@@ -47,6 +50,10 @@ const Home = () => {
 
   const [listData, setListData] = useState([]);
 
+  const handleNavigate = (difficulty) => {
+    navigate("/wargame", { state: { difficulty } });
+  };
+
   return (
     <div className="home_wrapper">
       <span className="home_text">사이버보안의 워게임 풀어보기 {">"} </span>
@@ -65,7 +72,10 @@ const Home = () => {
               <br />
               보안의 기초를 다질 수 있어요
             </span>
-            <button className="go_button">
+            <button
+              className="go_button"
+              onClick={() => handleNavigate("beginner")}
+            >
               <span>&gt;</span>
             </button>
           </div>
@@ -84,7 +94,10 @@ const Home = () => {
               <br />
               문제들을 난이도'중'으로 모아봤어요!
             </span>
-            <button className="go_button_2">
+            <button
+              className="go_button_2"
+              onClick={() => handleNavigate("intermediate")}
+            >
               <span>&gt;</span>
             </button>
           </div>
@@ -103,7 +116,10 @@ const Home = () => {
               <br />
               도전 안해볼 순 없겠죠? 챌린지 스코어를 따내요
             </span>
-            <button className="go_button_2">
+            <button
+              className="go_button_3"
+              onClick={() => handleNavigate("high")}
+            >
               <span>&gt;</span>
             </button>
           </div>

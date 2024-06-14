@@ -150,6 +150,31 @@
   font-size: 30px;
 }
 
+.go_button_3 {
+  background-color: #ffffff;
+  color: #47bdfe;
+  border: none;
+  border-radius: 50%; /* 동그란 모양을 위해 반지름을 50%로 설정합니다. */
+  width: 50px; /* 원하는 너비를 설정합니다. */
+  height: 50px; /* 원하는 높이를 설정합니다. */
+  font-size: 24px; /* 화살표 아이콘의 크기를 조절합니다. */
+  cursor: pointer;
+  position: relative; /* 내부 요소를 절대 위치로 배치하기 위해 부모 요소를 상대적으로 설정합니다. */
+
+  margin-top: 30px;
+}
+
+.go_button_3 span {
+  position: absolute; /* 내부 요소를 부모 요소에 상대적으로 위치시킵니다. */
+  top: 50%; /* 수직 정렬을 위해 부모 요소의 중간으로 이동시킵니다. */
+  left: 50%; /* 수평 정렬을 위해 부모 요소의 중간으로 이동시킵니다. */
+  transform: translate(
+    -50%,
+    -50%
+  ); /* 요소를 수평 및 수직으로 중앙 정렬합니다. */
+  font-size: 30px;
+}
+
 .home_guild_text_container {
   margin-top: 50px;
 }

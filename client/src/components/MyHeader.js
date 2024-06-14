@@ -27,6 +27,9 @@ const MyHeader = () => {
     logout(); // 로그아웃 함수 호출
     navigate("/", { replace: true }); // 홈페이지로 이동
   };
+  const clickMypage = () => {
+    navigate("/Mypage", { replace: true });
+  };
 
   return (
     <header>
@@ -51,9 +54,12 @@ const MyHeader = () => {
         </div>
         <div className="nav_2">
           {isLoggedIn ? (
-            <button className="logout_btn" onClick={handleLogout}>
-              로그아웃
-            </button>
+            <>
+              <span onClick={clickMypage}>마이페이지</span>
+              <button className="logout_btn" onClick={handleLogout}>
+                로그아웃
+              </button>
+            </>
           ) : (
             <>
               <span className="header_text" onClick={clickLogin}>

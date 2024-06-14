@@ -3,24 +3,24 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const d = [
-    {
-      id: "cuckoo20",
-      last_login: "2024-04-19T11:52:49.149375Z",
-      is_superuser: true,
-      username: "admin",
-      first_name: "아영",
-      last_name: "",
-      email: "gaeun9566@ewhain.net",
-      is_staff: true,
-      is_active: true,
-      date_joined: "2024-04-19T11:52:30.234401Z",
-      guild_id: 1, // 또는 다른 guild_id 값
-      user_birth: "2024-04-19",
-      user_phone: "010-1234-1234",
-      user_gender: "F",
-      guild_admin: true,
-    },
-  ];
+  {
+    id: "cuckoo20",
+    last_login: "2024-04-19T11:52:49.149375Z",
+    is_superuser: true,
+    username: "admin",
+    first_name: "아영",
+    last_name: "",
+    email: "gaeun9566@ewhain.net",
+    is_staff: true,
+    is_active: true,
+    date_joined: "2024-04-19T11:52:30.234401Z",
+    guild_id: 1, // 또는 다른 guild_id 값
+    user_birth: "2024-04-19",
+    user_phone: "010-1234-1234",
+    user_gender: "F",
+    guild_admin: true,
+  },
+];
 
 const Wargame = () => {
   const [data, setData] = useState([]);
@@ -35,17 +35,18 @@ const Wargame = () => {
 
   const user = d[0];
 
-  
-
   useEffect(() => {
     const fetchData = async () => {
       try {
         // const token = sessionStorage.getItem("token"); // 세션 스토리지에서 토큰 가져오기
-        const response = await axios.get(`http://localhost:8000/guild/${user.guild_id}/wargame-list`, {
-          // headers: {
-          //   Authorization: `Bearer ${token}` // 헤더에 토큰 포함
-          // }
-        });
+        const response = await axios.get(
+          `http://localhost:8000/guild/${user.guild_id}/wargame-list`,
+          {
+            // headers: {
+            //   Authorization: `Bearer ${token}` // 헤더에 토큰 포함
+            // }
+          }
+        );
         setData(response.data);
       } catch (err) {
         setError(err);
@@ -53,10 +54,9 @@ const Wargame = () => {
         setLoading(false);
       }
     };
-  
+
     fetchData();
   }, [user.guild_id]); // user.guild_id가 변경될 때마다 실행
-  
 
   const handleClick = (id) => {
     navigate(`/guild/${id}`);
@@ -64,14 +64,15 @@ const Wargame = () => {
 
   const postsPerPage = 5;
 
-  const filteredData = data.guild_wargame_list ? data.guild_wargame_list.filter((item) => {
-    return (
-      item.quiz_title.toLowerCase().includes(searchTerm.toLowerCase()) &&
-      (levelFilter === "all" || item.quiz_level === levelFilter) &&
-      (typeFilter === "all" || item.quiz_type === typeFilter)
-    );
-  }) : [];
-  
+  const filteredData = data.guild_wargame_list
+    ? data.guild_wargame_list.filter((item) => {
+        return (
+          item.quiz_title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+          (levelFilter === "all" || item.quiz_level === levelFilter) &&
+          (typeFilter === "all" || item.quiz_type === typeFilter)
+        );
+      })
+    : [];
 
   const handleChangePage = (page) => {
     setCurrentPage(page);
@@ -90,7 +91,7 @@ const Wargame = () => {
   }
 
   return (
-    <div className="wargame_page_wrapper">
+    <div className="guild_wargame_wrapper">
       <span className="wargame_title">워게임</span>
       <div className="wargame_page_container">
         <div className="wargame-container">
@@ -219,8 +220,9 @@ const Wargame = () => {
         <div className="wargame-make-container">
           <div className="wargame-make-title">워게임 문제 출제하기</div>
           <div className="wargame-make-txt">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam,
-            purus sit amet luctus{" "}
+            본인이 만든 워게임 문제가 있으신가요?
+            <br></br>
+            함께 성장할 수 있는 토대를 만들어보세요{" "}
           </div>
           <button className="wargame-make-button">이동하기</button>
         </div>
