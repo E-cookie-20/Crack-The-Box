@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-iyomkw-3tw7tlp9wfykpkzf1edt&i=wbs#7e9r*3#vy^9djo8j
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['3.36.109.184', 'crackthebox.site', 'www.crackthebox.site']
+ALLOWED_HOSTS = ['3.36.109.184', 'crackthebox.site', 'http://crackthebox.site']
 
 
 # Application definition
@@ -144,7 +144,12 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOWED_ORIGINS = [
+    'http://crackthebox.site',
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    # 다른 허용할 출처들도 추가 가능
+]
 
 # CORS_ORIGIN_WHITELIST = {
 #     "http://localhost:3000",
