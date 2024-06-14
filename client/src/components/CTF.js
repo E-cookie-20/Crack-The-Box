@@ -111,7 +111,8 @@ const CTF = () => {
     } catch (error) {
       console.error("Error fetching data:", error);
     }
-  };*/
+  };
+  */
 
   useEffect(() => {
     
@@ -158,7 +159,7 @@ const CTF = () => {
     if (userId) {
       fetchUserInfo();
     }
-  }, [userId, token]);
+  }, [userId, token,selectedItem]);
 
   if (!userInfo) {
     return <div>Loading...</div>;
