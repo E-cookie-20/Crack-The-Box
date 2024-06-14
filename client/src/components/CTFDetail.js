@@ -54,7 +54,7 @@ const CTFDetail = ({
         try {
           const response = await axios.get(`http://127.0.0.1:8000/ctf/${id}`);
           console.log('response.data :>> ', response.data);
-          console.log('response.data.ctf_detial :>> ', response.data.ctf_detail);
+          console.log('response.data.ctf_detail :>> ', response.data.ctf_detail);
           setData(response.data);
           setCTFdetail(response.data.ctf_detail);
         } catch (error) {
@@ -83,12 +83,14 @@ const CTFDetail = ({
   if (error) return <p>Error loading data: {error.message}</p>;
 
   const participate_users = data.participate_users;
+  const sortedUsers = participate_users.sort((a, b) => b.user_pts - a.user_pts);
 
-  const leaderboardData = participate_users.map(user => ({
-    username: user.ctf_user_name, // 사용자 이름 가져오기
-    rank: user.id, // 실제 순위 로직으로 교체 필요
+  const leaderboardData = sortedUsers.map((user, index) => ({
+    username: user.ctf_user_name,
+    rank: index + 1, // 1부터 시작하는 순위
     user_pts: user.user_pts,
   }));
+  
 
   return (
     <div className="ctf_detail_container">
