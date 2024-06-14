@@ -52,11 +52,11 @@ const CreateGuild = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/guild/guild",
+        "http://localhost:8000/guild/guild/",
         data,
         {
           headers: {
-            // Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
         }
@@ -73,7 +73,7 @@ const CreateGuild = () => {
         inviteData,
         {
           headers: {
-            // Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
         }

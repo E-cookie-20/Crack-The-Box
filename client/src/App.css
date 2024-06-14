@@ -93,9 +93,9 @@ header span {
   position: absolute;
   left: 0;
   /* 왼쪽에 고정시킵니다. */
-  width: 100%;
   /* 가로 전체 너비를 차지하도록 설정합니다. */
-  min-width: 1210px;
+  min-width: 1100px;
+  width: 100%;
 }
 
 .copyright {
