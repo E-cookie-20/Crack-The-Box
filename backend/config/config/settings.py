@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-iyomkw-3tw7tlp9wfykpkzf1edt&i=wbs#7e9r*3#vy^9djo8j
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['3.36.109.184', 'crackthebox.site', 'http://crackthebox.site']
+ALLOWED_HOSTS = ['3.36.109.184', 'crackthebox.site', '.amazonaws.com', ".ap-northeast-2.compute.amazonaws.com"]
 
 
 # Application definition
