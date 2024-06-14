@@ -54,7 +54,7 @@ const CTFDetail = ({
         try {
           const response = await axios.get(`http://127.0.0.1:8000/ctf/${id}`);
           console.log('response.data :>> ', response.data);
-          console.log('response.data.ctf_detial :>> ', response.data.ctf_detail);
+          console.log('response.data.ctf_detail :>> ', response.data.ctf_detail);
           setData(response.data);
           setCTFdetail(response.data.ctf_detail);
         } catch (error) {

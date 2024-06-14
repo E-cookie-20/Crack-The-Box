@@ -193,6 +193,7 @@ const CTFProblem = ({
       {isPopupOpen && selectedChallenge && (
         <CTFProblemPopup
           challenge={selectedChallenge}
+          
           onClose={handleClosePopup}
         />
       )}
