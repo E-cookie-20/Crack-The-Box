@@ -16,6 +16,10 @@ const Guild = () => {
   const [userInfo, setUserInfo] = useState({});
   const navigate = useNavigate(); // useNavigate 훅 사용
 
+  const clickLogin = () => {
+    navigate("/login", { replace: true });
+  };
+
   // 로그인 유지 확인
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -46,19 +50,6 @@ const Guild = () => {
           setGuildName(guild_data.data.guild_name);
           console.log(guild_data.data); // 이 부분에서 guildName이 설정된 후에 출력됩니다.
         }
-
-        // try {
-        //   if (user && user.guild_id) { // userInfo가 null이 아닌지 체크합니다.
-        //     console.log("guild axios ~~")
-        //     const guild_data = await axios.get(
-        //       `http://localhost:8000/guild/guild/${user.guild_id}`
-        //     );
-        //     setGuildName(guild_data.guild_name);
-        //     console.log(guild_data.guildName); // 이 부분에서 guildName이 설정된 후에 출력됩니다.
-        //   }
-        // } catch (error) {
-        //   console.error("Error fetching guild info:", error);
-        // }
       } catch (error) {
         console.error("Failed:", error);
       }
@@ -69,25 +60,6 @@ const Guild = () => {
     }
   }, [userId, token]); // userInfo를 의존성 배열에서 제거합니다.
 
-  // useEffect(() => {
-  //   const fetchGuildInfo = async () => {
-  //     try {
-  //       if (userInfo && userInfo.guild_id) { // userInfo가 null이 아닌지 체크합니다.
-  //         console.log("guild axios ~~")
-  //         const guild_data = await axios.get(
-  //           `http://localhost:8000/guild/guild/${userInfo.guild_id}`
-  //         );
-  //         setGuildName(guild_data.guild_name);
-  //         console.log(guild_data.guildName); // 이 부분에서 guildName이 설정된 후에 출력됩니다.
-  //       }
-  //     } catch (error) {
-  //       console.error("Error fetching guild info:", error);
-  //     }
-  //   };
-
-  //   fetchGuildInfo(); // 의존성 배열에서 userInfo를 제거합니다.
-  // }, [userInfo]);
-
   const handleClickCTF = () => {
     setActiveMenu("ctf");
   };
@@ -95,6 +67,18 @@ const Guild = () => {
   const handleClickWargame = () => {
     setActiveMenu("wargame");
   };
+
+  if (!userId || !token) {
+    return (
+      <div className="login-prompt-container">
+        <h1>로그인이 필요합니다</h1>
+        <p>길드 페이지에 접근하려면 먼저 로그인 해주세요.</p>
+        <button className="login-prompt-btn" onClick={clickLogin}>
+          로그인 하러가기
+        </button>
+      </div>
+    );
+  }
 
   if (userInfo.user_guild === null) {
     return (
@@ -205,14 +189,16 @@ const Guild = () => {
             )}
           </div>
         </div>
-        <div>
-          <GuildPersonalInfo user={userInfo} guildName={guildName} />
-          {userInfo.guild_admin && activeMenu === "ctf" && (
-            <div>
-              <CTFManage />
-            </div>
-          )}
-        </div>
+        {activeMenu !== "wargame" && (
+          <div>
+            <GuildPersonalInfo user={userInfo} guildName={guildName} />
+            {userInfo.guild_admin && activeMenu === "ctf" && (
+              <div>
+                <CTFManage />
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

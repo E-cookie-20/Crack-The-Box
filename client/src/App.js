@@ -27,6 +27,7 @@ import "../src/styles/CTFAdminMode.css";
 import "../src/styles/AdminCTFCreate.css";
 import "../src/styles/AdminCTFCreateList.css";
 import "../src/styles/CreateWargameForm.css";
+import "../src/styles/GuildWargameList.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import React, { useEffect } from "react";
 import axios from "axios";
