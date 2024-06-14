@@ -69,7 +69,7 @@
   border-radius: 10px;
 }
 
-.create_wargame_submit {
+.create_wargame_submit_1 {
   width: 100%;
   padding: 10px;
   border-radius: 5px;
@@ -82,7 +82,7 @@
   margin-top: 10px;
 }
 
-button[type="submit"]:hover {
+.create_wargame_submit_1:hover {
   background-color: #3c6ef0;
 }
 
@@ -255,4 +255,12 @@ button[type="submit"]:hover {
 
 .status-form-select-option {
   margin-left: auto;
+}
+
+.wargame_make_big_container {
+  display: flex;
+}
+
+.wargame_right_container {
+  margin-left: 50px;
 }
