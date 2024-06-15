@@ -159,17 +159,17 @@ SECURE_CROSS_ORIGIN_OPENER_POLICY = None
 #     "http://127.0.0.1:3000",
 # }
 
-# STATIC_URL = '/static/'
-# STATIC_ROOT = 'static'
-
 STATIC_URL = '/static/'
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-ROOT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+STATIC_ROOT = 'static'
 
-STATICFILES_DIRS = [
-        # 실제 static 파일은 모두 client 측에서 소유
-        os.path.join(ROOT_DIR, '/client/build/static')
-    ]
+# STATIC_URL = '/static/'
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# ROOT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+# STATICFILES_DIRS = [
+#         # 실제 static 파일은 모두 client 측에서 소유
+#         os.path.join(ROOT_DIR, '/client/build/static')
+#     ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
