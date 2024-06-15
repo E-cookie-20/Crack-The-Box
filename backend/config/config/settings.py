@@ -74,7 +74,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['client'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -159,8 +159,17 @@ SECURE_CROSS_ORIGIN_OPENER_POLICY = None
 #     "http://127.0.0.1:3000",
 # }
 
+# STATIC_URL = '/static/'
+# STATIC_ROOT = 'static'
+
 STATIC_URL = '/static/'
-STATIC_ROOT = 'static'
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT_DIR = os.path.dirname(BASE_DIR)
+
+STATICFILES_DIRS = [
+        # 실제 static 파일은 모두 client 측에서 소유
+        os.path.join(ROOT_DIR, 'client/static')
+    ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
