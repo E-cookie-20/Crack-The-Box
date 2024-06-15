@@ -164,11 +164,11 @@ SECURE_CROSS_ORIGIN_OPENER_POLICY = None
 
 STATIC_URL = '/static/'
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-ROOT_DIR = os.path.dirname(BASE_DIR)
+ROOT_DIR = os.path.dirname(os.path.dirname(BASE_DIR))
 
 STATICFILES_DIRS = [
         # 실제 static 파일은 모두 client 측에서 소유
-        os.path.join(ROOT_DIR, '../client/static')
+        os.path.join(ROOT_DIR, '/client/static')
     ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
