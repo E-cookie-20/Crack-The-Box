@@ -25,9 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-iyomkw-3tw7tlp9wfykpkzf1edt&i=wbs#7e9r*3#vy^9djo8j'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['3.36.109.184', 'crackthebox.site', '.amazonaws.com', ".ap-northeast-2.compute.amazonaws.com"]
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '3.36.109.184', 'crackthebox.site', '.amazonaws.com', ".ap-northeast-2.compute.amazonaws.com"]
 
 
 # Application definition
@@ -74,7 +74,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['client'],
+        'DIRS': [''],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -136,7 +136,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-# STATIC_URL = 'static/'
+STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -159,8 +159,8 @@ SECURE_CROSS_ORIGIN_OPENER_POLICY = None
 #     "http://127.0.0.1:3000",
 # }
 
-STATIC_URL = '/static/'
-STATIC_ROOT = 'static'
+# STATIC_URL = '/static/'
+# STATIC_ROOT = 'static'
 
 # STATIC_URL = '/static/'
 # BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
