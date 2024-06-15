@@ -160,7 +160,7 @@ SECURE_CROSS_ORIGIN_OPENER_POLICY = None
 # }
 
 # STATIC_URL = '/static/'
-# STATIC_ROOT = 'static'
+STATIC_ROOT = 'static'
 
 # STATIC_URL = '/static/'
 # BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
