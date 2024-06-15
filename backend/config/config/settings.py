@@ -152,6 +152,7 @@ CORS_ALLOWED_ORIGINS = [
 
     # 다른 허용할 출처들도 추가 가능
 ]
+SECURE_CROSS_ORIGIN_OPENER_POLICY = None
 
 # CORS_ORIGIN_WHITELIST = {
 #     "http://localhost:3000",
