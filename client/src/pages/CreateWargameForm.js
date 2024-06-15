@@ -78,7 +78,7 @@ const CreateWargameForm = () => {
 
     try {
       // Adjust the fetch URL according to your backend endpoint
-      const response = await fetch("http://127.0.0.1:8000/wargame/", {
+      const response = await fetch("http://ec2-3-36-34-43.ap-northeast-2.compute.amazonaws.com:8000/wargame/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

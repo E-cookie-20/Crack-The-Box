@@ -52,7 +52,7 @@ const CTFDetail = ({
     console.log('id :>> ', id);
       const fetchData = async () => {
         try {
-          const response = await axios.get(`http://127.0.0.1:8000/ctf/${id}`);
+          const response = await axios.get(`http://ec2-3-36-34-43.ap-northeast-2.compute.amazonaws.com:8000/ctf/${id}`);
           console.log('response.data :>> ', response.data);
           console.log('response.data.ctf_detail :>> ', response.data.ctf_detail);
           setData(response.data);
@@ -70,7 +70,7 @@ const CTFDetail = ({
 
   const handleParticipateClick = async () => {
     try {
-      await axios.post(`http://127.0.0.1:8000/ctf/${id}/participate`);
+      await axios.post(`http://ec2-3-36-34-43.ap-northeast-2.compute.amazonaws.com:8000/ctf/${id}/participate`);
       setShowProblem(true);
     } catch (error) {
       console.error("Error participating in CTF:", error);

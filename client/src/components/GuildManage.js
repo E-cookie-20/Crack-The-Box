@@ -14,17 +14,17 @@ const GuildManage = () => {
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/users/${userId}/`);
+        const response = await axios.get(`http://ec2-3-36-34-43.ap-northeast-2.compute.amazonaws.com:8000/users/${userId}/`);
         const user = response.data;
         console.log(user); // 이 부분에서 userInfo가 설정된 후에 출력됩니다.
 
         const guild_data = await axios.get(
-          `http://localhost:8000/guild/guild/${user.user_guild}`
+          `http://ec2-3-36-34-43.ap-northeast-2.compute.amazonaws.com:8000/guild/guild/${user.user_guild}`
         );
         setGuild(guild_data.data)
         console.log(guild_data.data); // 이 부분에서 guildName이 설정된 후에 출력됩니다.
 
-        const guild_members = await axios.get(`http://localhost:8000/guild/members/${user.user_guild}`);
+        const guild_members = await axios.get(`http://ec2-3-36-34-43.ap-northeast-2.compute.amazonaws.com:8000/guild/members/${user.user_guild}`);
         setGuildMembers(guild_members.data);
 
       } catch (error) {

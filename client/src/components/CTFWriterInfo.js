@@ -13,7 +13,7 @@ const CTFWriterInfo = () => {
         // Make sure user is defined before making the API call
         if (user) {
           const response = await axios.get(
-            `http://localhost:8000/users/${user.userId}/`
+            `http://ec2-3-36-34-43.ap-northeast-2.compute.amazonaws.com:8000/users/${user.userId}/`
           );
           if (response.data && response.data.first_name) {
             setUsername(response.data.first_name);

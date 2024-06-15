@@ -12,7 +12,7 @@ const WargameDetail = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/wargame/${id}/`);
+        const response = await axios.get(`http://ec2-3-36-34-43.ap-northeast-2.compute.amazonaws.com:8000/wargame/${id}/`);
         setWargameData(response.data);
       } catch (err) {
         setError(err);

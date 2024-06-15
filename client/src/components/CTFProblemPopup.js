@@ -17,7 +17,7 @@ const CTFProblemPopup = ({ challenge, onClose }) => {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post('http://127.0.0.1:8000/ctf/submit-flag', {
+      const response = await axios.post('http://ec2-3-36-34-43.ap-northeast-2.compute.amazonaws.com:8000/ctf/submit-flag', {
         user_id: 1, // userid로 대체 필요. 
         challenge_flag: inputValue,
         ctf_chall_id: challenge.id

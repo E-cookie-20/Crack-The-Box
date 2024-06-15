@@ -34,7 +34,7 @@ const Guild = () => {
     const fetchUserInfo = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/users/${userId}/`
+          `http://ec2-3-36-34-43.ap-northeast-2.compute.amazonaws.com:8000/users/${userId}/`
         );
         const user = response.data;
         setUserInfo(user);
@@ -45,7 +45,7 @@ const Guild = () => {
           // userInfo가 null이 아닌지 체크합니다.
           console.log("guild axios ~~");
           const guild_data = await axios.get(
-            `http://localhost:8000/guild/guild/${user.user_guild}`
+            `http://ec2-3-36-34-43.ap-northeast-2.compute.amazonaws.com:8000/guild/guild/${user.user_guild}`
           );
           setGuildName(guild_data.data.guild_name);
           console.log(guild_data.data); // 이 부분에서 guildName이 설정된 후에 출력됩니다.

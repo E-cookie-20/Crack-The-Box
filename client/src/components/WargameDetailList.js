@@ -17,7 +17,7 @@ const WargameDetailList = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/wargame/${id}`);
+        const response = await axios.get(`http://ec2-3-36-34-43.ap-northeast-2.compute.amazonaws.com:8000/wargame/${id}`);
         setQuizData(response.data);
       } catch (err) {
         setError(err);
@@ -33,13 +33,13 @@ const WargameDetailList = () => {
     const fetchAuthorDetails = async () => {
       if (quizData && quizData.author) {
         try {
-          const userResponse = await axios.get(`http://localhost:8000/users/${quizData.author}`);
+          const userResponse = await axios.get(`http://ec2-3-36-34-43.ap-northeast-2.compute.amazonaws.com:8000/users/${quizData.author}`);
           setAuthorUsername(userResponse.data.username);
           const guildId = userResponse.data.user_guild;
           setAuthorGuild(guildId);
 
           if (guildId) {
-            const guildResponse = await axios.get(`http://localhost:8000/guild/guild/${guildId}`);
+            const guildResponse = await axios.get(`http://ec2-3-36-34-43.ap-northeast-2.compute.amazonaws.com:8000/guild/guild/${guildId}`);
             setGuildName(guildResponse.data.guild_name);
           } else {
             setGuildName("Unknown");

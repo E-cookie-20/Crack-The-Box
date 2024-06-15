@@ -118,7 +118,7 @@ const CTF = () => {
     
     const fetchUserInfo = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/users/${userId}/`, {
+        const response = await axios.get(`http://ec2-3-36-34-43.ap-northeast-2.compute.amazonaws.com:8000/users/${userId}/`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -133,7 +133,7 @@ const CTF = () => {
           console.log("~");
           try {
        
-            const response = await axios.get(`http://127.0.0.1:8000/guild/${user_guild}/ctf`);
+            const response = await axios.get(`http://ec2-3-36-34-43.ap-northeast-2.compute.amazonaws.com:8000/guild/${user_guild}/ctf`);
             //const response = await axios.get('http://127.0.0.1:8000/guild/1/ctf'); //테스트용
         
               const fetchedData = response.data.guild_CTF_list.map((item, index) => ({

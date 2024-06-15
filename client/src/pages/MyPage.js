@@ -13,7 +13,7 @@ const MyPage = () => {
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/users/${userId}/`, {
+        const response = await axios.get(`http://ec2-3-36-34-43.ap-northeast-2.compute.amazonaws.com:8000/users/${userId}/`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }

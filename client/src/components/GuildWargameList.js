@@ -40,7 +40,7 @@ const Wargame = () => {
       try {
         // const token = sessionStorage.getItem("token"); // 세션 스토리지에서 토큰 가져오기
         const response = await axios.get(
-          `http://localhost:8000/guild/${user.guild_id}/wargame-list`,
+          `http://ec2-3-36-34-43.ap-northeast-2.compute.amazonaws.com:8000/guild/${user.guild_id}/wargame-list`,
           {
             // headers: {
             //   Authorization: `Bearer ${token}` // 헤더에 토큰 포함

@@ -13,12 +13,12 @@ const WargameDetail = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/guild/guild-wargame/${id}/`);
+        const response = await axios.get(`http://ec2-3-36-34-43.ap-northeast-2.compute.amazonaws.com:8000/guild/guild-wargame/${id}/`);
         setWargameData(response.data);
         
         if (response.data.quiz_solvers && response.data.quiz_solvers.length > 0) {
           const userRequests = response.data.quiz_solvers.map(userId => 
-            axios.get(`http://localhost:8000/users/${userId}`).then(res => res.data.username)
+            axios.get(`http://ec2-3-36-34-43.ap-northeast-2.compute.amazonaws.com:8000/users/${userId}`).then(res => res.data.username)
           );
           const usernames = await Promise.all(userRequests);
           setSolverUsernames(usernames);
